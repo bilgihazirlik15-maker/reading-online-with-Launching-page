@@ -11,7 +11,7 @@ import {
 
 onAuthStateChanged(auth, async (user) => {
   if (!user) {
-    window.location.href = "index.html";
+    window.location.href = "app.html";
     return;
   }
 
@@ -52,7 +52,7 @@ onAuthStateChanged(auth, async (user) => {
         ">
           <h2>Access Denied</h2>
           <p>This page is only available for teacher and admin accounts.</p>
-          <a href="index.html" style="
+          <a href="app.html" style="
             display:inline-block;
             margin-top:15px;
             padding:12px 18px;

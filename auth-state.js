@@ -458,7 +458,7 @@ function initAuthUI() {
 
       document.getElementById("logoutBtn").onclick = async () => {
         await signOut(auth);
-        window.location.href = "index.html";
+        window.location.href = "app.html";
       };
 
     } else {
