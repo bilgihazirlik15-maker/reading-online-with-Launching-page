@@ -1107,6 +1107,37 @@ footer {
   </div>
 </div>
 <script>
+
+function normalizePlatformHomeLinks() {
+  const header = document.getElementById("site-header");
+  if (!header) return;
+
+  const homeSelectors = [
+    'a[href="index.html"]',
+    'a[href="./index.html"]',
+    'a[href="/"]',
+    'a[href="/index.html"]'
+  ];
+
+  header.querySelectorAll(homeSelectors.join(",")).forEach(link => {
+    const text = (link.textContent || "").trim().toLowerCase();
+    const id = (link.id || "").toLowerCase();
+    const className = (link.className || "").toString().toLowerCase();
+
+    if (
+      text === "home" ||
+      text.includes("home") ||
+      id.includes("logo") ||
+      id.includes("home") ||
+      className.includes("logo") ||
+      className.includes("home") ||
+      link.querySelector("img")
+    ) {
+      link.setAttribute("href", "app.html");
+    }
+  });
+}
+
 function setupUserDropdownMenu() {
   const header = document.getElementById("site-header");
   if (!header) return;
@@ -1199,6 +1230,7 @@ function loadSiteHeader() {
     .then(data => {
       document.getElementById("site-header").innerHTML = data;
 
+      normalizePlatformHomeLinks();
       setupUserDropdownMenu();
 
       let logoClickCount = 0;
