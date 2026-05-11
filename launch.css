@@ -58,6 +58,7 @@ body {
   align-items: center;
   position: relative;
   z-index: 2;
+  transition: all 0.3s ease;
 }
 
 .brand {
@@ -332,6 +333,7 @@ body {
   line-height: 1.8;
 }
 
+/* ... devamı mevcut dosyada olduğu gibi ... */
 .mission-grid,
 .steps-grid,
 .student-grid,
