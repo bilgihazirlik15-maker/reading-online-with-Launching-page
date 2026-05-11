@@ -400,11 +400,19 @@ function loadSiteHeader() {
 
       document.querySelectorAll("#site-header a").forEach(link => {
 
-        const text =
-          link.textContent.trim().toLowerCase();
+        const text = link.textContent.trim().toLowerCase();
+        const href = link.getAttribute("href") || "";
 
-        const href =
-          link.getAttribute("href") || "";
+        if (
+          text === "home" ||
+          text.includes("home") ||
+          href === "index.html" ||
+          href === "./index.html" ||
+          href === "/" ||
+          href.includes("launch")
+        ) {
+          link.setAttribute("href", "app.html");
+        }
 
         if (
           text.includes("teacher") ||
@@ -414,6 +422,13 @@ function loadSiteHeader() {
           link.style.color = "#5266c7";
         }
       });
+
+      const logoLink = document.getElementById("logoHomeLink");
+
+      if (logoLink) {
+        logoLink.setAttribute("href", "app.html");
+      }
+
     })
     .catch(err => {
       console.error(
