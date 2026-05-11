@@ -9,10 +9,10 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   teacherButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      window.location.href = "teacher.html";
-    });
+  button.addEventListener("click", () => {
+    window.location.href = "index.html?role=teacher";
   });
+});
 
   const revealItems = document.querySelectorAll(
     ".section-heading, .info-card, .step-card, .level-card, .activity-grid div, .student-card, .testimonial-card, .teacher-panel-card"
