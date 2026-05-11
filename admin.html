@@ -1058,6 +1058,17 @@ function loadSiteHeader() {
         const text = link.textContent.trim().toLowerCase();
         const href = link.getAttribute("href") || "";
 
+        if (
+          text === "home" ||
+          text.includes("home") ||
+          href === "index.html" ||
+          href === "./index.html" ||
+          href === "/" ||
+          href.includes("launch")
+        ) {
+          link.setAttribute("href", "app.html");
+        }
+
         if (text.includes("admin") || href.includes("admin.html")) {
           link.classList.add("admin-nav-link");
         }
@@ -1068,6 +1079,8 @@ function loadSiteHeader() {
       const logoLink = document.getElementById("logoHomeLink");
 
       if (logoLink) {
+        logoLink.setAttribute("href", "app.html");
+
         logoLink.addEventListener("click", function(e) {
           e.preventDefault();
           logoClickCount++;
@@ -1092,7 +1105,7 @@ function loadSiteHeader() {
 }
 
 loadSiteHeader();
-
+</script>
 
 
 async function loadExistingReadingList() {
