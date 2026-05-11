@@ -1,0 +1,1819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>myReading Online</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="header.css">
+
+<style>
+* { box-sizing: border-box; }
+
+.site-logo,
+.logo,
+.header-logo,
+#siteLogo,
+#logoHomeLink img {
+  transform: translateX(-18px) scale(1.2);
+  transform-origin: left center;
+}
+
+#logoHomeLink {
+  margin-right: 0 !important;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f6efe4;
+  color: #374151;
+}
+
+.admin-nav-link {
+  background: #fff0bd !important;
+  color: #816200 !important;
+  border: 1px solid rgba(129, 98, 0, 0.25) !important;
+}
+
+.admin-nav-link:hover {
+  background: #ffe28a !important;
+  color: #6b4e00 !important;
+}
+
+/* USER DROPDOWN MENU */
+.user-dropdown-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.user-dropdown-toggle {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 13px;
+  color: #6b7280;
+  padding: 4px;
+}
+
+.user-dropdown-menu {
+  position: absolute;
+  top: 46px;
+  right: 0;
+  width: 185px;
+  background: #fffaf1;
+  border: 1px solid #efe2cf;
+  border-radius: 16px;
+  box-shadow: 0 12px 28px rgba(92, 74, 52, 0.18);
+  padding: 8px;
+  display: none;
+  z-index: 9999;
+}
+
+.user-dropdown-menu.show {
+  display: block;
+}
+
+.user-dropdown-menu a,
+.user-dropdown-menu button {
+  width: 100%;
+  display: block;
+  text-align: left;
+  border: none;
+  background: transparent;
+  color: #374151;
+  text-decoration: none;
+  padding: 11px 12px;
+  border-radius: 10px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.user-dropdown-menu a:hover,
+.user-dropdown-menu button:hover {
+  background: #eadfce;
+  color: #5266c7;
+}
+
+.hero {
+  position: relative;
+  height: 120px;
+  overflow: hidden;
+}
+
+.hero video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 108px;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.75);
+}
+
+.container {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 30px 36px;
+}
+
+.level-box {
+  background: #eadfce;
+  padding: 20px;
+  border-radius: 22px;
+  text-align: center;
+  margin-bottom: 30px;
+  border: 1px solid #ddceb8;
+  box-shadow: 0 8px 22px rgba(92, 74, 52, 0.06);
+  display: flex;
+flex-direction: column;
+justify-content: center;
+}
+
+.level-selector-area {
+  width: 100%;
+  max-width: 1450px;
+  margin-left: auto;
+  margin-right: auto;
+  display: grid;
+  grid-template-columns: 1.25fr 0.75fr;
+  gap: 20px;
+  margin-bottom: 30px;
+  align-items: stretch;
+}
+
+.level-selector-area .level-box {
+  margin-bottom: 0;
+  overflow: hidden;
+}
+
+.level-side-column {
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+  gap: 20px;
+  height: 340px;
+}
+
+.compact-level-box,
+.recommended-box {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.recommended-box {
+  text-align: center;
+}
+
+.compact-level-box h2,
+.recommended-box h3 {
+  font-size: 20px;
+  margin: 0 0 6px;
+}
+.compact-level-box h3 {
+  margin: 0 0 12px;
+  transform: translateY(7px);
+}
+.compact-level-box .filters {
+  margin-top: 14px;
+  margin-bottom: 10px;
+}
+
+.compact-level-box .filters button {
+  padding: 10px 16px;
+  font-size: 14px;
+}
+
+.recommended-box p {
+  margin: 0 0 10px;
+  font-size: 14px;
+  color: #7a6f63;
+}
+
+#joinClassMessage:empty {
+  display: none;
+}
+#joinClassMessage {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 9999;
+
+  max-width: 320px;
+  padding: 12px 16px;
+
+  border-radius: 999px;
+
+  background: #d6eadf;
+  color: #2f6650;
+
+  box-shadow: 0 8px 22px rgba(92, 74, 52, 0.18);
+
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 1.4;
+  text-align: center;
+
+  display: none;
+}
+.level-box h2 {
+  margin: 0 0 20px;
+  font-size: 25px;
+}
+
+.filters {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: nowrap;
+  margin-top: 20px;
+}
+
+.filters button {
+  border: none;
+  padding: 15px 24px;
+  border-radius: 999px;
+  background: #d8dcf8;
+  color: #5266c7;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.filters button.active,
+.filters button:hover {
+  background: #aebcf5;
+  color: white;
+}
+
+.slider-box {
+  padding: 0;
+  text-align: left;
+  background: #eadfce;
+  border: 1px solid #ddceb8;
+  border-radius: 22px;
+  box-shadow: 0 8px 22px rgba(92, 74, 52, 0.06);
+  height: 340px;
+  display: flex;
+  flex-direction: column;
+}
+
+.slider-header {
+  padding: 12px 22px 2px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.slider-header h2,
+.slider-header h3 {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.1;
+}
+
+.slider-header span {
+  font-size: 13px;
+  color: #7a6f63;
+}
+
+.reading-slider {
+  overflow: hidden;
+  flex: 1;
+  padding: 0 18px 0;
+  display: flex;
+  align-items: center;
+}
+
+.reading-track {
+  display: flex;
+  gap: 0;
+  transition: transform 0.6s ease;
+  width: 100%;
+}
+
+.slide-reading-card {
+  position: relative;
+  width: 100%;
+  min-width: 100%;
+  flex: 0 0 100%;
+  height: 220px;
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  background: #fffaf1;
+  border: 1px solid #efe2cf;
+  border-radius: 18px;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 5px 14px rgba(92, 74, 52, 0.08);
+  text-decoration: none;
+  color: inherit;
+}
+
+.slide-reading-card img {
+  width: 220px;
+  height: 220px;
+  object-fit: cover;
+}
+
+.slide-reading-content {
+  padding: 16px 22px;
+  padding-top: 42px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+}
+
+.slide-reading-content .level {
+  font-size: 13px;
+  padding: 5px 11px;
+}
+
+.slide-reading-content h3 {
+  margin: 8px 0 5px;
+  font-size: 24px;
+  line-height: 1.12;
+}
+
+.slide-reading-content .meta {
+  font-size: 14px;
+  color: #7a6f63;
+}
+
+.slide-extra-meta {
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+.slide-info-pill {
+  display: inline-block;
+  background: #f1eadf;
+  color: #6b5f54;
+  border-radius: 999px;
+  padding: 4px 8px;
+  font-size: 11px;
+  line-height: 1;
+}
+
+.slide-preview-text {
+  margin-top: 8px;
+  color: #6b7280;
+  font-size: 13px;
+  line-height: 1.35;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.slide-preview-more {
+  color: #5266c7;
+  font-weight: bold;
+}
+
+.view-lesson-button {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: #6b7fd7;
+  color: white;
+  font-size: 13px;
+  font-weight: bold;
+  padding: 8px 13px;
+  border-radius: 999px;
+  box-shadow: 0 6px 14px rgba(82, 102, 199, 0.22);
+  z-index: 2;
+}
+
+.slide-reading-card:hover .view-lesson-button {
+  background: #5266c7;
+}
+
+.slider-dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 7px;
+  padding: 0 0 10px;
+}
+
+.slider-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #c7cbe8;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.slider-dot.active {
+  background: #6b7fd7;
+  transform: scale(1.2);
+}
+
+.assigned-class-section {
+  width: 100%;
+  max-width: 1450px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 30px;
+}
+
+#assignedBox {
+  margin-bottom: 0;
+}
+
+.status-area {
+  width: 100%;
+  max-width: 1450px;
+  margin-left: auto;
+  margin-right: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.status-area .level-box {
+  margin-bottom: 0;
+  min-height: 150px;
+}
+
+.activity-record {
+  background: #f1eadf;
+  padding: 14px;
+  border-radius: 14px;
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+.activity-record strong {
+  color: #374151;
+}
+
+.activity-record span {
+  color: #7a6f63;
+  font-size: 14px;
+}
+
+.activity-record a {
+  display: inline-block;
+  margin-top: 8px;
+  color: #5266c7;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.section-title {
+  font-size: 24px;
+}
+
+.section-desc {
+  color: #7a6f63;
+  margin-bottom: 25px;
+}
+
+.cards {
+  width: 100%;
+  max-width: 1450px;
+  margin-left: auto;
+  margin-right: auto;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+  align-items: stretch;
+}
+
+.card {
+  background: #fffaf1;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid #efe2cf;
+  box-shadow: 0 8px 22px rgba(92, 74, 52, 0.08);
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.card img {
+  width: 100%;
+  height: 135px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.card-content {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.level {
+  display: inline-block;
+  align-self: flex-start;
+  background: #fff0bd;
+  padding: 5px 11px;
+  border-radius: 999px;
+  font-size: 12px;
+}
+
+.card h3 {
+  margin: 8px 0 6px;
+  line-height: 1.15;
+  min-height: 46px;
+}
+
+.meta {
+  font-size: 13px;
+  color: #7a6f63;
+}
+
+.card-extra-meta {
+  margin-top: 6px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+
+.card-info-pill {
+  display: inline-block;
+  background: #f1eadf;
+  color: #7a6f63;
+  border: 1px solid #eadfce;
+  border-radius: 999px;
+  padding: 4px 8px;
+  font-size: 11px;
+  line-height: 1;
+}
+
+.preview-text {
+  margin-top: 10px;
+  color: #5f6b7a;
+  font-size: 13px;
+  line-height: 1.45;
+  min-height: 58px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.preview-more {
+  color: #5266c7;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.card button {
+  margin-top: auto;
+  width: 100%;
+  padding: 10px;
+  border: none;
+  background: #d6eadf;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.empty-message {
+  background: #fffaf1;
+  border: 1px solid #efe2cf;
+  padding: 24px;
+  border-radius: 18px;
+  color: #7a6f63;
+}
+
+.explore-section {
+  width: 100%;
+  max-width: 1450px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+/* === STUDENT DASHBOARD === */
+
+.student-dashboard {
+  width: 100%;
+  max-width: 1450px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 30px;
+}
+
+.dashboard-header {
+  background: #fffaf1;
+  border: 1px solid #efe2cf;
+  border-radius: 24px;
+  padding: 24px 26px;
+  margin-bottom: 20px;
+  box-shadow: 0 8px 22px rgba(92, 74, 52, 0.06);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
+}
+
+.dashboard-header h2 {
+  margin: 0 0 6px;
+  font-size: 27px;
+  color: #374151;
+}
+
+.dashboard-header p {
+  margin: 0;
+  color: #7a6f63;
+  font-size: 15px;
+}
+
+.dashboard-link {
+  display: inline-block;
+  background: #6b7fd7;
+  color: white;
+  text-decoration: none;
+  padding: 11px 16px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.dashboard-link:hover {
+  background: #5266c7;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr 1fr;
+  gap: 20px;
+  align-items: stretch;
+}
+
+.dashboard-panel {
+  background: #eadfce;
+  border: 1px solid #ddceb8;
+  border-radius: 22px;
+  padding: 20px;
+  box-shadow: 0 8px 22px rgba(92, 74, 52, 0.06);
+  min-height: 235px;
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboard-panel h2 {
+  margin: 0 0 5px;
+  font-size: 22px;
+  color: #374151;
+}
+
+.dashboard-panel .panel-desc {
+  margin: 0 0 14px;
+  color: #7a6f63;
+  font-size: 14px;
+}
+
+.dashboard-list {
+  flex: 1;
+}
+
+.dashboard-action-row {
+  margin-top: 12px;
+}
+
+.dashboard-action-row a {
+  display: inline-block;
+  color: #5266c7;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.activity-record {
+  position: relative;
+}
+
+.activity-record .record-badge {
+  display: inline-block;
+  margin-bottom: 6px;
+  background: #fff0bd;
+  color: #816200;
+  border-radius: 999px;
+  padding: 4px 9px;
+  font-size: 11px;
+  font-weight: bold;
+}
+
+.activity-record .record-link {
+  display: inline-block;
+  margin-top: 9px;
+  background: #d6eadf;
+  color: #374151;
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.activity-record .record-link:hover {
+  background: #c4e1d2;
+}
+
+.activity-record .score-pill {
+  display: inline-block;
+  margin-top: 8px;
+  background: #d8dcf8;
+  color: #5266c7;
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.dashboard-empty {
+  background: #fffaf1;
+  border: 1px dashed #ddceb8;
+  padding: 18px;
+  border-radius: 16px;
+  color: #7a6f63;
+  text-align: center;
+  font-size: 14px;
+}
+
+footer {
+  text-align: center;
+  padding: 25px;
+  font-size: 13px;
+  color: #9a8f84;
+}
+
+@media (max-width: 1000px) {
+  .container { padding: 26px 24px; }
+  .cards { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 750px) {
+  .container { padding: 22px 18px; }
+  .cards { grid-template-columns: repeat(2, 1fr); }
+
+  .level-selector-area,
+  .status-area {
+    grid-template-columns: 1fr;
+  }
+
+  .student-dashboard .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+
+  .level-side-column {
+    height: auto;
+    grid-template-rows: auto auto auto;
+  }
+
+  .compact-level-box,
+  .recommended-box,
+  .slider-box {
+    min-height: 160px;
+  }
+
+  .slider-box {
+    height: auto;
+  }
+
+  .slide-reading-card {
+    min-width: 100%;
+    height: 190px;
+    grid-template-columns: 160px 1fr;
+  }
+
+  .slide-reading-card img {
+    width: 160px;
+    height: 190px;
+  }
+
+  .slide-reading-content {
+    padding: 14px 16px;
+    padding-top: 42px;
+  }
+
+  .slide-reading-content h3 {
+    font-size: 20px;
+    margin: 6px 0 4px;
+  }
+
+  .slide-extra-meta {
+    gap: 5px;
+    margin-top: 6px;
+  }
+
+  .slide-info-pill {
+    font-size: 10px;
+    padding: 3px 7px;
+  }
+
+  .slide-preview-text {
+    font-size: 12px;
+    line-height: 1.28;
+    margin-top: 6px;
+  }
+
+  .filters {
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 480px) {
+  .cards { grid-template-columns: 1fr; }
+}
+
+/* === HOVER & MICRO ANIMATION === */
+
+.card,
+.slide-reading-card,
+.level-box {
+  transition:
+    transform 0.22s ease,
+    box-shadow 0.22s ease,
+    border-color 0.22s ease,
+    background 0.22s ease;
+}
+
+.card:hover,
+.slide-reading-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 30px rgba(92, 74, 52, 0.16);
+  border-color: rgba(107, 127, 215, 0.35);
+}
+
+.level-box:hover {
+  box-shadow: 0 12px 28px rgba(92, 74, 52, 0.12);
+}
+
+.card img,
+.slide-reading-card img {
+  transition: transform 0.28s ease;
+}
+
+.card:hover img,
+.slide-reading-card:hover img {
+  transform: scale(1.035);
+}
+
+.card button,
+.filters button,
+.view-lesson-button {
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.card button:hover,
+.filters button:hover,
+.view-lesson-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(82, 102, 199, 0.18);
+}
+.join-popup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+}
+
+.join-popup-box {
+  background: #fffaf1;
+  border: 1px solid #efe2cf;
+  border-radius: 24px;
+  padding: 28px;
+  width: min(420px, 90%);
+  text-align: center;
+  box-shadow: 0 18px 45px rgba(0,0,0,0.22);
+}
+
+.join-popup-box h2 {
+  margin: 0 0 10px;
+  color: #374151;
+}
+
+.join-popup-box p {
+  margin: 0 0 18px;
+  color: #7a6f63;
+  line-height: 1.5;
+}
+
+.join-popup-box button {
+  border: none;
+  background: #6b7fd7;
+  color: white;
+  padding: 11px 20px;
+  border-radius: 999px;
+  font-weight: bold;
+  cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div id="site-header"></div>
+
+<section class="hero">
+  <video autoplay muted loop playsinline>
+    <source src="assets/video/sky.mp4" type="video/mp4">
+  </video>
+</section>
+
+<main class="container">
+
+<section class="level-selector-area">
+  <div class="level-box slider-box">
+    <div class="slider-header">
+      <h3>Recently Added Lessons</h3>
+      <span id="pulledDesc">Latest 8</span>
+    </div>
+
+    <div class="reading-slider">
+      <div class="reading-track" id="readingTrack"></div>
+    </div>
+
+    <div class="slider-dots" id="sliderDots"></div>
+  </div>
+
+  <div class="level-side-column">
+    <div class="level-box compact-level-box">
+      <h3>My Level is</h3>
+
+      <div class="filters">
+        <button onclick="filterLevel('A1', this)">A1</button>
+        <button onclick="filterLevel('A2', this)">A2</button>
+        <button onclick="filterLevel('B1', this)">B1</button>
+        <button onclick="filterLevel('B2', this)">B2</button>
+        <button onclick="showExplore(this)">Explore</button>
+      </div>
+    </div>
+
+    <div class="level-box recommended-box" id="joinClassBox">
+      <h3>Join a Class</h3>
+      <p style="color:#7a6f63; margin-top:0;">Enter your teacher's class code to join a reading class.</p>
+
+      <div style="
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        gap:8px;
+        margin-top:0;
+        width:100%;
+        flex-wrap:nowrap;
+      ">
+        <input
+          type="text"
+          id="joinClassCodeInput"
+          name="class_code_not_email"
+          placeholder="Class Code"
+          autocomplete="new-password"
+          autocorrect="off"
+          autocapitalize="characters"
+          spellcheck="false"
+          readonly
+          onfocus="this.removeAttribute('readonly'); this.value='';"
+          style="
+            width:170px;
+            padding:8px 10px;
+            border-radius:12px;
+            border:1px solid #ddceb8;
+            font-size:13px;
+            text-transform:uppercase;
+          "
+        >
+
+        <button
+          type="button"
+          onclick="joinClass()"
+          style="
+            padding:8px 14px;
+            border-radius:999px;
+            border:none;
+            background:#6b7fd7;
+            color:white;
+            font-weight:bold;
+            cursor:pointer;
+            font-size:13px;
+            white-space:nowrap;
+          "
+        >
+          Join
+        </button>
+      </div>
+
+      <p id="joinClassMessage"></p>
+    </div>
+
+    <div class="level-box recommended-box">
+      <h3>Recommended for you</h3>
+      <p>Personalized lesson suggestions will appear here.</p>
+    </div>
+  </div>
+</section>
+
+<section class="student-dashboard" id="studentDashboard">
+  <div class="dashboard-header">
+    <div>
+      <h2>My Reading Dashboard</h2>
+      <p>Your assigned activities, lessons in progress, and completed work are shown here.</p>
+    </div>
+
+    <a class="dashboard-link" href="activities.html">View All Activities</a>
+  </div>
+
+  <div class="dashboard-grid">
+    <div class="dashboard-panel" id="assignedBox">
+      <h2>Assigned to You</h2>
+      <p class="panel-desc">Activities your teacher assigned to your class.</p>
+      <div class="dashboard-list" id="assignedActivities">
+        <div class="dashboard-empty">No assigned activities yet.</div>
+      </div>
+      <div class="dashboard-action-row">
+        <a href="my-class.html">Go to My Class →</a>
+      </div>
+    </div>
+
+    <div class="dashboard-panel" id="progressBox">
+      <h2>Continue Learning</h2>
+      <p class="panel-desc">Pick up the activities you have already started.</p>
+      <div class="dashboard-list" id="activitiesInProgress">
+        <div class="dashboard-empty">No activities in progress.</div>
+      </div>
+      <div class="dashboard-action-row">
+        <a href="progress.html">See Progress →</a>
+      </div>
+    </div>
+
+    <div class="dashboard-panel" id="completedBox">
+      <h2>Completed</h2>
+      <p class="panel-desc">Review your latest completed reading activities.</p>
+      <div class="dashboard-list" id="completedActivities">
+        <div class="dashboard-empty">No completed activities yet.</div>
+      </div>
+      <div class="dashboard-action-row">
+        <a href="progress.html">View Scores →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="explore-section">
+  <h2 class="section-title" id="sectionTitle">Explore</h2>
+  <p class="section-desc" id="sectionDesc">Reading activities loaded from your data folder</p>
+  <div class="cards" id="cardsContainer"></div>
+</section>
+
+</main>
+
+<footer>© 2026 myReading Online</footer>
+<div id="joinClassPopup" class="join-popup-overlay">
+  <div class="join-popup-box">
+    <h2 id="joinPopupTitle">Class Update</h2>
+    <p id="joinPopupText"></p>
+    <button type="button" onclick="closeJoinPopup()">OK</button>
+  </div>
+</div>
+<script>
+function setupUserDropdownMenu() {
+  const header = document.getElementById("site-header");
+  if (!header) return;
+
+  let avatar =
+    header.querySelector(".avatar") ||
+    header.querySelector(".user-avatar") ||
+    header.querySelector(".avatar-circle") ||
+    header.querySelector("[data-avatar]");
+
+  if (!avatar) {
+    const possibleElements = Array.from(header.querySelectorAll("div, span, button"));
+    avatar = possibleElements.find(el => {
+      const text = el.textContent.trim();
+      const style = window.getComputedStyle(el);
+      return text.length <= 2 &&
+             style.borderRadius.includes("50") &&
+             parseInt(style.width) >= 28 &&
+             parseInt(style.height) >= 28;
+    });
+  }
+
+  if (!avatar) return;
+
+  if (avatar.closest(".user-dropdown-wrapper")) return;
+
+  const parent = avatar.parentElement;
+
+  const wrapper = document.createElement("div");
+  wrapper.className = "user-dropdown-wrapper";
+
+  parent.insertBefore(wrapper, avatar);
+  wrapper.appendChild(avatar);
+
+  const toggle = document.createElement("button");
+  toggle.className = "user-dropdown-toggle";
+  toggle.type = "button";
+  toggle.innerHTML = "▼";
+  toggle.setAttribute("aria-label", "Open user menu");
+
+  const menu = document.createElement("div");
+  menu.className = "user-dropdown-menu";
+  menu.innerHTML = `
+    <a href="profile.html">Profile</a>
+    <a href="feedback.html">Feedback</a>
+    <a href="help.html">Help / Support</a>
+    <button type="button" id="dropdownLogoutBtn">Logout</button>
+  `;
+
+  wrapper.appendChild(toggle);
+  wrapper.appendChild(menu);
+
+  function toggleMenu(event) {
+    event.stopPropagation();
+    menu.classList.toggle("show");
+  }
+
+  avatar.style.cursor = "pointer";
+  avatar.addEventListener("click", toggleMenu);
+  toggle.addEventListener("click", toggleMenu);
+
+  document.addEventListener("click", function(event) {
+    if (!wrapper.contains(event.target)) {
+      menu.classList.remove("show");
+    }
+  });
+
+  const logoutBtn = document.getElementById("dropdownLogoutBtn");
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", function() {
+      const existingLogout =
+        document.getElementById("logoutBtn") ||
+        document.querySelector("[data-logout]");
+
+      if (existingLogout && existingLogout !== logoutBtn) {
+        existingLogout.click();
+        return;
+      }
+
+      if (window.logoutUser) {
+        window.logoutUser();
+      }
+    });
+  }
+}
+
+function loadSiteHeader() {
+  fetch("header.html")
+    .then(res => res.text())
+    .then(data => {
+      document.getElementById("site-header").innerHTML = data;
+
+      setupUserDropdownMenu();
+
+      let logoClickCount = 0;
+      let logoClickTimer = null;
+      const logoLink = document.getElementById("logoHomeLink");
+
+      if (logoLink) {
+        logoLink.addEventListener("click", function(e) {
+          e.preventDefault();
+          logoClickCount++;
+
+          clearTimeout(logoClickTimer);
+
+          if (logoClickCount >= 5) {
+            window.location.href = "admin.html";
+            return;
+          }
+
+          logoClickTimer = setTimeout(() => {
+            logoClickCount = 0;
+            window.location.href = "index.html";
+          }, 700);
+        });
+      }
+    })
+    .catch(err => {
+      console.error("Header could not be loaded:", err);
+    });
+}
+
+loadSiteHeader();
+
+let readings = [];
+let sliderIndex = 0;
+let sliderTimer = null;
+let currentSliderItems = [];
+
+async function loadReadings() {
+  let files = [];
+
+  try {
+    const manifestRes = await fetch("data/manifest.json");
+
+    if (!manifestRes.ok) {
+      throw new Error("manifest.json not found");
+    }
+
+    const manifest = await manifestRes.json();
+
+    files = manifest.map(file => "data/" + file);
+
+  } catch (err) {
+    console.error("Manifest load error:", err);
+    files = [];
+  }
+
+  const loadedReadings = [];
+
+  for (const file of files) {
+    try {
+      const res = await fetch(file);
+
+      if (!res.ok) {
+        console.warn("File not found:", file);
+        continue;
+      }
+
+      const data = await res.json();
+
+      loadedReadings.push({
+        id: data.id || file.split("/").pop().replace(".json", ""),
+        title: data.title || "Untitled Reading",
+        level: data.level || "A2",
+        words: data.words || 0,
+        image: data.image || "https://picsum.photos/600/400?random=reading",
+        text: data.text || "",
+        genre: data.genre || data.type || data.category || "General",
+        date: data.date || data.addedDate || data.createdAt || data.created || "2026",
+        questions: data.questions || []
+      });
+
+    } catch (err) {
+      console.error("JSON load error:", file, err);
+    }
+  }
+
+  readings = loadedReadings;
+
+  showExplore(document.querySelector(".filters button:last-child"));
+
+  await loadCompletedActivities();
+  await loadActivitiesInProgress();
+  await loadAssignedActivities();
+}
+
+function activityUrl(r) {
+  return "activity.html?id=" + encodeURIComponent(r.id) +
+    "&title=" + encodeURIComponent(r.title) +
+    "&level=" + encodeURIComponent(r.level) +
+    "&words=" + encodeURIComponent(r.words);
+}
+
+function renderPulledReadings(items, selectedLevel) {
+  currentSliderItems = [...items].slice(-8).reverse();
+  sliderIndex = 0;
+
+  document.getElementById("pulledDesc").innerText = "Latest 8";
+
+  const track = document.getElementById("readingTrack");
+  const dots = document.getElementById("sliderDots");
+
+  if (currentSliderItems.length === 0) {
+    track.innerHTML = `
+      <div class="empty-message">
+        No reading texts found. Please check your JSON files and manifest.json in the data folder.
+      </div>
+    `;
+
+    if (dots) dots.innerHTML = "";
+    return;
+  }
+
+  track.innerHTML = currentSliderItems.map(r => {
+    const url = activityUrl(r);
+    const preview = escapeHtml(getPreviewText(r.text));
+    const genre = escapeHtml(r.genre || "General");
+    const date = escapeHtml(formatReadingDate(r.date));
+
+    return `
+      <a class="slide-reading-card" href="${url}">
+        <span class="view-lesson-button">View Lesson</span>
+        <img src="${r.image}" alt="${escapeHtml(r.title)}">
+        <div class="slide-reading-content">
+          <span class="level">${escapeHtml(r.level)}</span>
+          <h3>${escapeHtml(r.title)}</h3>
+          <div class="meta">${escapeHtml(r.words)} words</div>
+
+          <div class="slide-extra-meta">
+            <span class="slide-info-pill">Added: ${date}</span>
+            <span class="slide-info-pill">Type: ${genre}</span>
+          </div>
+
+          <div class="slide-preview-text">
+            ${preview} <span class="slide-preview-more">[...]</span>
+          </div>
+        </div>
+      </a>
+    `;
+  }).join("");
+
+  if (dots) {
+    dots.innerHTML = currentSliderItems.map((_, index) => `
+      <span class="slider-dot ${index === 0 ? "active" : ""}" onclick="goToSlide(${index})"></span>
+    `).join("");
+  }
+
+  startSlider();
+}
+
+function startSlider() {
+  const track = document.getElementById("readingTrack");
+
+  if (sliderTimer) {
+    clearInterval(sliderTimer);
+  }
+
+  track.style.transform = "translateX(0px)";
+  updateSliderDots();
+
+  sliderTimer = setInterval(() => {
+    if (currentSliderItems.length <= 1) return;
+
+    sliderIndex++;
+
+    if (sliderIndex >= currentSliderItems.length) {
+      sliderIndex = 0;
+    }
+
+    track.style.transform = `translateX(-${sliderIndex * track.clientWidth}px)`;
+    updateSliderDots();
+  }, 2800);
+}
+
+function updateSliderDots() {
+  document.querySelectorAll(".slider-dot").forEach((dot, index) => {
+    dot.classList.toggle("active", index === sliderIndex);
+  });
+}
+
+function goToSlide(index) {
+  const track = document.getElementById("readingTrack");
+
+  if (!track) return;
+
+  sliderIndex = index;
+  track.style.transform = `translateX(-${sliderIndex * track.clientWidth}px)`;
+  updateSliderDots();
+}
+
+function getPreviewText(text) {
+  if (!text) return "Preview text will appear here.";
+
+  const normalized = String(text)
+    .replace(/\r/g, "")
+    .split("\n")
+    .map(line => line.trim())
+    .filter(Boolean);
+
+  if (normalized.length >= 2) {
+    return normalized.slice(0, 2).join(" ");
+  }
+
+  const cleaned = String(text).replace(/\s+/g, " ").trim();
+  const words = cleaned.split(" ").filter(Boolean);
+
+  if (words.length <= 24) return cleaned;
+
+  return words.slice(0, 24).join(" ");
+}
+
+function formatReadingDate(value) {
+  if (!value) return "2026";
+
+  const text = String(value);
+  const parsed = new Date(text);
+
+  if (!Number.isNaN(parsed.getTime()) && /^\d{4}-\d{2}-\d{2}/.test(text)) {
+    return parsed.toLocaleDateString("en-GB", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric"
+    });
+  }
+
+  return text;
+}
+
+function renderCards(items) {
+  const container = document.getElementById("cardsContainer");
+
+  if (items.length === 0) {
+    container.innerHTML = `
+      <div class="empty-message">
+        No reading activities found for this selection.
+      </div>
+    `;
+    return;
+  }
+
+  container.innerHTML =
+    items.map(r => {
+      const url = activityUrl(r);
+      const preview = escapeHtml(getPreviewText(r.text));
+      const genre = escapeHtml(r.genre || "General");
+      const date = escapeHtml(formatReadingDate(r.date));
+
+      return `
+        <a class="card" href="${url}">
+          <img src="${r.image}" alt="${escapeHtml(r.title)}">
+          <div class="card-content">
+            <span class="level">${escapeHtml(r.level)}</span>
+            <h3>${escapeHtml(r.title)}</h3>
+            <div class="meta">${escapeHtml(r.words)} words</div>
+
+            <div class="card-extra-meta">
+              <span class="card-info-pill">Added: ${date}</span>
+              <span class="card-info-pill">Type: ${genre}</span>
+            </div>
+
+            <div class="preview-text">
+              ${preview} <span class="preview-more">[...]</span>
+            </div>
+
+            <button type="button">View Lesson</button>
+          </div>
+        </a>
+      `;
+    }).join("");
+}
+
+function showExplore(btn) {
+  if (btn) setActive(btn);
+
+  document.getElementById("sectionTitle").innerText = "Explore";
+  document.getElementById("sectionDesc").innerText =
+    readings.length + " reading activities loaded";
+
+  const exploreItems = [...readings].sort(() => 0.5 - Math.random()).slice(0, 16);
+
+  renderPulledReadings(readings, null);
+  renderCards(exploreItems);
+}
+
+function filterLevel(level, btn) {
+  setActive(btn);
+
+  document.getElementById("sectionTitle").innerText = level + " Reading Activities";
+
+  const levelItems = readings.filter(r => r.level === level);
+
+  document.getElementById("sectionDesc").innerText =
+    levelItems.length + " reading activities for " + level + " level";
+
+  renderPulledReadings(readings, null);
+  renderCards(levelItems.slice(0, 16));
+}
+
+function setActive(btn) {
+  document.querySelectorAll(".filters button").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+}
+
+function escapeHtml(value) {
+  return String(value || "")
+    .replaceAll("&", "&amp;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;");
+}
+
+async function getCurrentUserSafeIndex() {
+  const { auth } = await import("./firebase-config.js");
+
+  return new Promise((resolve) => {
+    if (auth.currentUser) {
+      resolve(auth.currentUser);
+      return;
+    }
+
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      unsubscribe();
+      resolve(user);
+    });
+  });
+}
+
+
+function safeArray(value) {
+  if (Array.isArray(value)) return value;
+
+  if (value && typeof value === "object") {
+    return Object.values(value);
+  }
+
+  return [];
+}
+
+function waitForIndexFunction(functionName, timeout = 3000) {
+  return new Promise(resolve => {
+    const start = Date.now();
+
+    const timer = setInterval(() => {
+      if (typeof window[functionName] === "function") {
+        clearInterval(timer);
+        resolve(window[functionName]);
+        return;
+      }
+
+      if (Date.now() - start > timeout) {
+        clearInterval(timer);
+        resolve(null);
+      }
+    }, 100);
+  });
+}
+
+let studentCompletedCache = [];
+let studentProgressCache = [];
+let studentAssignedCache = [];
+
+function findStudentRecord(records, activityId) {
+  return safeArray(records).find(item => {
+    if (!item || typeof item !== "object") return false;
+
+    return String(item.id || item.activityId || item.readingId || "") === String(activityId);
+  });
+}
+
+function dashboardActivityUrl(item) {
+  return "activity.html?id=" + encodeURIComponent(item.id || item.activityId || "") +
+    "&title=" + encodeURIComponent(item.title || "Untitled Activity") +
+    "&level=" + encodeURIComponent(item.level || "") +
+    "&words=" + encodeURIComponent(item.words || 0);
+}
+
+function setDashboardEmpty(container, message) {
+  if (!container) return;
+
+  container.innerHTML = `
+    <div class="dashboard-empty">
+      ${escapeHtml(message)}
+    </div>
+  `;
+}
+
+async function loadAssignedActivities() {
+  const container = document.getElementById("assignedActivities");
+
+  if (!container) return;
+
+  setDashboardEmpty(container, "Loading assigned activities...");
+
+  try {
+    const user = await getCurrentUserSafeIndex();
+
+    if (!user) {
+      setDashboardEmpty(container, "Log in to see assigned activities.");
+      return;
+    }
+
+    const { db } = await import("./firebase-config.js");
+    const {
+      collection,
+      doc,
+      getDoc,
+      getDocs
+    } = await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js");
+
+    const userSnap = await getDoc(doc(db, "users", user.uid));
+
+    if (!userSnap.exists()) {
+      setDashboardEmpty(container, "Join a class to see assigned activities.");
+      return;
+    }
+
+    const userData = userSnap.data();
+
+    if (!userData.classId) {
+      setDashboardEmpty(container, "Join a class to see assigned activities.");
+      return;
+    }
+
+    const assignedSnapshot = await getDocs(
+      collection(db, "classes", userData.classId, "assignedActivities")
+    );
+
+    const assignedActivities = assignedSnapshot.docs
+      .map(docSnap => docSnap.data())
+      .filter(item => item && (item.id || item.activityId));
+
+    studentAssignedCache = assignedActivities;
+
+    if (assignedActivities.length === 0) {
+      setDashboardEmpty(container, "No assigned activities yet.");
+      return;
+    }
+
+    container.innerHTML = assignedActivities.slice(0, 5).map(item => {
+      const activityId = item.id || item.activityId;
+      const completed = findStudentRecord(studentCompletedCache, activityId);
+      const inProgress = findStudentRecord(studentProgressCache, activityId);
+
+      let badge = "Assigned";
+      let buttonText = "Start Activity";
+
+      if (completed) {
+        badge = "Completed";
+        buttonText = "Review Activity";
+      } else if (inProgress) {
+        badge = "In Progress";
+        buttonText = "Continue Activity";
+      }
+
+      return `
+        <div class="activity-record">
+          <span class="record-badge">${escapeHtml(badge)}</span><br>
+          <strong>${escapeHtml(item.title || "Untitled Activity")}</strong><br>
+          <span>${escapeHtml(item.level || "")} Level • ${escapeHtml(item.words || 0)} words</span><br>
+          <a class="record-link" href="${dashboardActivityUrl(item)}">
+            ${escapeHtml(buttonText)}
+          </a>
+        </div>
+      `;
+    }).join("");
+
+  } catch (err) {
+    console.error("Assigned activities load error:", err);
+    setDashboardEmpty(container, "Assigned activities could not be loaded.");
+  }
+}
+
+async function loadCompletedActivities() {
+  const box = document.getElementById("completedBox");
+  const container = document.getElementById("completedActivities");
+
+  if (!box || !container) return;
+
+  setDashboardEmpty(container, "Loading completed activities...");
+
+  try {
+    const loadCompleted = await waitForIndexFunction("loadCompletedFromFirebase");
+    const completed = loadCompleted ? safeArray(await loadCompleted()) : [];
+
+    studentCompletedCache = completed;
+
+    if (!completed || completed.length === 0) {
+      setDashboardEmpty(container, "No completed activities yet.");
+      return;
+    }
+
+    container.innerHTML = completed.slice(0, 5).map(item => `
+      <div class="activity-record">
+        <span class="record-badge">Completed</span><br>
+        <strong>${escapeHtml(item.title || "Untitled Activity")}</strong><br>
+        <span>${escapeHtml(item.level || "")} Level</span><br>
+        <span class="score-pill">Score: ${escapeHtml(item.score || 0)}/${escapeHtml(item.total || item.totalQuestions || 0)}</span>
+      </div>
+    `).join("");
+
+  } catch (err) {
+    console.error("Completed activities load error:", err);
+    setDashboardEmpty(container, "Completed activities could not be loaded.");
+  }
+}
+
+async function loadActivitiesInProgress() {
+  const box = document.getElementById("progressBox");
+  const container = document.getElementById("activitiesInProgress");
+
+  if (!box || !container) return;
+
+  setDashboardEmpty(container, "Loading activities in progress...");
+
+  try {
+    const loadProgress = await waitForIndexFunction("loadProgressFromFirebase");
+    const inProgress = loadProgress ? safeArray(await loadProgress()) : [];
+
+    studentProgressCache = inProgress;
+
+    if (!inProgress || inProgress.length === 0) {
+      setDashboardEmpty(container, "No activities in progress.");
+      return;
+    }
+
+    container.innerHTML = inProgress.slice(0, 5).map(item => `
+      <div class="activity-record">
+        <span class="record-badge">In Progress</span><br>
+        <strong>${escapeHtml(item.title || "Untitled Activity")}</strong><br>
+        <span>${escapeHtml(item.level || "")} Level</span><br>
+        <a class="record-link" href="${dashboardActivityUrl(item)}">
+          Continue Activity
+        </a>
+      </div>
+    `).join("");
+
+  } catch (err) {
+    console.error("Activities in progress load error:", err);
+    setDashboardEmpty(container, "Activities in progress could not be loaded.");
+  }
+}
+
+window.addEventListener("load", function () {
+  const classCodeInput = document.getElementById("joinClassCodeInput");
+
+  if (classCodeInput) {
+    classCodeInput.value = "";
+
+    setTimeout(() => {
+      classCodeInput.value = "";
+    }, 300);
+  }
+});
+function showJoinPopup(message, type = "success") {
+  const popup = document.getElementById("joinClassPopup");
+  const title = document.getElementById("joinPopupTitle");
+  const text = document.getElementById("joinPopupText");
+
+  if (!popup || !title || !text) return;
+
+  title.innerText = type === "error" ? "Could not join class" : "Class Joined";
+  text.innerText = message || "";
+
+  popup.style.display = "flex";
+}
+
+function closeJoinPopup() {
+  const popup = document.getElementById("joinClassPopup");
+  if (popup) popup.style.display = "none";
+}
+
+window.closeJoinPopup = closeJoinPopup;
+
+function watchJoinClassMessage() {
+  const messageBox = document.getElementById("joinClassMessage");
+  if (!messageBox) return;
+
+  const observer = new MutationObserver(() => {
+    const message = messageBox.textContent.trim();
+
+    if (!message) return;
+
+    const isError =
+      message.toLowerCase().includes("not") ||
+      message.toLowerCase().includes("error") ||
+      message.toLowerCase().includes("could") ||
+      message.toLowerCase().includes("please");
+
+    showJoinPopup(message, isError ? "error" : "success");
+
+    messageBox.textContent = "";
+  });
+
+  observer.observe(messageBox, {
+    childList: true,
+    characterData: true,
+    subtree: true
+  });
+}
+
+watchJoinClassMessage();
+loadReadings();
+</script>
+
+<script type="module" src="./auth-state.js"></script>
+<script type="module" src="./firebase-read.js"></script>
+<script type="module" src="./join-class.js"></script>  
+</body>
+</html>

@@ -1,0 +1,78 @@
+{
+  "id": "a2-reading3",
+  "title": "Disneyland Paris",
+  "level": "A2",
+  "date": "2026-05-08",
+  "genre": "Culture",
+  "words": 285,
+  "image": "https://productcdn.tatilbudur.com/tur/1600x900/_12325_5438.jpg",
+  "text": "Disneyland Paris is one of the most famous theme parks in Europe. It is located near Paris, France, and millions of people visit it every year. Families, children, and tourists from many countries come to the park to enjoy rides, shows, restaurants, and famous Disney characters.\n\nThe park opened in 1992 and has become a popular tourist attraction. There are two main parks: Disneyland Park and Walt Disney Studios Park. Disneyland Park is famous for its castle, colorful streets, and exciting rides. Visitors can see characters like Mickey Mouse, Minnie Mouse, and Donald Duck walking around the park.\n\nMany people enjoy the roller coasters and adventure rides. Others prefer watching parades and live performances. At night, fireworks are shown near the castle, and many visitors take photos because the lights look beautiful.\n\nLast summer, Julia visited Disneyland Paris with her family for the first time. They traveled from Italy by train and stayed in a hotel near the park. On the first day, Julia felt very excited because she had always wanted to see Disneyland.\n\nWhile her parents were buying tickets, Julia was taking photos near the entrance. Later, the family rode several attractions together. Julia’s favorite ride was Pirates of the Caribbean because it was exciting and realistic.\n\nIn the afternoon, they watched a parade with music and dancing characters. Julia bought Mickey Mouse ears and some souvenirs for her friends. Although the park was crowded, the family enjoyed the experience very much.\n\nSince returning home, Julia has shown her photos to her classmates and has talked about the trip many times. She hopes she can visit Disneyland Paris again in the future because it was one of the happiest trips of her life.",
+  "vocabulary": [
+    {
+      "word": "tourist attraction",
+      "meaning": "a place that people visit for pleasure and interest, usually while they are on holiday",
+      "example": "He plans to turn the former jail into a tourist attraction."
+    }
+  ],
+  "questions": [
+    {
+      "type": "multiple",
+      "question": "Where is Disneyland Paris located?",
+      "options": [
+        "Spain",
+        "Italy",
+        "France"
+      ],
+      "answer": 2
+    },
+    {
+      "type": "multiple",
+      "question": "When did Disneyland Paris open?",
+      "options": [
+        "1985",
+        "1992",
+        "2001"
+      ],
+      "answer": 1
+    },
+    {
+      "type": "multiple",
+      "question": "What was Julia doing while her parents were buying tickets?",
+      "options": [
+        "Eating lunch",
+        "Shopping",
+        "Taking photos"
+      ],
+      "answer": 2
+    },
+    {
+      "type": "truefalse",
+      "question": "Julia traveled to Disneyland Paris by plane.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 1
+    },
+    {
+      "type": "truefalse",
+      "question": "Julia’s favorite ride was Pirates of the Caribbean.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 0
+    },
+    {
+      "type": "short",
+      "question": "What can visitors watch at night near the castle?",
+      "answerText": "fireworks"
+    },
+    {
+      "type": "fillblank",
+      "question": "Fill in the Blank",
+      "sentence": "Millions of people ____ Disneyland Paris every year.",
+      "answer": "visit"
+    }
+  ]
+}

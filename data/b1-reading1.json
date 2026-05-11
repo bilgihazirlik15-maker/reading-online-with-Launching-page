@@ -1,0 +1,60 @@
+{
+  "id": "b1-reading1",
+  "title": "Photography in African Safaris",
+  "level": "B1",
+  "date": "2026-05-08",
+  "genre": "Technology, Hobby, Nature",
+  "words": 269,
+  "image": "https://i.ytimg.com/vi/-vyVL23KYqU/maxresdefault.jpg",
+  "text": "Photography is very popular on African safaris. Many people travel to countries like Kenya, Tanzania, and South Africa to take photos of wild animals. Safaris give visitors a chance to see animals such as lions, elephants, giraffes, zebras, and even rare birds in their natural environment. For many travelers, taking photos is one of the most exciting parts of the experience.\n\nHowever, taking good photos on a safari is not always easy. Photographers need patience, good timing, and the right equipment. Animals do not always stay in one place, and sometimes they move very quickly. In addition, the weather and light conditions can change during the day. Early morning and late afternoon are usually the best times to take photos because the light is softer and animals are more active.\n\nLast summer, Daniel went on a safari in Kenya with a small group of travelers. He brought a professional camera and wanted to take amazing wildlife photos. On the first day, he felt a little disappointed because he did not see many animals, and the weather was very hot. However, on the second day, everything changed. He saw a group of elephants near a river. He stayed quiet, moved slowly, and waited for the right moment. Finally, he took several beautiful photos.\n\nLater, Daniel also saw lions resting under a tree and giraffes walking slowly across the land. He learned that being calm and patient is very important in wildlife photography. After the trip, he shared his photos online, and many people liked them. He felt proud and said he wanted to go on another safari in the future.",
+  "vocabulary": [],
+  "questions": [
+    {
+      "type": "multiple",
+      "question": "Why do people go on African safaris?",
+      "options": [
+        "To study animals in schools",
+        "To take photos of wild animals",
+        "To build houses",
+        "To work on farms"
+      ],
+      "answer": 1
+    },
+    {
+      "type": "multiple",
+      "question": "When is the best time to take photos on a safari?",
+      "options": [
+        "At night",
+        "At midday",
+        "Early morning and late afternoon",
+        "Only in winter"
+      ],
+      "answer": 2
+    },
+    {
+      "type": "multiple",
+      "question": "Why was Daniel disappointed on the first day?",
+      "options": [
+        "His camera did not work",
+        "He did not see many animals",
+        "He lost his group",
+        "He did not like the hotel"
+      ],
+      "answer": 1
+    },
+    {
+      "type": "truefalse",
+      "question": "Daniel saw lions under a tree.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 0
+    },
+    {
+      "type": "short",
+      "question": "What did Daniel learn about taking photos on a safari?",
+      "answerText": "He learned that being calm and patient is very important in wildlife photography"
+    }
+  ]
+}

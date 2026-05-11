@@ -1,0 +1,114 @@
+{
+  "id": "b1-reading3",
+  "title": "Samurai Warriors",
+  "level": "B1",
+  "date": "2026-05-08",
+  "genre": "History",
+  "words": 256,
+  "image": "https://i.shgcdn.com/5d6cef81-4d39-4201-a212-2577c1627256/-/format/auto/-/preview/3000x3000/-/quality/lighter/",
+  "text": "The samurai were powerful warriors in Japan for many centuries. They have become one of the most famous symbols of Japanese history and culture. Samurai soldiers were trained to fight with swords, bows, and other weapons. They also followed a strict moral code called Bushido, which taught loyalty, courage, discipline, and honor.\n\nMany stories about samurai have been written, and their lives have been shown in films, books, and television series around the world. Because of this, people have become very interested in samurai culture. Historians have studied their traditions for years, and museums in Japan have displayed samurai armor and weapons to visitors from many countries.\n\nLast year, Kevin traveled to Japan because he has always been fascinated by samurai history. While he was visiting Tokyo, he went to a museum about famous samurai warriors. While the guide was explaining the history of the samurai, Kevin was looking carefully at the old swords and armor. He was surprised by how heavy the armor was.\n\nLater that day, Kevin visited a traditional samurai village. Some actors were performing sword fights while tourists were taking photos. Kevin watched the performance for nearly an hour. During the show, one actor suddenly dropped his sword, but the audience laughed and enjoyed the moment.\n\nKevin has learned many interesting facts about samurai culture since his trip. He believes the samurai were not only strong fighters but also disciplined and intelligent people. Since returning home, he has read several books about Japanese history and has recommended the museum to his friends.",
+  "vocabulary": [
+    {
+      "word": "moral code",
+      "meaning": "a set of rules or principles of ethical conduct for a person or a group of people",
+      "example": "She refused to take the job, saying that it was incompatible with her personal moral code."
+    },
+    {
+      "word": "armor",
+      "meaning": "any covering worn as a defense against weapons",
+      "example": "A knight wore heavy armor during the battle to protect himself from arrows and swords."
+    }
+  ],
+  "questions": [
+    {
+      "type": "multiple",
+      "question": "What did the samurai follow?",
+      "options": [
+        "A farming system",
+        "A moral code called Bushido",
+        "A modern law system",
+        "A foreign tradition"
+      ],
+      "answer": 1
+    },
+    {
+      "type": "multiple",
+      "question": "Why did Kevin travel to Japan?",
+      "options": [
+        "To study business",
+        "To visit his family",
+        "Because he was interested in samurai history",
+        "To learn cooking"
+      ],
+      "answer": 2
+    },
+    {
+      "type": "multiple",
+      "question": "What was Kevin doing while the guide was explaining the history?",
+      "options": [
+        "Taking photos outside",
+        "Buying souvenirs",
+        "Looking at the armor and swords",
+        "Eating lunch"
+      ],
+      "answer": 2
+    },
+    {
+      "type": "truefalse",
+      "question": "Samurai warriors only used swords in battle.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 1
+    },
+    {
+      "type": "truefalse",
+      "question": "Kevin visited a samurai museum in Tokyo.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 0
+    },
+    {
+      "type": "short",
+      "question": "What values did Bushido teach?",
+      "answerText": "loyalty, courage, discipline, and honor"
+    },
+    {
+      "type": "fillblank",
+      "question": "Fill in the blank with a suitable word.",
+      "sentence": "The samurai were trained to fight with swords, bows, and other ________.",
+      "answer": "weapons"
+    },
+    {
+      "type": "ordering",
+      "question": "Put the events in the correct order.",
+      "items": [
+        "Kevin traveled to Japan.",
+        "Kevin visited a samurai museum.",
+        "Kevin visited a samurai village.",
+        "Kevin watched a sword fight performance."
+      ]
+    },
+    {
+      "type": "matching",
+      "question": "Match the words with their meanings.",
+      "pairs": [
+        {
+          "left": "Discipline",
+          "right": "Strong control over behavior"
+        },
+        {
+          "left": "Tourist",
+          "right": "A person who visits a place for interest"
+        },
+        {
+          "left": "Armor",
+          "right": "Protective clothing used in battle"
+        }
+      ]
+    }
+  ]
+}

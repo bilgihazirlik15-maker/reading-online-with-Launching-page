@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Profile | myReading Online</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="header.css">
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f6efe4;
+  color: #374151;
+}
+
+.hero {
+  position: relative;
+  height: 120px;
+  overflow: hidden;
+}
+
+.hero video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 108px;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.75);
+}
+
+.container {
+  width: 100%;
+  max-width: 1050px;
+  margin: 0 auto;
+  padding: 30px 24px;
+}
+
+.page-card {
+  background: #fffaf1;
+  border: 1px solid #efe2cf;
+  border-radius: 24px;
+  padding: 28px;
+  box-shadow: 0 8px 22px rgba(92, 74, 52, 0.07);
+  margin-bottom: 22px;
+}
+
+.page-card h1,
+.page-card h2 {
+  margin-top: 0;
+}
+
+.profile-grid {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: 22px;
+}
+
+.profile-avatar-large {
+  width: 92px;
+  height: 92px;
+  border-radius: 50%;
+  background: #6b7fd7;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 16px;
+}
+
+.info-row {
+  background: #f1eadf;
+  border: 1px solid #e5d7c4;
+  border-radius: 16px;
+  padding: 14px;
+  margin-bottom: 10px;
+}
+
+.info-row strong {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.class-list {
+  display: grid;
+  gap: 8px;
+}
+
+.class-pill {
+  background: #fffaf1;
+  border: 1px solid #e5d7c4;
+  border-radius: 14px;
+  padding: 10px 12px;
+}
+
+.class-pill b {
+  display: block;
+  color: #374151;
+  margin-bottom: 3px;
+}
+
+.class-pill span {
+  color: #7a6f63;
+  font-size: 13px;
+}
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.stat-card {
+  background: #f1eadf;
+  border: 1px solid #e5d7c4;
+  border-radius: 18px;
+  padding: 18px;
+  text-align: center;
+}
+
+.stat-card strong {
+  display: block;
+  color: #5266c7;
+  font-size: 28px;
+  margin-bottom: 4px;
+}
+
+.back-link {
+  display: inline-block;
+  margin-top: 10px;
+  background: #6b7fd7;
+  color: white;
+  text-decoration: none;
+  padding: 11px 16px;
+  border-radius: 999px;
+  font-weight: bold;
+}
+
+.empty-message {
+  background: #f6efe4;
+  border: 1px dashed #ddceb8;
+  border-radius: 16px;
+  padding: 16px;
+  color: #7a6f63;
+}
+
+/* CHANGE PASSWORD SECTION */
+.password-section {
+  margin-top: 24px;
+  padding-top: 22px;
+  border-top: 1px solid #e5d7c4;
+}
+
+.password-section h2 {
+  margin-bottom: 8px;
+}
+
+.password-section p {
+  margin-top: 0;
+  color: #7a6f63;
+  font-size: 14px;
+}
+
+.password-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.password-form input {
+  width: 100%;
+  padding: 14px;
+  border-radius: 14px;
+  border: 1px solid #d9c9b3;
+  background: #fff;
+  font-size: 15px;
+  outline: none;
+}
+
+.password-form input:focus {
+  border-color: #6b7fd7;
+  box-shadow: 0 0 0 3px rgba(107, 127, 215, 0.15);
+}
+
+.password-btn {
+  border: none;
+  background: #6b7fd7;
+  color: white;
+  padding: 14px;
+  border-radius: 999px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.password-btn:hover {
+  opacity: 0.92;
+}
+
+.password-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.password-message {
+  margin-top: 6px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+footer {
+  text-align: center;
+  padding: 25px;
+  font-size: 13px;
+  color: #9a8f84;
+}
+
+@media (max-width: 800px) {
+  .profile-grid,
+  .stat-grid {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div id="site-header"></div>
+
+<section class="hero">
+  <video autoplay muted loop playsinline>
+    <source src="assets/video/sky.mp4" type="video/mp4">
+  </video>
+</section>
+
+<main class="container">
+
+  <section class="page-card">
+    <h1>Profile</h1>
+    <p>Your account and reading progress summary.</p>
+  </section>
+
+  <section class="profile-grid">
+
+    <div class="page-card">
+      <div class="profile-avatar-large" id="profileInitial">?</div>
+
+      <div class="info-row">
+        <strong>Email</strong>
+        <span id="profileEmail">Loading...</span>
+      </div>
+
+      <div class="info-row">
+        <strong>Role</strong>
+        <span id="profileRole">Loading...</span>
+      </div>
+
+      <div class="info-row">
+        <strong>Classes</strong>
+        <div id="profileClass">Loading...</div>
+      </div>
+
+      <a class="back-link" href="index.html">Back to Home</a>
+    </div>
+
+    <div class="page-card">
+      <h2>Reading Summary</h2>
+
+      <div class="stat-grid">
+        <div class="stat-card">
+          <strong id="completedCount">0</strong>
+          <span>Completed</span>
+        </div>
+
+        <div class="stat-card">
+          <strong id="progressCount">0</strong>
+          <span>In Progress</span>
+        </div>
+
+        <div class="stat-card">
+          <strong id="averageScore">0%</strong>
+          <span>Average Score</span>
+        </div>
+      </div>
+
+      <div id="profileMessage" style="margin-top:16px;"></div>
+
+      <div class="password-section">
+        <h2>Change Password</h2>
+        <p>Update your password by entering your current password first.</p>
+
+        <div class="password-form">
+          <input
+            type="password"
+            id="currentPassword"
+            placeholder="Current password"
+            autocomplete="current-password"
+          >
+
+          <input
+            type="password"
+            id="newPassword"
+            placeholder="New password"
+            autocomplete="new-password"
+          >
+
+          <input
+            type="password"
+            id="confirmNewPassword"
+            placeholder="Confirm new password"
+            autocomplete="new-password"
+          >
+
+          <button id="changePasswordBtn" class="password-btn">
+            Change Password
+          </button>
+
+          <div id="passwordMessage" class="password-message"></div>
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+</main>
+
+<footer>© 2026 myReading Online</footer>
+
+<script>
+function loadSiteHeader() {
+  fetch("header.html")
+    .then(res => res.text())
+    .then(data => {
+      document.getElementById("site-header").innerHTML = data;
+    })
+    .catch(err => console.error("Header could not be loaded:", err));
+}
+
+loadSiteHeader();
+
+function escapeHtml(value) {
+  return String(value === undefined || value === null ? "" : value)
+    .replace(/&/g, "&amp;")
+    .replace(/"/g, "&quot;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
+function normalizeJoinedClasses(data) {
+  const classes = [];
+
+  if (Array.isArray(data.joinedClasses)) {
+    data.joinedClasses.forEach(item => {
+      if (!item) return;
+
+      classes.push({
+        classId: item.classId || "",
+        classCode: item.classCode || "",
+        className: item.className || item.name || "Class",
+        schoolName: item.schoolName || item.school || ""
+      });
+    });
+  }
+
+  if (data.classId || data.className || data.classCode) {
+    const singleClass = {
+      classId: data.classId || "",
+      classCode: data.classCode || "",
+      className: data.className || "Class",
+      schoolName: data.schoolName || data.school || ""
+    };
+
+    const alreadyExists = classes.some(item =>
+      String(item.classId || "") === String(singleClass.classId) ||
+      String(item.classCode || "").toUpperCase() === String(singleClass.classCode).toUpperCase()
+    );
+
+    if (!alreadyExists) {
+      classes.push(singleClass);
+    }
+  }
+
+  return classes;
+}
+
+function renderProfileClasses(classes) {
+  const container = document.getElementById("profileClass");
+
+  if (!container) return;
+
+  if (!classes || classes.length === 0) {
+    container.innerHTML = `<span>Not joined to a class yet</span>`;
+    return;
+  }
+
+  container.innerHTML = `
+    <div class="class-list">
+      ${classes.map(item => `
+        <div class="class-pill">
+          <b>${escapeHtml(item.className || "Class")}</b>
+          <span>
+            ${item.classCode ? "Code: " + escapeHtml(item.classCode) : ""}
+            ${item.schoolName ? " • School: " + escapeHtml(item.schoolName) : ""}
+          </span>
+        </div>
+      `).join("")}
+    </div>
+  `;
+}
+
+async function initProfilePage() {
+  try {
+    const { auth, db } = await import("./firebase-config.js");
+
+    const {
+      collection,
+      getDocs,
+      doc,
+      getDoc
+    } = await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js");
+
+    const {
+      EmailAuthProvider,
+      reauthenticateWithCredential,
+      updatePassword
+    } = await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js");
+
+    const user = await new Promise(resolve => {
+      if (auth.currentUser) return resolve(auth.currentUser);
+
+      const unsub = auth.onAuthStateChanged(u => {
+        unsub();
+        resolve(u);
+      });
+    });
+
+    if (!user) {
+      window.location.href = "index.html";
+      return;
+    }
+
+    document.getElementById("profileInitial").innerText =
+      user.email ? user.email.charAt(0).toUpperCase() : "U";
+
+    document.getElementById("profileEmail").innerText =
+      user.email || "Unknown";
+
+    let role = "student";
+    let joinedClasses = [];
+
+    const userSnap = await getDoc(doc(db, "users", user.uid));
+
+    if (userSnap.exists()) {
+      const data = userSnap.data();
+
+      if (
+        user.email &&
+        user.email.toLowerCase() === "bilgi.hazirlik15@gmail.com"
+      ) {
+        role = "admin";
+      } else {
+        role = data.role || "student";
+      }
+
+      joinedClasses = normalizeJoinedClasses(data);
+
+    } else if (
+      user.email &&
+      user.email.toLowerCase() === "bilgi.hazirlik15@gmail.com"
+    ) {
+      role = "admin";
+    }
+
+    document.getElementById("profileRole").innerText = role;
+
+    renderProfileClasses(joinedClasses);
+
+    const completedSnapshot =
+      await getDocs(collection(db, "users", user.uid, "completedActivities"));
+
+    const progressSnapshot =
+      await getDocs(collection(db, "users", user.uid, "activitiesInProgress"));
+
+    const completed = completedSnapshot.docs.map(d => d.data());
+    const inProgress = progressSnapshot.docs.map(d => d.data());
+
+    document.getElementById("completedCount").innerText = completed.length;
+    document.getElementById("progressCount").innerText = inProgress.length;
+
+    let score = 0;
+    let total = 0;
+
+    completed.forEach(item => {
+      score += Number(item.score || 0);
+      total += Number(item.total || item.totalQuestions || 0);
+    });
+
+    document.getElementById("averageScore").innerText =
+      total > 0 ? Math.round((score / total) * 100) + "%" : "0%";
+
+    setupPasswordChange(
+      user,
+      EmailAuthProvider,
+      reauthenticateWithCredential,
+      updatePassword
+    );
+
+    if (completed.length === 0 && inProgress.length === 0) {
+      document.getElementById("profileMessage").innerHTML =
+        `<div class="empty-message">Your reading history will appear here after you start activities.</div>`;
+    }
+
+  } catch (err) {
+    console.error("Profile load error:", err);
+
+    document.getElementById("profileMessage").innerHTML =
+      `<div class="empty-message">Profile information could not be loaded.</div>`;
+  }
+}
+
+function setupPasswordChange(
+  user,
+  EmailAuthProvider,
+  reauthenticateWithCredential,
+  updatePassword
+) {
+  const changePasswordBtn = document.getElementById("changePasswordBtn");
+  const currentPasswordInput = document.getElementById("currentPassword");
+  const newPasswordInput = document.getElementById("newPassword");
+  const confirmNewPasswordInput = document.getElementById("confirmNewPassword");
+  const passwordMessage = document.getElementById("passwordMessage");
+
+  if (!changePasswordBtn) return;
+
+  changePasswordBtn.addEventListener("click", async () => {
+    const currentPassword = currentPasswordInput.value.trim();
+    const newPassword = newPasswordInput.value.trim();
+    const confirmNewPassword = confirmNewPasswordInput.value.trim();
+
+    passwordMessage.innerText = "";
+    passwordMessage.style.color = "#b91c1c";
+
+    if (!currentPassword || !newPassword || !confirmNewPassword) {
+      passwordMessage.innerText = "Please fill in all password fields.";
+      return;
+    }
+
+    if (newPassword.length < 6) {
+      passwordMessage.innerText = "New password must be at least 6 characters.";
+      return;
+    }
+
+    if (newPassword !== confirmNewPassword) {
+      passwordMessage.innerText = "New passwords do not match.";
+      return;
+    }
+
+    try {
+      changePasswordBtn.disabled = true;
+      changePasswordBtn.innerText = "Changing...";
+
+      const credential = EmailAuthProvider.credential(
+        user.email,
+        currentPassword
+      );
+
+      await reauthenticateWithCredential(user, credential);
+      await updatePassword(user, newPassword);
+
+      passwordMessage.style.color = "#15803d";
+      passwordMessage.innerText = "Password changed successfully.";
+
+      currentPasswordInput.value = "";
+      newPasswordInput.value = "";
+      confirmNewPasswordInput.value = "";
+
+    } catch (error) {
+      console.error("Password change error:", error);
+
+      if (
+        error.code === "auth/wrong-password" ||
+        error.code === "auth/invalid-credential"
+      ) {
+        passwordMessage.innerText = "Current password is incorrect.";
+      } else if (error.code === "auth/weak-password") {
+        passwordMessage.innerText = "New password is too weak.";
+      } else if (error.code === "auth/requires-recent-login") {
+        passwordMessage.innerText = "Please log in again and try again.";
+      } else {
+        passwordMessage.innerText = "Password could not be changed.";
+      }
+
+    } finally {
+      changePasswordBtn.disabled = false;
+      changePasswordBtn.innerText = "Change Password";
+    }
+  });
+}
+
+initProfilePage();
+</script>
+
+<script type="module" src="./auth-state.js"></script>
+<script type="module" src="./protect-page.js"></script>
+
+</body>
+</html>

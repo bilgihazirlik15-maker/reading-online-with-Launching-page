@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Teacher Panel | myReading Online</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="header.css">
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f6efe4;
+  color: #374151;
+}
+
+.admin-nav-link {
+  background: #fff0bd !important;
+  color: #816200 !important;
+  border: 1px solid rgba(129, 98, 0, 0.25) !important;
+}
+
+.admin-nav-link:hover {
+  background: #ffe28a !important;
+  color: #6b4e00 !important;
+}
+
+.hero {
+  position: relative;
+  height: 120px;
+  overflow: hidden;
+}
+
+.hero video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 108px;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.75);
+}
+
+.container {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 30px 36px;
+}
+
+.panel-header {
+  width: 100%;
+  max-width: 1450px;
+  margin-left: auto;
+  margin-right: auto;
+  background: #fffaf1;
+  border: 1px solid #efe2cf;
+  border-radius: 24px;
+  padding: 28px;
+  margin-bottom: 28px;
+}
+
+.panel-header h1 {
+  margin: 0 0 8px;
+}
+
+.panel-header p {
+  margin: 0;
+  color: #7a6f63;
+}
+
+.teacher-grid {
+  width: 100%;
+  max-width: 1450px;
+  margin-left: auto;
+  margin-right: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+    "classes assignments"
+    "classes reports"
+    "classes progress";
+  gap: 22px;
+  align-items: start;
+}
+
+.teacher-card {
+  background: #fffaf1;
+  border: 1px solid #efe2cf;
+  border-radius: 22px;
+  padding: 24px;
+  box-shadow: 0 8px 22px rgba(92, 74, 52, 0.08);
+}
+
+.teacher-card h2 {
+  margin-top: 0;
+  font-size: 22px;
+}
+
+.teacher-card p {
+  color: #7a6f63;
+  line-height: 1.5;
+}
+
+.teacher-card button,
+.teacher-card a {
+  display: inline-block;
+  margin-top: 10px;
+  border: none;
+  padding: 12px 18px;
+  border-radius: 999px;
+  background: #6b7fd7;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.teacher-card button:hover,
+.teacher-card a:hover {
+  background: #5266c7;
+}
+
+.teacher-input,
+.teacher-select {
+  width: 100%;
+  padding: 13px;
+  border-radius: 14px;
+  border: 1px solid #ddceb8;
+  margin-top: 10px;
+  font-size: 15px;
+  background: #fffaf1;
+  color: #374151;
+}
+
+.assignment-row {
+  background: #f1eadf;
+  border: 1px solid #e4d8c7;
+  border-radius: 16px;
+  padding: 14px;
+  margin-top: 12px;
+}
+
+.assignment-row strong {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.assignment-row span {
+  font-size: 13px;
+  color: #7a6f63;
+}
+
+.assignment-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.assignment-actions button,
+.assignment-actions a {
+  margin-top: 0;
+  padding: 8px 12px;
+  font-size: 13px;
+}
+
+.assignment-actions .delete-assignment-btn {
+  background: #f2b8b5;
+  color: #7a1f1b;
+}
+
+.assignment-actions .delete-assignment-btn:hover {
+  background: #e99b97;
+}
+
+.assignment-actions .view-progress-btn {
+  background: #d6eadf;
+  color: #374151;
+}
+
+.assignment-actions .view-progress-btn:hover {
+  background: #c4e1d2;
+}
+
+.assignment-placeholder {
+  background: #f6efe4;
+  border: 1px dashed #ddceb8;
+  border-radius: 16px;
+  padding: 16px;
+  margin-top: 14px;
+  color: #7a6f63;
+  text-align: center;
+}
+
+.message {
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.notice-box {
+  width: 100%;
+  max-width: 1450px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 28px;
+  background: #fff0bd;
+  border: 1px solid #e5c96b;
+  color: #6b4e00;
+  border-radius: 18px;
+  padding: 18px;
+}
+
+footer {
+  text-align: center;
+  padding: 25px;
+  font-size: 13px;
+  color: #9a8f84;
+}
+
+@media (max-width: 900px) {
+  .teacher-grid {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "classes"
+      "assignments"
+      "reports"
+      "progress";
+  }
+
+  .container {
+    padding: 24px 18px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div id="site-header"></div>
+
+<section class="hero">
+  <video autoplay muted loop playsinline>
+    <source src="assets/video/sky.mp4" type="video/mp4">
+  </video>
+</section>
+
+<main class="container" id="teacherContent" style="display:none;">
+
+  <section class="panel-header">
+    <h1>Teacher Panel</h1>
+    <p>Manage classes, assign reading activities, and track student progress.</p>
+  </section>
+
+  <section class="teacher-grid">
+
+    <div class="teacher-card" style="grid-area:classes;">
+      <h2>My Classes</h2>
+      <p>Create and manage reading classes for your students.</p>
+
+      <label for="schoolSelect" style="display:block; margin-top:12px; font-weight:bold;">
+        Choose School
+      </label>
+
+      <select id="schoolSelect" class="teacher-select">
+        <option value="">Loading schools...</option>
+      </select>
+
+      <input
+        type="text"
+        id="classNameInput"
+        class="teacher-input"
+        placeholder="Class name"
+      >
+
+      <button type="button" onclick="createClass()">Create Class</button>
+
+      <p id="classMessage" class="message" style="color:#2f6650;"></p>
+
+      <div id="classList" style="margin-top:18px;"></div>
+    </div>
+
+    <div class="teacher-card" style="grid-area:assignments;">
+      <h2>Assignments</h2>
+      <p>Assign reading activities to your classes.</p>
+
+      <label for="assignmentSchoolSelect" style="display:block; margin-top:12px; font-weight:bold;">
+        Choose School
+      </label>
+
+      <select id="assignmentSchoolSelect" class="teacher-select">
+        <option value="">Loading schools...</option>
+      </select>
+
+      <label for="assignmentClassSelect" style="display:block; margin-top:12px; font-weight:bold;">
+        Choose Class
+      </label>
+
+      <select id="assignmentClassSelect" class="teacher-select">
+        <option value="">Loading classes...</option>
+      </select>
+
+      <label for="assignmentActivitySelect" style="display:block; margin-top:12px; font-weight:bold;">
+        Choose Activity
+      </label>
+
+      <select id="assignmentActivitySelect" class="teacher-select">
+        <option value="">Loading activities...</option>
+      </select>
+
+      <button type="button" onclick="assignActivityToClass()">
+        Assign Activity
+      </button>
+
+      <p id="assignmentMessage" class="message"></p>
+
+      <div id="assignmentList" style="margin-top:18px;">
+        <div class="assignment-placeholder">
+          Select a class to see assigned activities.
+        </div>
+      </div>
+    </div>
+
+    <div class="teacher-card" style="grid-area:reports;">
+      <h2>Reports</h2>
+
+      <p>
+        Export assignment scores as an Excel file.
+        You can report one class or all classes in a selected school.
+      </p>
+
+      <label for="reportSchoolSelect" style="display:block; margin-top:12px; font-weight:bold;">
+        Choose School
+      </label>
+
+      <select id="reportSchoolSelect" class="teacher-select">
+        <option value="">Loading schools...</option>
+      </select>
+
+      <label for="reportClassSelect" style="display:block; margin-top:12px; font-weight:bold;">
+        Choose Class
+      </label>
+
+      <select id="reportClassSelect" class="teacher-select">
+        <option value="">Choose a school first</option>
+      </select>
+
+      <button type="button" onclick="generateExcelReport()">
+        Generate Excel Report
+      </button>
+
+      <p id="reportMessage" class="message"></p>
+    </div>
+
+    <div class="teacher-card" style="grid-area:progress;">
+      <h2>Student Progress</h2>
+
+      <p>
+        See completed activities, scores,
+        and activities in progress.
+      </p>
+
+      <button type="button" onclick="openSelectedClassProgress()">
+        View Selected Class Progress
+      </button>
+
+      <p class="message" style="color:#7a6f63;">
+        First select a class in the Assignments card.
+      </p>
+    </div>
+
+  </section>
+
+  <div class="notice-box">
+    Teacher access is active.
+    You can now assign reading activities to classes
+    and manage assigned activities.
+  </div>
+
+</main>
+
+<footer>© 2026 myReading Online</footer>
+
+<script>
+function loadSiteHeader() {
+  fetch("header.html")
+    .then(res => res.text())
+    .then(data => {
+
+      document.getElementById("site-header").innerHTML = data;
+
+      document.querySelectorAll("#site-header a").forEach(link => {
+
+        const text =
+          link.textContent.trim().toLowerCase();
+
+        const href =
+          link.getAttribute("href") || "";
+
+        if (
+          text.includes("teacher") ||
+          href.includes("teacher.html")
+        ) {
+          link.style.background = "#d8dcf8";
+          link.style.color = "#5266c7";
+        }
+      });
+    })
+    .catch(err => {
+      console.error(
+        "Header could not be loaded:",
+        err
+      );
+    });
+}
+
+loadSiteHeader();
+</script>
+
+<script type="module" src="./auth-state.js"></script>
+<script type="module" src="./teacher-auth.js?v=2"></script>
+<script type="module" src="./teacher-classes.js?v=9"></script>
+<script type="module" src="./teacher-assignments.js?v=2"></script>
+<script type="module" src="./teacher-reports.js?v=1"></script>
+
+</body>
+</html>

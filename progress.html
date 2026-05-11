@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Progress | myReading Online</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="header.css">
+
+<style>
+* { box-sizing: border-box; }
+
+.site-logo,
+.logo,
+.header-logo,
+#siteLogo,
+#logoHomeLink img {
+  transform: translateX(-18px) scale(1.2);
+  transform-origin: left center;
+}
+
+#logoHomeLink { margin-right: 0 !important; }
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f6efe4;
+  color: #374151;
+}
+
+.admin-nav-link {
+  background: #fff0bd !important;
+  color: #816200 !important;
+  border: 1px solid rgba(129, 98, 0, 0.25) !important;
+}
+
+.admin-nav-link:hover {
+  background: #ffe28a !important;
+  color: #6b4e00 !important;
+}
+
+/* USER DROPDOWN MENU */
+.user-dropdown-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.user-dropdown-toggle {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 13px;
+  color: #6b7280;
+  padding: 4px;
+}
+
+.user-dropdown-menu {
+  position: absolute;
+  top: 46px;
+  right: 0;
+  width: 185px;
+  background: #fffaf1;
+  border: 1px solid #efe2cf;
+  border-radius: 16px;
+  box-shadow: 0 12px 28px rgba(92, 74, 52, 0.18);
+  padding: 8px;
+  display: none;
+  z-index: 9999;
+}
+
+.user-dropdown-menu.show { display: block; }
+
+.user-dropdown-menu a,
+.user-dropdown-menu button {
+  width: 100%;
+  display: block;
+  text-align: left;
+  border: none;
+  background: transparent;
+  color: #374151;
+  text-decoration: none;
+  padding: 11px 12px;
+  border-radius: 10px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.user-dropdown-menu a:hover,
+.user-dropdown-menu button:hover {
+  background: #eadfce;
+  color: #5266c7;
+}
+
+.hero {
+  position: relative;
+  height: 120px;
+  overflow: hidden;
+}
+
+.hero video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 108px;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.75);
+}
+
+.progress-page-container {
+  width: 100%;
+  max-width: 1450px;
+  margin: 0 auto;
+  padding: 30px 36px;
+}
+
+.progress-intro {
+  background: #eadfce;
+  border: 1px solid #ddceb8;
+  box-shadow: 0 8px 22px rgba(92, 74, 52, 0.06);
+  border-radius: 24px;
+  padding: 26px 28px;
+  margin-bottom: 24px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 20px;
+  align-items: center;
+}
+
+.progress-intro h1 {
+  margin: 0 0 8px;
+  font-size: 32px;
+  color: #374151;
+}
+
+.progress-intro p {
+  margin: 0;
+  color: #7a6f63;
+  font-size: 16px;
+}
+
+.summary-strip {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.summary-pill {
+  background: #fffaf1;
+  border: 1px solid #efe2cf;
+  border-radius: 999px;
+  padding: 10px 15px;
+  font-size: 14px;
+  color: #7a6f63;
+  white-space: nowrap;
+}
+
+.summary-pill strong {
+  color: #5266c7;
+}
+
+.progress-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.progress-panel {
+  background: #fffaf1;
+  border: 1px solid #efe2cf;
+  border-radius: 24px;
+  box-shadow: 0 8px 22px rgba(92, 74, 52, 0.06);
+  padding: 22px;
+  min-height: 280px;
+}
+
+.progress-panel h2 {
+  margin: 0 0 6px;
+  font-size: 24px;
+}
+
+.panel-desc {
+  margin: 0 0 18px;
+  color: #7a6f63;
+  font-size: 14px;
+}
+
+.progress-record {
+  background: #f1eadf;
+  border: 1px solid #e4d8c7;
+  border-radius: 18px;
+  padding: 15px;
+  margin-bottom: 12px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 14px;
+  align-items: center;
+}
+
+.progress-record strong {
+  display: block;
+  color: #374151;
+  margin-bottom: 5px;
+}
+
+.progress-record span {
+  color: #7a6f63;
+  font-size: 14px;
+}
+
+.score-badge {
+  background: #fff0bd;
+  color: #816200;
+  border-radius: 999px;
+  padding: 8px 12px;
+  font-size: 13px;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.continue-link {
+  display: inline-block;
+  margin-top: 9px;
+  background: #d6eadf;
+  color: #374151;
+  text-decoration: none;
+  padding: 9px 13px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.continue-link:hover {
+  background: #c4e1d2;
+}
+
+.empty-message {
+  background: #f6efe4;
+  border: 1px dashed #ddceb8;
+  padding: 22px;
+  border-radius: 18px;
+  color: #7a6f63;
+  text-align: center;
+}
+
+.login-message {
+  background: #fffaf1;
+  border: 1px solid #efe2cf;
+  border-radius: 22px;
+  padding: 28px;
+  text-align: center;
+  color: #7a6f63;
+  box-shadow: 0 8px 22px rgba(92, 74, 52, 0.06);
+}
+
+.login-message strong {
+  color: #374151;
+}
+
+footer {
+  text-align: center;
+  padding: 25px;
+  font-size: 13px;
+  color: #9a8f84;
+}
+
+@media (max-width: 900px) {
+  .progress-layout,
+  .progress-intro {
+    grid-template-columns: 1fr;
+  }
+
+  .summary-strip {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 750px) {
+  .progress-page-container { padding: 22px 18px; }
+
+  .progress-record {
+    grid-template-columns: 1fr;
+  }
+
+  .score-badge {
+    justify-self: flex-start;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div id="site-header"></div>
+
+<section class="hero">
+  <video autoplay muted loop playsinline>
+    <source src="assets/video/sky.mp4" type="video/mp4">
+  </video>
+</section>
+
+<main class="progress-page-container">
+
+<section class="progress-intro">
+  <div>
+    <h1>Progress</h1>
+    <p>Track your completed reading activities and continue the lessons you have already started.</p>
+  </div>
+
+  <div class="summary-strip">
+    <div class="summary-pill"><strong id="completedCount">0</strong> completed</div>
+    <div class="summary-pill"><strong id="progressCount">0</strong> in progress</div>
+    <div class="summary-pill"><strong id="averageScore">0%</strong> average score</div>
+  </div>
+</section>
+
+<section id="loginMessage" class="login-message" style="display:none;">
+  <strong>Please log in to see your progress.</strong><br>
+  Your completed and in-progress activities will appear here after you log in.
+</section>
+
+<section id="progressContent" class="progress-layout">
+  <div class="progress-panel">
+    <h2>Activities in Progress</h2>
+    <p class="panel-desc">Continue the reading activities you started but have not completed yet.</p>
+    <div id="progressList"></div>
+  </div>
+
+  <div class="progress-panel">
+    <h2>Completed Activities</h2>
+    <p class="panel-desc">Review your completed activities and scores.</p>
+    <div id="completedList"></div>
+  </div>
+</section>
+
+</main>
+
+<footer>© 2026 myReading Online</footer>
+
+<script>
+function setupUserDropdownMenu() {
+  const header = document.getElementById("site-header");
+  if (!header) return;
+
+  let avatar =
+    header.querySelector(".avatar") ||
+    header.querySelector(".user-avatar") ||
+    header.querySelector(".avatar-circle") ||
+    header.querySelector("[data-avatar]");
+
+  if (!avatar) {
+    const possibleElements = Array.from(header.querySelectorAll("div, span, button"));
+    avatar = possibleElements.find(el => {
+      const text = el.textContent.trim();
+      const style = window.getComputedStyle(el);
+      return text.length <= 2 &&
+             style.borderRadius.includes("50") &&
+             parseInt(style.width) >= 28 &&
+             parseInt(style.height) >= 28;
+    });
+  }
+
+  if (!avatar) return;
+  if (avatar.closest(".user-dropdown-wrapper")) return;
+
+  const parent = avatar.parentElement;
+  const wrapper = document.createElement("div");
+  wrapper.className = "user-dropdown-wrapper";
+
+  parent.insertBefore(wrapper, avatar);
+  wrapper.appendChild(avatar);
+
+  const toggle = document.createElement("button");
+  toggle.className = "user-dropdown-toggle";
+  toggle.type = "button";
+  toggle.innerHTML = "▼";
+
+  const menu = document.createElement("div");
+  menu.className = "user-dropdown-menu";
+  menu.innerHTML = `
+    <a href="profile.html">Profile</a>
+    <a href="feedback.html">Feedback</a>
+    <a href="help.html">Help / Support</a>
+    <button type="button" id="dropdownLogoutBtn">Logout</button>
+  `;
+
+  wrapper.appendChild(toggle);
+  wrapper.appendChild(menu);
+
+  function toggleMenu(event) {
+    event.stopPropagation();
+    menu.classList.toggle("show");
+  }
+
+  avatar.style.cursor = "pointer";
+  avatar.addEventListener("click", toggleMenu);
+  toggle.addEventListener("click", toggleMenu);
+
+  document.addEventListener("click", function(event) {
+    if (!wrapper.contains(event.target)) {
+      menu.classList.remove("show");
+    }
+  });
+
+  const logoutBtn = document.getElementById("dropdownLogoutBtn");
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", function() {
+      const existingLogout =
+        document.getElementById("logoutBtn") ||
+        document.querySelector("[data-logout]");
+
+      if (existingLogout && existingLogout !== logoutBtn) {
+        existingLogout.click();
+        return;
+      }
+
+      if (window.logoutUser) window.logoutUser();
+    });
+  }
+}
+
+function loadSiteHeader() {
+  fetch("header.html")
+    .then(res => res.text())
+    .then(data => {
+      document.getElementById("site-header").innerHTML = data;
+      setupUserDropdownMenu();
+
+      let logoClickCount = 0;
+      let logoClickTimer = null;
+      const logoLink = document.getElementById("logoHomeLink");
+
+      if (logoLink) {
+        logoLink.addEventListener("click", function(e) {
+          e.preventDefault();
+          logoClickCount++;
+          clearTimeout(logoClickTimer);
+
+          if (logoClickCount >= 5) {
+            window.location.href = "admin.html";
+            return;
+          }
+
+          logoClickTimer = setTimeout(() => {
+            logoClickCount = 0;
+            window.location.href = "index.html";
+          }, 700);
+        });
+      }
+
+      document.querySelectorAll("#site-header a").forEach(link => {
+        const text = link.textContent.trim().toLowerCase();
+        const href = link.getAttribute("href") || "";
+
+        if (text.includes("progress") || href.includes("progress.html")) {
+          link.style.background = "#d8dcf8";
+          link.style.color = "#5266c7";
+        }
+      });
+    })
+    .catch(err => console.error("Header could not be loaded:", err));
+}
+
+loadSiteHeader();
+
+function escapeHtml(value) {
+  return String(value === undefined || value === null ? "" : value)
+    .replace(/&/g, "&amp;")
+    .replace(/"/g, "&quot;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
+function safeArray(value) {
+  if (Array.isArray(value)) return value;
+  if (value && typeof value === "object") return Object.values(value);
+  return [];
+}
+
+function waitForFunction(functionName, timeout = 2500) {
+  return new Promise(resolve => {
+    const start = Date.now();
+
+    const timer = setInterval(() => {
+      if (typeof window[functionName] === "function") {
+        clearInterval(timer);
+        resolve(window[functionName]);
+        return;
+      }
+
+      if (Date.now() - start > timeout) {
+        clearInterval(timer);
+        resolve(null);
+      }
+    }, 100);
+  });
+}
+
+function activityUrl(item) {
+  return "activity.html?id=" + encodeURIComponent(item.id || item.activityId || item.readingId || "") +
+    "&title=" + encodeURIComponent(item.title || "Untitled Activity") +
+    "&level=" + encodeURIComponent(item.level || "") +
+    "&words=" + encodeURIComponent(item.words || 0);
+}
+
+async function getCurrentUserSafe() {
+  try {
+    const { auth } = await import("./firebase-config.js");
+
+    return new Promise(resolve => {
+      if (auth.currentUser) {
+        resolve(auth.currentUser);
+        return;
+      }
+
+      const unsubscribe = auth.onAuthStateChanged(user => {
+        unsubscribe();
+        resolve(user);
+      });
+    });
+  } catch (err) {
+    console.error("Auth check error:", err);
+    return null;
+  }
+}
+
+function renderCompleted(completed) {
+  const completedList = document.getElementById("completedList");
+
+  if (!completed || completed.length === 0) {
+    completedList.innerHTML = `
+      <div class="empty-message">
+        No completed activities yet.
+      </div>
+    `;
+    return;
+  }
+
+  completedList.innerHTML = completed.map(item => {
+    const score =
+      item.score === undefined ||
+      item.score === null ||
+      item.score === ""
+        ? 0
+        : item.score;
+
+    const total =
+      item.total === undefined ||
+      item.total === null ||
+      item.total === ""
+        ? (item.totalQuestions || 0)
+        : item.total;
+
+    return `
+      <div class="progress-record">
+        <div>
+          <strong>${escapeHtml(item.title || "Untitled Activity")}</strong>
+          <span>${escapeHtml(item.level || "")} Level</span>
+        </div>
+        <div class="score-badge">${escapeHtml(score)}/${escapeHtml(total)}</div>
+      </div>
+    `;
+  }).join("");
+}
+function renderProgress(inProgress) {
+  const progressList = document.getElementById("progressList");
+
+  if (!inProgress || inProgress.length === 0) {
+    progressList.innerHTML = `
+      <div class="empty-message">
+        No activities in progress.
+      </div>
+    `;
+    return;
+  }
+
+  progressList.innerHTML = inProgress.map(item => `
+    <div class="progress-record">
+      <div>
+        <strong>${escapeHtml(item.title || "Untitled Activity")}</strong>
+        <span>${escapeHtml(item.level || "")} Level</span><br>
+        <a class="continue-link" href="${activityUrl(item)}">Continue Activity</a>
+      </div>
+      <div class="score-badge">In Progress</div>
+    </div>
+  `).join("");
+}
+
+function updateSummary(completed, inProgress) {
+  document.getElementById("completedCount").innerText = completed.length;
+  document.getElementById("progressCount").innerText = inProgress.length;
+
+  let totalScore = 0;
+  let totalQuestions = 0;
+
+  completed.forEach(item => {
+    totalScore += Number(item.score || 0);
+    totalQuestions += Number(item.total || item.totalQuestions || 0);
+  });
+
+  const average = totalQuestions > 0
+    ? Math.round((totalScore / totalQuestions) * 100)
+    : 0;
+
+  document.getElementById("averageScore").innerText = average + "%";
+}
+
+async function initializeProgressPage() {
+  const user = await getCurrentUserSafe();
+
+  if (!user) {
+    document.getElementById("loginMessage").style.display = "block";
+    document.getElementById("progressContent").style.display = "none";
+    return;
+  }
+
+  try {
+    const loadCompleted = await waitForFunction("loadCompletedFromFirebase");
+    const loadProgress = await waitForFunction("loadProgressFromFirebase");
+
+    const completed = loadCompleted ? safeArray(await loadCompleted()) : [];
+    const inProgress = loadProgress ? safeArray(await loadProgress()) : [];
+
+    renderProgress(inProgress);
+    renderCompleted(completed);
+    updateSummary(completed, inProgress);
+
+  } catch (err) {
+    console.error("Progress page load error:", err);
+
+    renderProgress([]);
+    renderCompleted([]);
+    updateSummary([], []);
+  }
+}
+
+initializeProgressPage();
+</script>
+
+<script type="module" src="./auth-state.js"></script>
+<script type="module" src="./firebase-read.js"></script>
+</body>
+</html>

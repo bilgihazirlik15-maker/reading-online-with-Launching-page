@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Reading Admin Panel</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="header.css">
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f6efe4;
+  color: #374151;
+}
+
+.admin-nav-link {
+  background: #fff0bd !important;
+  color: #816200 !important;
+  border: 1px solid rgba(129, 98, 0, 0.25) !important;
+}
+
+.admin-nav-link:hover {
+  background: #ffe28a !important;
+  color: #6b4e00 !important;
+}
+
+.hero {
+  position: relative;
+  height: 240px;
+  overflow: hidden;
+}
+
+.hero video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.75);
+}
+
+.container {
+  max-width: 1250px;
+  margin: auto;
+  padding: 35px 20px;
+}
+
+.admin-title {
+  background: #fffaf1;
+  padding: 28px;
+  border-radius: 24px;
+  border: 1px solid #efe2cf;
+  margin-bottom: 25px;
+  box-shadow: 0 8px 22px rgba(92, 74, 52, 0.07);
+}
+
+.admin-title h1 {
+  margin: 0 0 8px;
+  font-size: 34px;
+}
+
+.admin-title p {
+  margin: 0;
+  color: #7a6f63;
+}
+
+.admin-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 24px;
+}
+
+.panel {
+  background: #fffaf1;
+  padding: 26px;
+  border-radius: 24px;
+  border: 1px solid #efe2cf;
+  box-shadow: 0 8px 22px rgba(92, 74, 52, 0.07);
+}
+
+.panel h2 {
+  margin-top: 0;
+}
+
+.form-group {
+  margin-bottom: 18px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 7px;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 13px 14px;
+  border-radius: 14px;
+  border: 1px solid #ddceb8;
+  background: #fff;
+  font-size: 15px;
+  color: #374151;
+}
+
+textarea {
+  min-height: 180px;
+  resize: vertical;
+  line-height: 1.6;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.question-card {
+  background: #f1eadf;
+  padding: 18px;
+  border-radius: 18px;
+  margin-bottom: 18px;
+  border: 1px solid #e5d7c4;
+}
+
+.question-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.question-top h3 {
+  margin: 0;
+}
+
+.remove-btn {
+  border: none;
+  background: #f3b5b5;
+  color: #7a2020;
+  padding: 8px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.remove-btn:hover {
+  background: #ef9999;
+}
+
+.option-grid {
+  display: grid;
+  gap: 10px;
+}
+
+.correct-area {
+  margin-top: 14px;
+}
+
+.truefalse-note,
+.short-answer-note {
+  background: #fffaf1;
+  border: 1px solid #e5d7c4;
+  padding: 12px;
+  border-radius: 14px;
+  font-size: 14px;
+  color: #7a6f63;
+  margin-bottom: 14px;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 22px;
+}
+
+button {
+  border: none;
+  padding: 14px 18px;
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.primary-btn {
+  background: #6b7fd7;
+  color: white;
+}
+
+.primary-btn:hover {
+  background: #5266c7;
+}
+
+.secondary-btn {
+  background: #d6eadf;
+  color: #2f6650;
+}
+
+.secondary-btn:hover {
+  background: #bfe0d1;
+}
+
+.warning-btn {
+  background: #fff0bd;
+  color: #816200;
+}
+
+.warning-btn:hover {
+  background: #ffe28a;
+}
+
+.preview-box {
+  background: #f1eadf;
+  padding: 18px;
+  border-radius: 18px;
+  border: 1px solid #e5d7c4;
+  max-height: 650px;
+  overflow: auto;
+}
+
+.preview-box pre {
+  white-space: pre-wrap;
+  word-break: break-word;
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.small-note {
+  font-size: 13px;
+  color: #7a6f63;
+  margin-top: 6px;
+}
+
+.type-badge {
+  display: inline-block;
+  background: #fff0bd;
+  color: #816200;
+  padding: 5px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  margin-left: 8px;
+}
+
+
+/* === STUDENT BATCH UPLOAD === */
+
+.student-upload-section {
+  margin-top: 24px;
+}
+
+.student-upload-card {
+  background: #fffaf1;
+  border: 1px solid #efe2cf;
+  border-radius: 24px;
+  padding: 26px;
+  box-shadow: 0 8px 22px rgba(92, 74, 52, 0.07);
+}
+
+.student-upload-card h2 {
+  margin-top: 0;
+}
+
+.student-upload-card p {
+  color: #7a6f63;
+  line-height: 1.5;
+}
+
+.student-upload-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 18px;
+  flex-wrap: nowrap;
+}
+
+.student-upload-actions button,
+.student-file-label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: #6b7fd7;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 13px;
+  white-space: nowrap;
+  min-width: 140px;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.student-upload-actions button:hover,
+.student-file-label:hover {
+  background: #5266c7;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(82, 102, 199, 0.18);
+}
+
+.student-upload-actions button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.student-upload-message {
+  font-size: 14px;
+  margin-top: 14px;
+}
+
+.csv-format-box {
+  background: #f1eadf;
+  border: 1px solid #e5d7c4;
+  border-radius: 18px;
+  padding: 16px;
+  margin-top: 18px;
+  color: #7a6f63;
+}
+
+.csv-format-box code {
+  display: block;
+  background: #fffaf1;
+  border: 1px solid #efe2cf;
+  border-radius: 12px;
+  padding: 12px;
+  margin-top: 10px;
+  color: #374151;
+  overflow-x: auto;
+  white-space: pre;
+}
+
+.student-upload-empty {
+  background: #f6efe4;
+  border: 1px dashed #ddceb8;
+  border-radius: 16px;
+  padding: 18px;
+  color: #7a6f63;
+  margin-top: 16px;
+}
+
+.student-upload-count {
+  color: #7a6f63;
+  margin: 16px 0 10px;
+  font-size: 14px;
+}
+
+.student-upload-table-wrap {
+  overflow-x: auto;
+  margin-top: 10px;
+}
+
+.student-upload-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 760px;
+  background: #fffaf1;
+}
+
+.student-upload-table th {
+  text-align: left;
+  padding: 12px;
+  background: #f1eadf;
+  color: #374151;
+  font-size: 14px;
+}
+
+.student-upload-table td {
+  padding: 12px;
+  border-bottom: 1px solid #efe2cf;
+  font-size: 14px;
+}
+
+.student-status {
+  display: inline-block;
+  border-radius: 999px;
+  padding: 5px 9px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.student-status.ready {
+  background: #d6eadf;
+  color: #2f6650;
+}
+
+.student-status.error {
+  background: #f2d1cf;
+  color: #7a1f1b;
+}
+
+.student-status.uploaded {
+  background: #d8dcf8;
+  color: #5266c7;
+}
+
+footer {
+  text-align: center;
+  padding: 25px;
+  font-size: 13px;
+  color: #9a8f84;
+}
+
+@media (max-width: 900px) {
+  .admin-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .student-upload-actions {
+    flex-wrap: wrap;
+  }
+}
+
+
+/* === STUDENT UPLOAD WRAPPER ALIGNMENT FIX === */
+
+.student-upload-actions-wrapper {
+  width: 100%;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  margin-top: 18px !important;
+}
+
+.student-upload-actions {
+  display: inline-flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 12px !important;
+  width: auto !important;
+  margin: 0 auto !important;
+  flex-wrap: nowrap !important;
+}
+
+.student-upload-actions button,
+.student-upload-actions label,
+.student-file-label {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  height: 42px !important;
+  min-width: 180px !important;
+  padding: 0 16px !important;
+  margin: 0 !important;
+  border: none !important;
+  border-radius: 999px !important;
+  background: #6b7fd7 !important;
+  color: white !important;
+  text-decoration: none !important;
+  font-weight: bold !important;
+  font-size: 13px !important;
+  line-height: 1 !important;
+  text-align: center !important;
+  white-space: nowrap !important;
+  box-sizing: border-box !important;
+  cursor: pointer !important;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08) !important;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease !important;
+  vertical-align: middle !important;
+}
+
+.student-upload-actions button:hover,
+.student-upload-actions label:hover,
+.student-file-label:hover {
+  background: #5266c7 !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 6px 14px rgba(82, 102, 199, 0.18) !important;
+}
+
+@media (max-width: 900px) {
+  .student-upload-actions {
+    width: 100% !important;
+    flex-wrap: wrap !important;
+  }
+
+  .student-upload-actions button,
+  .student-upload-actions label,
+  .student-file-label {
+    min-width: 170px !important;
+  }
+}
+
+
+/* === STUDENT UPLOAD CLASS SELECT === */
+
+.student-class-select-area {
+  max-width: 520px;
+  margin: 18px auto 0;
+  text-align: left;
+}
+
+.student-class-select-area label {
+  display: block;
+  font-weight: bold;
+  color: #374151;
+  margin-bottom: 7px;
+}
+
+.student-class-select-area select {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid #ddceb8;
+  background: #fffaf1;
+  color: #374151;
+  font-size: 14px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="site-header"></div>
+
+<section class="hero">
+  <video autoplay muted loop playsinline>
+    <source src="assets/video/sky.mp4" type="video/mp4">
+  </video>
+</section>
+
+<main class="container">
+
+<section class="admin-title">
+  <h1>Reading Content Admin</h1>
+  <p>Create reading texts, choose question types, add answers, and export the activity as JSON.</p>
+</section>
+
+<section class="admin-grid">
+
+  <div class="panel">
+    <h2>Activity Details</h2>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="readingId">Activity ID</label>
+        <input id="readingId" placeholder="b2-reading-1">
+        <div class="small-note">Use lowercase letters, numbers, and hyphens.</div>
+      </div>
+
+      <div class="form-group">
+        <label for="level">Level</label>
+        <select id="level">
+          <option value="A1">A1</option>
+          <option value="A2" selected>A2</option>
+          <option value="B1">B1</option>
+          <option value="B2">B2</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="title">Reading Title</label>
+      <input id="title" placeholder="A Strange Story on the Mountains">
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="words">Word Count</label>
+        <input id="words" type="number" placeholder="450">
+      </div>
+
+      <div class="form-group">
+        <label for="image">Image URL / Path</label>
+        <input id="image" placeholder="assets/images/mountains.jpg">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="readingText">Reading Text</label>
+      <textarea id="readingText" placeholder="Paste or write the reading text here..."></textarea>
+    </div>
+
+    <h2>Questions</h2>
+    <div id="questionsContainer"></div>
+
+    <div class="actions">
+      <button class="secondary-btn" onclick="addQuestion()">+ Add Question</button>
+      <button class="warning-btn" onclick="updatePreview()">Preview JSON</button>
+      <button class="primary-btn" onclick="downloadJSON()">Download JSON</button>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>JSON Preview</h2>
+    <div class="preview-box">
+      <pre id="jsonPreview">Your JSON will appear here.</pre>
+    </div>
+
+    <section class="student-upload-section">
+      <div class="student-upload-card">
+        <h2>Student Batch Upload</h2>
+        <p>Upload students with a CSV file. The system will create Firebase Auth accounts and student profiles, then connect each student to the class code in the CSV.</p>
+
+        <div class="student-upload-actions-wrapper">
+          <div class="student-upload-actions">
+            <button type="button" id="studentTemplateButton">Download CSV Template</button>
+
+            <label class="student-file-label" for="studentCSVInput">
+              Choose CSV File
+            </label>
+
+            <input
+              type="file"
+              id="studentCSVInput"
+              accept=".csv"
+              style="display:none;"
+            >
+
+            <button type="button" id="studentUploadButton">Upload Students</button>
+          </div>
+        </div>
+
+        <div class="student-class-select-area">
+          <label for="studentUploadClassSelect">Choose Class for Uploaded Students</label>
+          <select id="studentUploadClassSelect">
+            <option value="">Loading classes...</option>
+          </select>
+          <div class="small-note">Students in the CSV will be added to this selected class. The classCode column in the CSV can be left blank.</div>
+        </div>
+
+        <p id="studentUploadMessage" class="student-upload-message"></p>
+
+        <div class="csv-format-box">
+          <strong>CSV Format</strong>
+          <code>email,password,name,classCode,level
+ayse.student@example.com,Temp1234,Ayşe Yılmaz,A2MORNING,A2
+mehmet.student@example.com,Temp1234,Mehmet Demir,A2MORNING,A2</code>
+        </div>
+
+        <div id="studentUploadPreview"></div>
+      </div>
+    </section>
+  </div>
+
+</section>
+
+
+
+</main>
+
+<footer>© 2026 myReading Online</footer>
+
+<script>
+function loadSiteHeader() {
+  fetch("header.html")
+    .then(res => res.text())
+    .then(data => {
+      document.getElementById("site-header").innerHTML = data;
+
+      let logoClickCount = 0;
+      let logoClickTimer = null;
+      const logoLink = document.getElementById("logoHomeLink");
+
+      if (logoLink) {
+        logoLink.addEventListener("click", function(e) {
+          e.preventDefault();
+          logoClickCount++;
+
+          clearTimeout(logoClickTimer);
+
+          if (logoClickCount >= 5) {
+            window.location.href = "admin.html";
+            return;
+          }
+
+          logoClickTimer = setTimeout(() => {
+            logoClickCount = 0;
+            window.location.href = "index.html";
+          }, 700);
+        });
+      }
+    })
+    .catch(err => {
+      console.error("Header could not be loaded:", err);
+    });
+}
+
+loadSiteHeader();
+
+let questionCount = 0;
+
+function addQuestion(data = null) {
+  questionCount++;
+
+  const container = document.getElementById("questionsContainer");
+
+  const type = data && data.type ? data.type : "multiple";
+
+  const card = document.createElement("div");
+  card.className = "question-card";
+  card.dataset.questionId = questionCount;
+
+  card.innerHTML = `
+    <div class="question-top">
+      <h3>Question ${questionCount}<span class="type-badge">Multiple Choice</span></h3>
+      <button class="remove-btn" onclick="removeQuestion(this)">Remove</button>
+    </div>
+
+    <div class="form-group">
+      <label>Question Type</label>
+      <select class="type-select" onchange="handleTypeChange(this)">
+        <option value="multiple" ${type === "multiple" ? "selected" : ""}>Multiple Choice</option>
+        <option value="truefalse" ${type === "truefalse" ? "selected" : ""}>True / False</option>
+        <option value="short" ${type === "short" ? "selected" : ""}>Short Answer</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Question Text</label>
+      <input class="question-input" placeholder="Write the question here..." value="${data ? escapeHtml(data.question || "") : ""}">
+    </div>
+
+    <div class="dynamic-question-area"></div>
+  `;
+
+  container.appendChild(card);
+
+  renderQuestionFields(card, data);
+  updateQuestionTypeBadge(card);
+  updatePreview();
+}
+
+function renderQuestionFields(card, data = null) {
+  const type = card.querySelector(".type-select").value;
+  const area = card.querySelector(".dynamic-question-area");
+
+  if (type === "multiple") {
+    const options = data && data.options ? data.options : ["", "", "", ""];
+    const answer = data && typeof data.answer === "number" ? data.answer : 0;
+
+    area.innerHTML = `
+      <div class="option-grid">
+        <div class="form-group">
+          <label>Option A</label>
+          <input class="option-input" placeholder="Option A" value="${escapeHtml(options[0] || "")}">
+        </div>
+
+        <div class="form-group">
+          <label>Option B</label>
+          <input class="option-input" placeholder="Option B" value="${escapeHtml(options[1] || "")}">
+        </div>
+
+        <div class="form-group">
+          <label>Option C</label>
+          <input class="option-input" placeholder="Option C" value="${escapeHtml(options[2] || "")}">
+        </div>
+
+        <div class="form-group">
+          <label>Option D</label>
+          <input class="option-input" placeholder="Option D optional" value="${escapeHtml(options[3] || "")}">
+        </div>
+      </div>
+
+      <div class="correct-area">
+        <label>Correct Answer</label>
+        <select class="correct-select">
+          <option value="0" ${answer === 0 ? "selected" : ""}>A</option>
+          <option value="1" ${answer === 1 ? "selected" : ""}>B</option>
+          <option value="2" ${answer === 2 ? "selected" : ""}>C</option>
+          <option value="3" ${answer === 3 ? "selected" : ""}>D</option>
+        </select>
+      </div>
+    `;
+  }
+
+  if (type === "truefalse") {
+    const answer = data && typeof data.answer === "number" ? data.answer : 0;
+
+    area.innerHTML = `
+      <div class="truefalse-note">
+        This question will automatically use two options: <strong>True</strong> and <strong>False</strong>.
+      </div>
+
+      <div class="correct-area">
+        <label>Correct Answer</label>
+        <select class="correct-select">
+          <option value="0" ${answer === 0 ? "selected" : ""}>True</option>
+          <option value="1" ${answer === 1 ? "selected" : ""}>False</option>
+        </select>
+      </div>
+    `;
+  }
+
+  if (type === "short") {
+    const answerText = data && data.answerText ? data.answerText : "";
+
+    area.innerHTML = `
+      <div class="short-answer-note">
+        Students will type a short answer. The system will compare it with the accepted answer below.
+      </div>
+
+      <div class="form-group">
+        <label>Accepted Answer</label>
+        <input class="answer-text-input" placeholder="Example: a cave" value="${escapeHtml(answerText)}">
+        <div class="small-note">Use one clear answer for now. Later we can add alternative accepted answers.</div>
+      </div>
+    `;
+  }
+
+  updatePreview();
+}
+
+function handleTypeChange(select) {
+  const card = select.closest(".question-card");
+  renderQuestionFields(card);
+  updateQuestionTypeBadge(card);
+  updatePreview();
+}
+
+function updateQuestionTypeBadge(card) {
+  const type = card.querySelector(".type-select").value;
+  const badge = card.querySelector(".type-badge");
+
+  if (type === "multiple") badge.innerText = "Multiple Choice";
+  if (type === "truefalse") badge.innerText = "True / False";
+  if (type === "short") badge.innerText = "Short Answer";
+}
+
+function removeQuestion(button) {
+  button.closest(".question-card").remove();
+  renumberQuestions();
+  updatePreview();
+}
+
+function renumberQuestions() {
+  document.querySelectorAll(".question-card").forEach((card, index) => {
+    const type = card.querySelector(".type-select").value;
+    let label = "Multiple Choice";
+
+    if (type === "truefalse") label = "True / False";
+    if (type === "short") label = "Short Answer";
+
+    card.querySelector("h3").innerHTML =
+      "Question " + (index + 1) + `<span class="type-badge">${label}</span>`;
+  });
+}
+
+function slugify(text) {
+  return text
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+function collectData() {
+  const title = document.getElementById("title").value.trim();
+  const manualId = document.getElementById("readingId").value.trim();
+
+  const questions = [];
+
+  document.querySelectorAll(".question-card").forEach(card => {
+    const type = card.querySelector(".type-select").value;
+    const question = card.querySelector(".question-input").value.trim();
+
+    if (!question) return;
+
+    if (type === "multiple") {
+      const options = Array.from(card.querySelectorAll(".option-input"))
+        .map(input => input.value.trim())
+        .filter(option => option !== "");
+
+      const answer = Number(card.querySelector(".correct-select").value);
+
+      if (options.length >= 2) {
+        questions.push({
+          type: "multiple",
+          question,
+          options,
+          answer
+        });
+      }
+    }
+
+    if (type === "truefalse") {
+      const answer = Number(card.querySelector(".correct-select").value);
+
+      questions.push({
+        type: "truefalse",
+        question,
+        options: ["True", "False"],
+        answer
+      });
+    }
+
+    if (type === "short") {
+      const answerText = card.querySelector(".answer-text-input").value.trim();
+
+      if (answerText) {
+        questions.push({
+          type: "short",
+          question,
+          answerText
+        });
+      }
+    }
+  });
+
+  return {
+    id: manualId || slugify(title) || "new-reading-activity",
+    title: title || "Untitled Reading",
+    level: document.getElementById("level").value,
+    words: Number(document.getElementById("words").value) || 0,
+    image: document.getElementById("image").value.trim(),
+    text: document.getElementById("readingText").value.trim(),
+    questions
+  };
+}
+
+function updatePreview() {
+  const data = collectData();
+  document.getElementById("jsonPreview").innerText = JSON.stringify(data, null, 2);
+}
+
+function downloadJSON() {
+  const data = collectData();
+
+  if (!data.title || data.title === "Untitled Reading") {
+    alert("Please enter a reading title.");
+    return;
+  }
+
+  if (!data.text) {
+    alert("Please enter the reading text.");
+    return;
+  }
+
+  if (data.questions.length === 0) {
+    alert("Please add at least one valid question.");
+    return;
+  }
+
+  const invalidMultiple = data.questions.find(q =>
+    q.type === "multiple" &&
+    (q.answer < 0 || q.answer >= q.options.length)
+  );
+
+  if (invalidMultiple) {
+    alert("One multiple-choice question has a correct answer outside the filled options. Please check it.");
+    return;
+  }
+
+  const json = JSON.stringify(data, null, 2);
+  const blob = new Blob([json], { type: "application/json" });
+
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = data.id + ".json";
+  a.click();
+
+  URL.revokeObjectURL(a.href);
+}
+
+function escapeHtml(value) {
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;");
+}
+
+document.addEventListener("input", updatePreview);
+document.addEventListener("change", updatePreview);
+
+document.getElementById("title").addEventListener("input", function() {
+  const idInput = document.getElementById("readingId");
+  if (!idInput.value.trim()) {
+    idInput.value = slugify(this.value);
+  }
+});
+
+updatePreview();
+</script>
+
+<script type="module" src="./admin-student-upload-v5.js?v=5"></script>
+</body>
+</html>

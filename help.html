@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Help / Support | myReading Online</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="header.css">
+<style>
+* { box-sizing: border-box; }
+body { margin: 0; font-family: Arial, sans-serif; background: #f6efe4; color: #374151; }
+.hero { position: relative; height: 120px; overflow: hidden; }
+.hero video { position: absolute; top: 50%; left: 50%; width: 100%; height: 108px; transform: translate(-50%, -50%); object-fit: cover; }
+.hero::after { content: ""; position: absolute; inset: 0; background: rgba(255,255,255,0.75); }
+.container { width: 100%; max-width: 1050px; margin: 0 auto; padding: 30px 24px; }
+.page-card { background: #fffaf1; border: 1px solid #efe2cf; border-radius: 24px; padding: 28px; box-shadow: 0 8px 22px rgba(92, 74, 52, 0.07); margin-bottom: 22px; }
+.page-card h1, .page-card h2 { margin-top: 0; }
+.help-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+.help-item { background: #f1eadf; border: 1px solid #e5d7c4; border-radius: 18px; padding: 18px; }
+.help-item h3 { margin-top: 0; }
+.help-item p { color: #7a6f63; line-height: 1.5; }
+.back-link { display: inline-block; margin-top: 12px; background: #6b7fd7; color: white; text-decoration: none; padding: 11px 16px; border-radius: 999px; font-weight: bold; }
+footer { text-align: center; padding: 25px; font-size: 13px; color: #9a8f84; }
+@media (max-width: 800px) { .help-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div id="site-header"></div>
+<section class="hero">
+  <video autoplay muted loop playsinline><source src="assets/video/sky.mp4" type="video/mp4"></video>
+</section>
+<main class="container">
+  <section class="page-card">
+    <h1>Help / Support</h1>
+    <p>Quick guide for using myReading Online.</p>
+  </section>
+  <section class="help-grid">
+    <div class="help-item">
+      <h3>How do I start a reading activity?</h3>
+      <p>Go to the home page, choose your level, or open one of the reading cards. Then click Start or View Lesson.</p>
+    </div>
+    <div class="help-item">
+      <h3>Where can I see my progress?</h3>
+      <p>Open the Progress page. You can see completed activities, activities in progress, and average score.</p>
+    </div>
+    <div class="help-item">
+      <h3>How do I join a class?</h3>
+      <p>Use the Join a Class box on the home page. Enter the class code your teacher gives you.</p>
+    </div>
+    <div class="help-item">
+      <h3>Why can’t I see Teacher or Admin links?</h3>
+      <p>Those links are role-based. Students do not see them. Teachers see Teacher, and admins see both Teacher and Admin.</p>
+    </div>
+    <div class="help-item">
+      <h3>My activity does not appear in progress.</h3>
+      <p>Refresh the page with Ctrl + F5. If it still does not appear, send feedback with the activity title.</p>
+    </div>
+    <div class="help-item">
+      <h3>I need more support.</h3>
+      <p>Use the Feedback page to send a bug report or suggestion.</p>
+    </div>
+  </section>
+  <section class="page-card">
+    <h2>Need help?</h2>
+    <p>You can send a message from the Feedback page.</p>
+    <a class="back-link" href="feedback.html">Go to Feedback</a>
+    <a class="back-link" href="index.html">Back to Home</a>
+  </section>
+</main>
+<footer>© 2026 myReading Online</footer>
+<script>
+function loadSiteHeader() {
+  fetch("header.html")
+    .then(res => res.text())
+    .then(data => { document.getElementById("site-header").innerHTML = data; })
+    .catch(err => console.error("Header could not be loaded:", err));
+}
+loadSiteHeader();
+</script>
+<script type="module" src="./auth-state.js"></script>
+<script type="module" src="./protect-page.js"></script>
+</body>
+</html>

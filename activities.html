@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Activities | myReading Online</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="header.css">
+
+<style>
+* { box-sizing: border-box; }
+
+.site-logo,
+.logo,
+.header-logo,
+#siteLogo,
+#logoHomeLink img {
+  transform: translateX(-18px) scale(1.2);
+  transform-origin: left center;
+}
+
+#logoHomeLink { margin-right: 0 !important; }
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f6efe4;
+  color: #374151;
+}
+
+.admin-nav-link {
+  background: #fff0bd !important;
+  color: #816200 !important;
+  border: 1px solid rgba(129, 98, 0, 0.25) !important;
+}
+
+.admin-nav-link:hover {
+  background: #ffe28a !important;
+  color: #6b4e00 !important;
+}
+
+/* USER DROPDOWN MENU */
+.user-dropdown-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.user-dropdown-toggle {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 13px;
+  color: #6b7280;
+  padding: 4px;
+}
+
+.user-dropdown-menu {
+  position: absolute;
+  top: 46px;
+  right: 0;
+  width: 185px;
+  background: #fffaf1;
+  border: 1px solid #efe2cf;
+  border-radius: 16px;
+  box-shadow: 0 12px 28px rgba(92, 74, 52, 0.18);
+  padding: 8px;
+  display: none;
+  z-index: 9999;
+}
+
+.user-dropdown-menu.show { display: block; }
+
+.user-dropdown-menu a,
+.user-dropdown-menu button {
+  width: 100%;
+  display: block;
+  text-align: left;
+  border: none;
+  background: transparent;
+  color: #374151;
+  text-decoration: none;
+  padding: 11px 12px;
+  border-radius: 10px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.user-dropdown-menu a:hover,
+.user-dropdown-menu button:hover {
+  background: #eadfce;
+  color: #5266c7;
+}
+
+.hero {
+  position: relative;
+  height: 120px;
+  overflow: hidden;
+}
+
+.hero video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 108px;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.75);
+}
+
+.activities-page-container {
+  width: 100%;
+  max-width: 1450px;
+  margin: 0 auto;
+  padding: 30px 36px;
+}
+
+.activities-intro {
+  background: #eadfce;
+  border: 1px solid #ddceb8;
+  box-shadow: 0 8px 22px rgba(92, 74, 52, 0.06);
+  border-radius: 24px;
+  padding: 26px 28px;
+  margin-bottom: 24px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 20px;
+  align-items: center;
+}
+
+.activities-intro h1 {
+  margin: 0 0 8px;
+  font-size: 32px;
+  color: #374151;
+}
+
+.activities-intro p {
+  margin: 0;
+  color: #7a6f63;
+  font-size: 16px;
+}
+
+.activities-summary {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.activities-summary-pill {
+  background: #fffaf1;
+  border: 1px solid #efe2cf;
+  border-radius: 999px;
+  padding: 10px 15px;
+  font-size: 14px;
+  color: #7a6f63;
+  white-space: nowrap;
+}
+
+.activities-summary-pill strong { color: #5266c7; }
+
+.activities-toolbar {
+  background: #fffaf1;
+  border: 1px solid #efe2cf;
+  border-radius: 22px;
+  padding: 18px;
+  margin-bottom: 24px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 16px;
+  align-items: center;
+  box-shadow: 0 8px 22px rgba(92, 74, 52, 0.06);
+}
+
+.activities-search-box {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #f6efe4;
+  border: 1px solid #ddceb8;
+  border-radius: 999px;
+  padding: 8px 14px;
+}
+
+.activities-search-box span {
+  color: #9a8f84;
+  font-size: 18px;
+}
+
+.activities-search-box input {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 15px;
+  color: #374151;
+  padding: 7px 0;
+}
+
+.activities-level-controls {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.activities-level-btn {
+  border: none;
+  padding: 12px 18px;
+  border-radius: 999px;
+  background: #d8dcf8;
+  color: #5266c7;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  white-space: nowrap;
+  transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.activities-level-btn.active,
+.activities-level-btn:hover {
+  background: #aebcf5;
+  color: white;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(82, 102, 199, 0.18);
+}
+
+.activities-sub-toolbar {
+  margin: -8px 0 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #7a6f63;
+  font-size: 14px;
+}
+
+.activities-status-controls {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.activities-status-btn {
+  border: 1px solid #ddceb8;
+  background: #fffaf1;
+  color: #7a6f63;
+  padding: 8px 13px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.activities-status-btn.active,
+.activities-status-btn:hover {
+  background: #d6eadf;
+  color: #374151;
+}
+
+.activities-card-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+  align-items: stretch;
+}
+
+.activities-card {
+  position: relative;
+  background: #fffaf1;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid #efe2cf;
+  box-shadow: 0 8px 22px rgba(92, 74, 52, 0.08);
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  min-height: 330px;
+  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+}
+
+.activities-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 30px rgba(92, 74, 52, 0.16);
+  border-color: rgba(107, 127, 215, 0.35);
+}
+
+.activities-card-image {
+  position: relative;
+  width: 100%;
+  height: 145px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.activities-card-image img {
+  width: 100%;
+  height: 145px;
+  object-fit: cover;
+  transition: transform 0.28s ease;
+}
+
+.activities-card:hover img { transform: scale(1.035); }
+
+.activities-level-label {
+  display: inline-block;
+  align-self: flex-start;
+  background: #fff0bd;
+  padding: 5px 11px;
+  border-radius: 999px;
+  font-size: 12px;
+}
+
+.activities-assigned-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: #6b7fd7;
+  color: white;
+  border-radius: 999px;
+  padding: 7px 11px;
+  font-size: 12px;
+  font-weight: bold;
+  box-shadow: 0 6px 14px rgba(82, 102, 199, 0.22);
+}
+
+.activities-card-content {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.activities-card h3 {
+  margin: 9px 0 8px;
+  line-height: 1.15;
+  min-height: 46px;
+}
+
+.activities-meta {
+  font-size: 13px;
+  color: #7a6f63;
+  margin-bottom: 12px;
+}
+
+.activities-status-line {
+  margin-top: auto;
+  background: #f1eadf;
+  border-radius: 14px;
+  padding: 10px 11px;
+  font-size: 13px;
+  color: #7a6f63;
+}
+
+.activities-status-line strong { color: #374151; }
+
+.activities-action {
+  margin-top: 12px;
+  width: 100%;
+  display: inline-block;
+  text-align: center;
+  padding: 11px;
+  border: none;
+  background: #d6eadf;
+  border-radius: 12px;
+  cursor: pointer;
+  color: #374151;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 14px;
+  transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.activities-action:hover {
+  transform: translateY(-1px);
+  background: #c4e1d2;
+  box-shadow: 0 6px 14px rgba(82, 102, 199, 0.12);
+}
+
+.activities-empty {
+  background: #fffaf1;
+  border: 1px solid #efe2cf;
+  padding: 28px;
+  border-radius: 18px;
+  color: #7a6f63;
+  text-align: center;
+  grid-column: 1 / -1;
+}
+
+footer {
+  text-align: center;
+  padding: 25px;
+  font-size: 13px;
+  color: #9a8f84;
+}
+
+@media (max-width: 1100px) {
+  .activities-card-grid { grid-template-columns: repeat(3, 1fr); }
+  .activities-intro,
+  .activities-toolbar { grid-template-columns: 1fr; }
+  .activities-summary,
+  .activities-level-controls { justify-content: flex-start; }
+}
+
+@media (max-width: 750px) {
+  .activities-page-container { padding: 22px 18px; }
+  .activities-card-grid { grid-template-columns: repeat(2, 1fr); }
+  .activities-sub-toolbar {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .activities-card-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+
+<body>
+
+<div id="site-header"></div>
+
+<section class="hero">
+  <video autoplay muted loop playsinline>
+    <source src="assets/video/sky.mp4" type="video/mp4">
+  </video>
+</section>
+
+<main class="activities-page-container">
+
+<section class="activities-intro">
+  <div>
+    <h1>Activities</h1>
+    <p>Browse all reading activities, filter by level, and continue your learning from where you stopped.</p>
+  </div>
+
+  <div class="activities-summary">
+    <div class="activities-summary-pill"><strong id="activitiesTotalCount">0</strong> total</div>
+    <div class="activities-summary-pill"><strong id="activitiesCompletedCount">0</strong> completed</div>
+    <div class="activities-summary-pill"><strong id="activitiesProgressCount">0</strong> in progress</div>
+  </div>
+</section>
+
+<section class="activities-toolbar">
+  <label class="activities-search-box" for="activitiesSearchInput">
+    <span>⌕</span>
+    <input
+      id="activitiesSearchInput"
+      type="search"
+      name="activities_search_not_email"
+      placeholder="Search activities..."
+      autocomplete="off"
+      autocorrect="off"
+      autocapitalize="off"
+      spellcheck="false"
+      value=""
+    >
+  </label>
+
+  <div class="activities-level-controls">
+    <button type="button" class="activities-level-btn active" data-activity-level="ALL">All</button>
+    <button type="button" class="activities-level-btn" data-activity-level="A1">A1</button>
+    <button type="button" class="activities-level-btn" data-activity-level="A2">A2</button>
+    <button type="button" class="activities-level-btn" data-activity-level="B1">B1</button>
+    <button type="button" class="activities-level-btn" data-activity-level="B2">B2</button>
+  </div>
+</section>
+
+<section class="activities-sub-toolbar">
+  <div id="activitiesResultInfo">Loading activities...</div>
+
+  <div class="activities-status-controls">
+    <button type="button" class="activities-status-btn active" data-activity-status="ALL">All Status</button>
+    <button type="button" class="activities-status-btn" data-activity-status="NOT_STARTED">Not Started</button>
+    <button type="button" class="activities-status-btn" data-activity-status="IN_PROGRESS">In Progress</button>
+    <button type="button" class="activities-status-btn" data-activity-status="COMPLETED">Completed</button>
+    <button type="button" class="activities-status-btn" data-activity-status="ASSIGNED">Assigned</button>
+  </div>
+</section>
+
+<section class="activities-card-grid" id="activitiesCardGrid"></section>
+
+</main>
+
+<footer>© 2026 myReading Online</footer>
+
+<script>
+function setupUserDropdownMenu() {
+  const header = document.getElementById("site-header");
+  if (!header) return;
+
+  let avatar =
+    header.querySelector(".avatar") ||
+    header.querySelector(".user-avatar") ||
+    header.querySelector(".avatar-circle") ||
+    header.querySelector("[data-avatar]");
+
+  if (!avatar) {
+    const possibleElements = Array.from(header.querySelectorAll("div, span, button"));
+    avatar = possibleElements.find(el => {
+      const text = el.textContent.trim();
+      const style = window.getComputedStyle(el);
+      return text.length <= 2 &&
+             style.borderRadius.includes("50") &&
+             parseInt(style.width) >= 28 &&
+             parseInt(style.height) >= 28;
+    });
+  }
+
+  if (!avatar) return;
+  if (avatar.closest(".user-dropdown-wrapper")) return;
+
+  const parent = avatar.parentElement;
+  const wrapper = document.createElement("div");
+  wrapper.className = "user-dropdown-wrapper";
+
+  parent.insertBefore(wrapper, avatar);
+  wrapper.appendChild(avatar);
+
+  const toggle = document.createElement("button");
+  toggle.className = "user-dropdown-toggle";
+  toggle.type = "button";
+  toggle.innerHTML = "▼";
+  toggle.setAttribute("aria-label", "Open user menu");
+
+  const menu = document.createElement("div");
+  menu.className = "user-dropdown-menu";
+  menu.innerHTML = `
+    <a href="profile.html">Profile</a>
+    <a href="feedback.html">Feedback</a>
+    <a href="help.html">Help / Support</a>
+    <button type="button" id="dropdownLogoutBtn">Logout</button>
+  `;
+
+  wrapper.appendChild(toggle);
+  wrapper.appendChild(menu);
+
+  function toggleMenu(event) {
+    event.stopPropagation();
+    menu.classList.toggle("show");
+  }
+
+  avatar.style.cursor = "pointer";
+  avatar.addEventListener("click", toggleMenu);
+  toggle.addEventListener("click", toggleMenu);
+
+  document.addEventListener("click", function(event) {
+    if (!wrapper.contains(event.target)) {
+      menu.classList.remove("show");
+    }
+  });
+
+  const logoutBtn = document.getElementById("dropdownLogoutBtn");
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", function() {
+      const existingLogout =
+        document.getElementById("logoutBtn") ||
+        document.querySelector("[data-logout]");
+
+      if (existingLogout && existingLogout !== logoutBtn) {
+        existingLogout.click();
+        return;
+      }
+
+      if (window.logoutUser) window.logoutUser();
+    });
+  }
+}
+
+function loadSiteHeader() {
+  fetch("header.html")
+    .then(res => res.text())
+    .then(data => {
+      document.getElementById("site-header").innerHTML = data;
+      setupUserDropdownMenu();
+
+      let logoClickCount = 0;
+      let logoClickTimer = null;
+      const logoLink = document.getElementById("logoHomeLink");
+
+      if (logoLink) {
+        logoLink.addEventListener("click", function(e) {
+          e.preventDefault();
+          logoClickCount++;
+          clearTimeout(logoClickTimer);
+
+          if (logoClickCount >= 5) {
+            window.location.href = "admin.html";
+            return;
+          }
+
+          logoClickTimer = setTimeout(() => {
+            logoClickCount = 0;
+            window.location.href = "index.html";
+          }, 700);
+        });
+      }
+
+      document.querySelectorAll("#site-header a").forEach(link => {
+        const text = link.textContent.trim().toLowerCase();
+        const href = link.getAttribute("href") || "";
+        if (text.includes("activities") || href.includes("activities.html")) {
+          link.style.background = "#d8dcf8";
+          link.style.color = "#5266c7";
+        }
+      });
+    })
+    .catch(err => console.error("Header could not be loaded:", err));
+}
+
+loadSiteHeader();
+
+const activitiesState = {
+  readings: [],
+  completed: [],
+  progress: [],
+  assignedIds: new Set(),
+  level: "ALL",
+  status: "ALL",
+  search: ""
+};
+
+function activitiesEscapeHtml(value) {
+  return String(value || "")
+    .replace(/&/g, "&amp;")
+    .replace(/"/g, "&quot;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
+function activitiesNormalize(value) {
+  return String(value || "")
+    .trim()
+    .toUpperCase()
+    .replace(/\s+/g, "_")
+    .replace(/-/g, "_");
+}
+
+function activitiesSafeArray(value) {
+  if (Array.isArray(value)) return value;
+  if (value && typeof value === "object") return Object.values(value);
+  return [];
+}
+
+function activitiesUrl(item) {
+  return "activity.html?id=" + encodeURIComponent(item.id) +
+    "&title=" + encodeURIComponent(item.title) +
+    "&level=" + encodeURIComponent(item.level) +
+    "&words=" + encodeURIComponent(item.words);
+}
+
+async function activitiesLoadReadings() {
+  let files = [];
+
+  try {
+    const manifestRes = await fetch("data/manifest.json");
+
+    if (!manifestRes.ok) throw new Error("manifest.json not found");
+
+    const manifest = await manifestRes.json();
+
+    if (Array.isArray(manifest)) {
+      files = manifest.map(file => "data/" + file);
+    }
+  } catch (err) {
+    console.error("Activities manifest load error:", err);
+    files = [];
+  }
+
+  const loaded = [];
+
+  for (const file of files) {
+    try {
+      const res = await fetch(file);
+
+      if (!res.ok) {
+        console.warn("Activities file not found:", file);
+        continue;
+      }
+
+      const data = await res.json();
+
+      loaded.push({
+        id: data.id || file.split("/").pop().replace(".json", ""),
+        title: data.title || "Untitled Reading",
+        level: data.level || "A2",
+        words: data.words || 0,
+        image: data.image || "https://picsum.photos/600/400?random=reading"
+      });
+    } catch (err) {
+      console.error("Activities JSON load error:", file, err);
+    }
+  }
+
+  activitiesState.readings = loaded;
+}
+
+function activitiesWaitForFunction(functionName, timeout = 2500) {
+  return new Promise(resolve => {
+    const start = Date.now();
+
+    const timer = setInterval(() => {
+      if (typeof window[functionName] === "function") {
+        clearInterval(timer);
+        resolve(window[functionName]);
+        return;
+      }
+
+      if (Date.now() - start > timeout) {
+        clearInterval(timer);
+        resolve(null);
+      }
+    }, 100);
+  });
+}
+
+async function activitiesLoadProgressData() {
+  try {
+    const loadCompleted = await activitiesWaitForFunction("loadCompletedFromFirebase");
+    const loadProgress = await activitiesWaitForFunction("loadProgressFromFirebase");
+
+    if (loadCompleted) {
+      activitiesState.completed = activitiesSafeArray(await loadCompleted());
+    }
+
+    if (loadProgress) {
+      activitiesState.progress = activitiesSafeArray(await loadProgress());
+    }
+  } catch (err) {
+    console.error("Activities progress load error:", err);
+    activitiesState.completed = [];
+    activitiesState.progress = [];
+  }
+}
+
+async function activitiesGetCurrentUser() {
+  try {
+    const { auth } = await import("./firebase-config.js");
+
+    return new Promise(resolve => {
+      if (auth.currentUser) {
+        resolve(auth.currentUser);
+        return;
+      }
+
+      const unsubscribe = auth.onAuthStateChanged(user => {
+        unsubscribe();
+        resolve(user);
+      });
+    });
+  } catch (err) {
+    console.error("Activities auth error:", err);
+    return null;
+  }
+}
+
+async function activitiesLoadAssignedIds() {
+  activitiesState.assignedIds = new Set();
+
+  try {
+    const user = await activitiesGetCurrentUser();
+    if (!user) return;
+
+    const { db } = await import("./firebase-config.js");
+    const { collection, doc, getDoc, getDocs } =
+      await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js");
+
+    const userSnap = await getDoc(doc(db, "users", user.uid));
+    if (!userSnap.exists()) return;
+
+    const userData = userSnap.data();
+    if (!userData.classId) return;
+
+    const assignedSnapshot = await getDocs(
+      collection(db, "classes", userData.classId, "assignedActivities")
+    );
+
+    assignedSnapshot.docs.forEach(docSnap => {
+      const item = docSnap.data();
+      if (item && item.id) {
+        activitiesState.assignedIds.add(String(item.id));
+      }
+    });
+  } catch (err) {
+    console.error("Activities assigned load error:", err);
+  }
+}
+
+function activitiesFindRecord(records, activityId) {
+  return activitiesSafeArray(records).find(item => {
+    if (!item || typeof item !== "object") return false;
+
+    return String(item.id || item.activityId || item.readingId || "") === String(activityId);
+  });
+}
+
+function activitiesGetStatus(item) {
+  const completed = activitiesFindRecord(activitiesState.completed, item.id);
+  const progress = activitiesFindRecord(activitiesState.progress, item.id);
+
+  if (completed) {
+    return {
+      key: "COMPLETED",
+      label: "Completed",
+      detail: "Score: " + (completed.score || 0) + "/" + (completed.total || completed.totalQuestions || 0),
+      button: "Review Activity"
+    };
+  }
+
+  if (progress) {
+    return {
+      key: "IN_PROGRESS",
+      label: "In Progress",
+      detail: "You have already started this activity.",
+      button: "Continue Activity"
+    };
+  }
+
+  return {
+    key: "NOT_STARTED",
+    label: "Not Started",
+    detail: "Start this reading activity.",
+    button: "Start Activity"
+  };
+}
+
+function activitiesRender(items) {
+  const grid = document.getElementById("activitiesCardGrid");
+  const resultInfo = document.getElementById("activitiesResultInfo");
+
+  if (!grid) return;
+
+  const safeItems = activitiesSafeArray(items);
+
+  const totalEl = document.getElementById("activitiesTotalCount");
+  const completedEl = document.getElementById("activitiesCompletedCount");
+  const progressEl = document.getElementById("activitiesProgressCount");
+
+  if (totalEl) totalEl.innerText = activitiesState.readings.length;
+  if (completedEl) completedEl.innerText = activitiesSafeArray(activitiesState.completed).length;
+  if (progressEl) progressEl.innerText = activitiesSafeArray(activitiesState.progress).length;
+  if (resultInfo) resultInfo.innerText = safeItems.length + " activities shown";
+
+  if (safeItems.length === 0) {
+    grid.innerHTML = `
+      <div class="activities-empty">
+        No activities found for this selection.
+      </div>
+    `;
+    return;
+  }
+
+  grid.innerHTML = safeItems.map(item => {
+    const status = activitiesGetStatus(item);
+    const isAssigned = activitiesState.assignedIds.has(String(item.id));
+
+    return `
+      <a class="activities-card" href="${activitiesUrl(item)}">
+        <div class="activities-card-image">
+          <img src="${activitiesEscapeHtml(item.image)}" alt="${activitiesEscapeHtml(item.title)}">
+          ${isAssigned ? `<span class="activities-assigned-badge">Assigned</span>` : ""}
+        </div>
+
+        <div class="activities-card-content">
+          <span class="activities-level-label">${activitiesEscapeHtml(item.level)}</span>
+          <h3>${activitiesEscapeHtml(item.title)}</h3>
+          <div class="activities-meta">${activitiesEscapeHtml(item.words)} words</div>
+
+          <div class="activities-status-line">
+            <strong>${activitiesEscapeHtml(status.label)}</strong><br>
+            ${activitiesEscapeHtml(status.detail)}
+          </div>
+
+          <span class="activities-action">${activitiesEscapeHtml(status.button)}</span>
+        </div>
+      </a>
+    `;
+  }).join("");
+}
+
+function activitiesApplyFilters() {
+  try {
+    let filtered = [...activitiesState.readings];
+
+    const level = activitiesNormalize(activitiesState.level || "ALL");
+    const status = activitiesNormalize(activitiesState.status || "ALL");
+    const search = String(activitiesState.search || "").trim().toLowerCase();
+
+    if (level !== "ALL") {
+      filtered = filtered.filter(item => activitiesNormalize(item.level).replace(/_/g, "") === level.replace(/_/g, ""));
+    }
+
+    if (search) {
+      filtered = filtered.filter(item =>
+        String(item.title || "").toLowerCase().includes(search) ||
+        String(item.level || "").toLowerCase().includes(search) ||
+        String(item.words || "").toLowerCase().includes(search)
+      );
+    }
+
+    if (status !== "ALL") {
+      filtered = filtered.filter(item => {
+        if (status === "ASSIGNED") {
+          return activitiesState.assignedIds.has(String(item.id));
+        }
+
+        return activitiesNormalize(activitiesGetStatus(item).key) === status;
+      });
+    }
+
+    activitiesRender(filtered);
+  } catch (err) {
+    console.error("Activities filter error:", err);
+    activitiesRender(activitiesState.readings);
+  }
+}
+
+function activitiesClearSearchBox() {
+  const searchInput = document.getElementById("activitiesSearchInput");
+
+  if (!searchInput) return;
+
+  searchInput.value = "";
+  activitiesState.search = "";
+
+  setTimeout(() => {
+    searchInput.value = "";
+    activitiesState.search = "";
+    activitiesApplyFilters();
+  }, 250);
+
+  setTimeout(() => {
+    searchInput.value = "";
+    activitiesState.search = "";
+    activitiesApplyFilters();
+  }, 900);
+}
+
+function activitiesBindControls() {
+  document.querySelectorAll(".activities-level-btn").forEach(button => {
+    button.addEventListener("click", event => {
+      event.preventDefault();
+      event.stopPropagation();
+
+      activitiesState.level = button.getAttribute("data-activity-level") || "ALL";
+
+      document.querySelectorAll(".activities-level-btn").forEach(btn => btn.classList.remove("active"));
+      button.classList.add("active");
+
+      activitiesApplyFilters();
+    });
+  });
+
+  document.querySelectorAll(".activities-status-btn").forEach(button => {
+    button.addEventListener("click", event => {
+      event.preventDefault();
+      event.stopPropagation();
+
+      activitiesState.status = button.getAttribute("data-activity-status") || "ALL";
+
+      document.querySelectorAll(".activities-status-btn").forEach(btn => btn.classList.remove("active"));
+      button.classList.add("active");
+
+      activitiesApplyFilters();
+    });
+  });
+
+  const searchInput = document.getElementById("activitiesSearchInput");
+
+  if (searchInput) {
+    searchInput.addEventListener("input", () => {
+      activitiesState.search = searchInput.value || "";
+      activitiesApplyFilters();
+    });
+  }
+}
+
+async function activitiesInit() {
+  activitiesBindControls();
+
+  await activitiesLoadReadings();
+  activitiesClearSearchBox();
+  activitiesRender(activitiesState.readings);
+
+  await activitiesLoadProgressData();
+  await activitiesLoadAssignedIds();
+
+  activitiesClearSearchBox();
+  activitiesApplyFilters();
+}
+
+window.addEventListener("pageshow", function() {
+  activitiesClearSearchBox();
+});
+
+activitiesInit();
+</script>
+
+<script type="module" src="./auth-state.js"></script>
+<script type="module" src="./firebase-read.js"></script>
+</body>
+</html>

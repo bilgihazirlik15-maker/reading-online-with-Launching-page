@@ -1,0 +1,60 @@
+{
+  "id": "b1-reading2",
+  "title": "Jet Simulators",
+  "level": "B1",
+  "date": "2026-05-08",
+  "genre": "Technology, Science",
+  "words": 271,
+  "image": "https://proflight.com/media/dc/f8/64/1639497134/0103_A380_Final_AssemblyIMG_7401_k-smallest.jpg?ts=1717166762",
+  "text": "Jet simulators are special machines that help people learn how to fly airplanes. Many flight schools use them because they are safe and cost less than real flights. A jet simulator looks like a real cockpit, with screens, buttons, and controls. It creates a realistic flying experience, and users can practice different situations. In recent years, many people have also used simulators for fun, not only for training.\n\nAlex has always been interested in airplanes. He has watched many videos about flying and has learned basic information about planes. However, he has never flown a real plane. Last month, he visited a flight training center with his friends.\n\nWhile they were walking around the center, they were watching other people using simulators. Some students were practicing landing, and others were dealing with emergency situations. Alex felt very excited because he has always wanted to try flying a jet.\n\nWhen it was his turn, Alex sat in the simulator and listened to the instructor. At first, he was feeling nervous because there were many controls. While the instructor was explaining the system, Alex was trying to understand the buttons and screens.\n\nDuring the simulation, Alex was flying the plane when the weather suddenly changed. Strong winds started, and heavy rain was falling. While he was trying to control the plane, the instructor was giving him advice. It was difficult, but Alex stayed calm and focused.\n\nIn the end, he has landed the plane safely. After the session, he felt proud because he completed a difficult task. He has enjoyed the experience a lot and wants to try it again in the future.",
+  "vocabulary": [],
+  "questions": [
+    {
+      "type": "multiple",
+      "question": "Why do many flight schools use simulators?",
+      "options": [
+        "They are expensive",
+        "They are safe and cheaper",
+        "They are only for fun",
+        "They are small"
+      ],
+      "answer": 1
+    },
+    {
+      "type": "multiple",
+      "question": "What were people doing when Alex arrived?",
+      "options": [
+        "They were sleeping",
+        "They were using simulators",
+        "They were eating",
+        "They were leaving"
+      ],
+      "answer": 1
+    },
+    {
+      "type": "multiple",
+      "question": "What happened during the simulation?",
+      "options": [
+        "The simulator broke",
+        "The weather changed",
+        "The instructor left",
+        "The lights turned off"
+      ],
+      "answer": 1
+    },
+    {
+      "type": "truefalse",
+      "question": "Alex has flown a real plane before.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 1
+    },
+    {
+      "type": "short",
+      "question": "What was Alex doing while the instructor was explaining the system?",
+      "answerText": "He was trying to understand the buttons and screens."
+    }
+  ]
+}

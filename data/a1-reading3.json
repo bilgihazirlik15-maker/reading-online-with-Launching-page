@@ -1,0 +1,117 @@
+{
+  "id": "a1-reading3",
+  "title": "My New Roommate at the Student Dormitory",
+  "level": "A1",
+  "date": "2026-05-07",
+  "genre": "Story",
+  "words": 158,
+  "image": "https://cdn.collegeraptor.com/wp/wp-content/uploads/2018/07/roommate-discussions-before-college-starts.jpg",
+  "text": "My name is Leo. I am 18 years old, and I am a student at Greenhill College. I live in a student dormitory near my school. My room is small, but it is clean and comfortable.\n\nThis month, I have a new roommate. His name is Amir. He is from Türkiye. He is 19 years old. He is tall and friendly. Amir is a science student, and he likes computers and music.\n\nEvery morning, Amir wakes up at 7:00. He takes a shower and eats breakfast in the dormitory kitchen. He usually eats bread, eggs, and fruit. I drink tea, but Amir likes coffee.\n\nAfter classes, we come back to our room and study together. I read my English books, and Amir works on his computer. In the evening, we sometimes play video games or watch short videos online.\n\nOur room is busy, but we are happy. Amir is a good roommate, and I enjoy living with him.",
+  "vocabulary": [
+    {
+      "word": "dormitory",
+      "meaning": "a room for several people to sleep in, especially in a school or other institution",
+      "example": "After the lessons I feel very tired, so I want to go to my room in the dormitory."
+    },
+    {
+      "word": "roommate",
+      "meaning": "someone you share your room with",
+      "example": "My roommate in the dormitory is a senior student."
+    }
+  ],
+  "questions": [
+    {
+      "type": "multiple",
+      "question": "Where does Leo live?",
+      "options": [
+        "In a hotel",
+        "In a dormitory",
+        "In a house"
+      ],
+      "answer": 1
+    },
+    {
+      "type": "multiple",
+      "question": "Where is Amir from?",
+      "options": [
+        "Brazil",
+        "Spain",
+        "Türkiye"
+      ],
+      "answer": 2
+    },
+    {
+      "type": "multiple",
+      "question": "What does Amir like?",
+      "options": [
+        "Sports and art",
+        "Music and computers",
+        "Cooking and dancing"
+      ],
+      "answer": 1
+    },
+    {
+      "type": "truefalse",
+      "question": "Leo is 21 years old.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 1
+    },
+    {
+      "type": "truefalse",
+      "question": "Amir likes coffee.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 0
+    },
+    {
+      "type": "truefalse",
+      "question": "The room is very large.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 1
+    },
+    {
+      "type": "truefalse",
+      "question": "Leo and Amir sometimes play video games.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 0
+    },
+    {
+      "type": "fillblank",
+      "question": "Fill in the blank with a suitable word.",
+      "sentence": "Leo lives in a student ____.",
+      "answer": "dormitory"
+    },
+    {
+      "type": "fillblank",
+      "question": "Fill in the blank with a suitable word.",
+      "sentence": "Amir is from ____.",
+      "answer": "Turkiye"
+    },
+    {
+      "type": "short",
+      "question": "What does Amir study? (ONE WORD)",
+      "answerText": "science"
+    },
+    {
+      "type": "ordering",
+      "question": "Put the sentences in the correct order.",
+      "items": [
+        "Amir wakes up at 7:00.",
+        "Amir eats breakfast.",
+        "Amir goes to class.",
+        "Amir studies in the room."
+      ]
+    }
+  ]
+}

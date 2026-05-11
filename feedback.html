@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Feedback | myReading Online</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="header.css">
+<style>
+* { box-sizing: border-box; }
+body { margin: 0; font-family: Arial, sans-serif; background: #f6efe4; color: #374151; }
+.hero { position: relative; height: 120px; overflow: hidden; }
+.hero video { position: absolute; top: 50%; left: 50%; width: 100%; height: 108px; transform: translate(-50%, -50%); object-fit: cover; }
+.hero::after { content: ""; position: absolute; inset: 0; background: rgba(255,255,255,0.75); }
+.container { width: 100%; max-width: 900px; margin: 0 auto; padding: 30px 24px; }
+.page-card { background: #fffaf1; border: 1px solid #efe2cf; border-radius: 24px; padding: 28px; box-shadow: 0 8px 22px rgba(92, 74, 52, 0.07); margin-bottom: 22px; }
+.page-card h1 { margin-top: 0; }
+.form-group { margin-bottom: 18px; }
+label { display: block; font-weight: bold; margin-bottom: 7px; }
+input, select, textarea { width: 100%; padding: 13px 14px; border-radius: 14px; border: 1px solid #ddceb8; background: #fff; font-size: 15px; color: #374151; }
+textarea { min-height: 170px; resize: vertical; line-height: 1.6; }
+button { border: none; padding: 13px 18px; border-radius: 999px; background: #6b7fd7; color: white; font-weight: bold; cursor: pointer; }
+button:hover { background: #5266c7; }
+.message { margin-top: 14px; font-size: 14px; color: #2f6650; }
+.back-link { display: inline-block; margin-left: 10px; color: #5266c7; text-decoration: none; font-weight: bold; }
+footer { text-align: center; padding: 25px; font-size: 13px; color: #9a8f84; }
+</style>
+</head>
+<body>
+<div id="site-header"></div>
+<section class="hero">
+  <video autoplay muted loop playsinline><source src="assets/video/sky.mp4" type="video/mp4"></video>
+</section>
+<main class="container">
+  <section class="page-card">
+    <h1>Feedback</h1>
+    <p>Send a suggestion, bug report, or general feedback about myReading Online.</p>
+  </section>
+  <section class="page-card">
+    <div class="form-group">
+      <label for="feedbackType">Feedback Type</label>
+      <select id="feedbackType">
+        <option value="Suggestion">Suggestion</option>
+        <option value="Bug Report">Bug Report</option>
+        <option value="Content Issue">Content Issue</option>
+        <option value="General Feedback">General Feedback</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="feedbackSubject">Subject</label>
+      <input id="feedbackSubject" placeholder="Example: Activity page issue">
+    </div>
+    <div class="form-group">
+      <label for="feedbackMessage">Message</label>
+      <textarea id="feedbackMessage" placeholder="Write your feedback here..."></textarea>
+    </div>
+    <button type="button" id="sendFeedbackBtn">Send Feedback</button>
+    <a class="back-link" href="index.html">Back to Home</a>
+    <div id="feedbackStatus" class="message"></div>
+  </section>
+</main>
+<footer>© 2026 myReading Online</footer>
+<script>
+function loadSiteHeader() {
+  fetch("header.html")
+    .then(res => res.text())
+    .then(data => { document.getElementById("site-header").innerHTML = data; })
+    .catch(err => console.error("Header could not be loaded:", err));
+}
+loadSiteHeader();
+document.getElementById("sendFeedbackBtn").addEventListener("click", async () => {
+  const status = document.getElementById("feedbackStatus");
+  const type = document.getElementById("feedbackType").value;
+  const subject = document.getElementById("feedbackSubject").value.trim();
+  const message = document.getElementById("feedbackMessage").value.trim();
+  if (!subject || !message) {
+    status.style.color = "#9b2c2c";
+    status.innerText = "Please enter a subject and message.";
+    return;
+  }
+  try {
+    const { auth, db } = await import("./firebase-config.js");
+    const { collection, addDoc, serverTimestamp } = await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js");
+    const user = await new Promise(resolve => {
+      if (auth.currentUser) return resolve(auth.currentUser);
+      const unsub = auth.onAuthStateChanged(u => { unsub(); resolve(u); });
+    });
+    if (!user) {
+      window.location.href = "index.html";
+      return;
+    }
+    await addDoc(collection(db, "feedback"), {
+      type,
+      subject,
+      message,
+      userId: user.uid,
+      userEmail: user.email || "",
+      createdAt: serverTimestamp(),
+      page: window.location.href
+    });
+    document.getElementById("feedbackSubject").value = "";
+    document.getElementById("feedbackMessage").value = "";
+    status.style.color = "#2f6650";
+    status.innerText = "Thank you. Your feedback has been sent.";
+  } catch (err) {
+    console.error("Feedback send error:", err);
+    status.style.color = "#9b2c2c";
+    status.innerText = "Feedback could not be sent. Please check Firebase permissions.";
+  }
+});
+</script>
+<script type="module" src="./auth-state.js"></script>
+<script type="module" src="./protect-page.js"></script>
+</body>
+</html>

@@ -1,0 +1,91 @@
+{
+  "id": "b2-reading1",
+  "title": "Bollywood",
+  "level": "B2",
+  "date": "2026-05-08",
+  "genre": "Culture, Entertainment, Cinema, Art",
+  "words": 363,
+  "image": "https://haber.sol.org.tr/sites/default/files/images/content/article/2020/10/08/1227416.jpg",
+  "text": "Bollywood, the Hindi-language film industry based in Mumbai, is one of the largest and most influential film industries in the world. Every year, hundreds of films are produced, and millions of viewers are entertained both in India and internationally. Over the years, Bollywood films have been recognized for their colorful visuals, dramatic storytelling, and memorable music. These features have made Bollywood a significant part of global popular culture.\n\nTraditionally, Bollywood movies have been characterized by long running times, emotional plots, and elaborate musical sequences. Songs and dances are often included to express characters’ feelings, and these elements have become a defining feature of the industry. In many cases, the music of a film has been released before the movie itself, and it has been used as a way to promote the film. As a result, film soundtracks have often become popular even before audiences have seen the full story.\n\nIn recent decades, however, important changes have taken place. New themes have been introduced, and more realistic stories have been told. Social issues such as gender equality, mental health, education, and poverty have been explored in a more serious way. Filmmakers have also experimented with different genres, including crime, biography, and historical drama. This shift has been welcomed by younger audiences, who have demanded more diverse and meaningful content.\n\nSeveral Bollywood films have been awarded international prizes, and global audiences have been attracted by their unique style. Streaming platforms have greatly increased the accessibility of Bollywood content, and many films have been watched by viewers who do not speak Hindi. Subtitles and dubbing have been used to make these films more understandable for international audiences.\n\nIn the past, Bollywood was mainly focused on local viewers, but this situation has changed considerably. International collaborations have been developed, and foreign actors have occasionally been cast in leading roles. Directors have used advanced technology, and higher production standards have been achieved.\n\nToday, Bollywood continues to grow and adapt. While traditional elements are still appreciated, modern influences have been added. It can be said that Bollywood has successfully combined tradition and innovation, creating a global form of entertainment that has been enjoyed by diverse audiences around the world.",
+  "vocabulary": [],
+  "questions": [
+    {
+      "type": "multiple",
+      "question": "What is one reason Bollywood films are globally popular?",
+      "options": [
+        "They are always short and simple",
+        "They include colorful visuals and music",
+        "They avoid emotional storytelling",
+        "They are only shown in India"
+      ],
+      "answer": 1
+    },
+    {
+      "type": "multiple",
+      "question": "How have Bollywood films traditionally been promoted?",
+      "options": [
+        "By using social media only",
+        "By releasing trailers after the film",
+        "By releasing music before the film",
+        "By avoiding advertising"
+      ],
+      "answer": 2
+    },
+    {
+      "type": "multiple",
+      "question": "What change has occurred in Bollywood in recent decades?",
+      "options": [
+        "Films have become less diverse",
+        "Social issues are no longer included",
+        "More realistic and varied stories are told",
+        "Music is no longer used in films"
+      ],
+      "answer": 2
+    },
+    {
+      "type": "multiple",
+      "question": "How have streaming platforms affected Bollywood?",
+      "options": [
+        "They have reduced the number of films",
+        "They have made films less popular",
+        "They have increased global accessibility",
+        "They have limited audiences to India"
+      ],
+      "answer": 2
+    },
+    {
+      "type": "truefalse",
+      "question": "Bollywood films have never been recognized internationally.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 1
+    },
+    {
+      "type": "truefalse",
+      "question": "Foreign actors have sometimes been cast in Bollywood films.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 0
+    },
+    {
+      "type": "short",
+      "question": "How have Bollywood films changed in terms of themes and topics?",
+      "answerText": "Bollywood films have become more realistic."
+    },
+    {
+      "type": "multiple",
+      "question": "What does the word “elaborate” most nearly mean in the text?",
+      "options": [
+        "Simple",
+        "Detailed and complex",
+        "Short",
+        "Boring"
+      ],
+      "answer": 1
+    }
+  ]
+}

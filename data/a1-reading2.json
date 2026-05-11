@@ -1,0 +1,62 @@
+{
+  "id": "a1-reading2",
+  "title": "Tom's Weekend",
+  "level": "A1",
+  "date": "2026-05-08",
+  "genre": "Daily Routines",
+  "words": 127,
+  "image": "https://previews.123rf.com/images/petro/petro1608/petro160800055/63189635-sporting-little-boy-plays-football-in-sunny-park.jpg",
+  "text": "Tom is a student. He studies at a high school. On weekdays, he wakes up early, but on weekends, he wakes up at 9:00. He feels happy because he does not go to school.\n\nOn Saturday morning, Tom eats breakfast with his family. He usually eats eggs, bread, and fruit. After breakfast, he plays computer games or watches videos.\n\nIn the afternoon, he goes out with his friends. They walk in the park or play football. Tom likes spending time with his friends.\n\nIn the evening, he has dinner with his family. After dinner, he watches a movie or listens to music. On Sunday, he sometimes studies for his lessons.\n\nTom goes to bed at 11:00 on weekends. He enjoys his weekend and feels relaxed before Monday.",
+  "vocabulary": [],
+  "questions": [
+    {
+      "type": "multiple",
+      "question": "What time does Tom wake up on weekends?",
+      "options": [
+        "7:00",
+        "8:00",
+        "9:00"
+      ],
+      "answer": 2
+    },
+    {
+      "type": "multiple",
+      "question": "What does Tom do after breakfast?",
+      "options": [
+        "He studies",
+        "He plays games or watches videos",
+        "He goes to school"
+      ],
+      "answer": 1
+    },
+    {
+      "type": "multiple",
+      "question": "What does Tom do in the afternoon?",
+      "options": [
+        "He studies",
+        "He watches TV",
+        "He goes out with friends"
+      ],
+      "answer": 2
+    },
+    {
+      "type": "multiple",
+      "question": "What does Tom sometimes do on Sunday?",
+      "options": [
+        "He studies",
+        "He works",
+        "He travels"
+      ],
+      "answer": 0
+    },
+    {
+      "type": "truefalse",
+      "question": "Tom goes to school on weekends.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 1
+    }
+  ]
+}

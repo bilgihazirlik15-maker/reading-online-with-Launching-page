@@ -1,0 +1,86 @@
+{
+  "id": "b2-reading2",
+  "title": "A Rising Addiction: Social Media",
+  "level": "B2",
+  "date": "2026-05-08",
+  "genre": "Technology",
+  "words": 329,
+  "image": "https://s.yimg.com/ny/api/res/1.2/tV3ykYWuwTgAwJwCzxZZMA--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyNDI7aD04Mjg7Y2Y9d2VicA--/https://s.yimg.com/os/creatr-uploaded-images/2023-10/8cd17c40-740d-11ee-b87b-382966926bb4",
+  "text": "In recent years, social media has become an essential part of daily life for millions of people around the world. Platforms such as Instagram, TikTok, and X have been widely used for communication, entertainment, and information sharing. While these platforms offer many benefits, concerns about social media addiction have also been raised.\n\nSocial media addiction is often described as excessive use of online platforms that affects a person’s daily activities and mental health. Many users check their accounts repeatedly throughout the day, and a significant amount of time is spent scrolling through content. As a result, important tasks are sometimes ignored, and productivity has been reduced.\n\nSeveral studies have been conducted to understand the effects of social media on behavior. It has been found that constant exposure to online content can lead to anxiety, low self-esteem, and sleep problems. In particular, young people have been affected more strongly, as they are more likely to compare themselves with others online. In many cases, unrealistic images and lifestyles are presented, which can create pressure and dissatisfaction.\n\nIn the past, communication was mainly face-to-face or through phone calls. However, this has changed significantly. Messages are now sent instantly, and interactions have become more frequent but less personal. Some experts have argued that real-life relationships have been weakened as a result of excessive online communication.\n\nLast year, a university student named Emma decided to reduce her social media use. She noticed that she was spending too much time online and was feeling stressed. At first, it was difficult for her to change her habits. However, after a few weeks, she felt more relaxed and focused. She has improved her study habits and has spent more time with her friends and family.\n\nIt can be said that social media is a powerful tool, but it must be used carefully. If it is used in a balanced way, it can be beneficial. Otherwise, it may have negative effects on both mental health and daily life.",
+  "vocabulary": [],
+  "questions": [
+    {
+      "type": "multiple",
+      "question": "What is one main concern about social media mentioned in the text?",
+      "options": [
+        "It is too expensive",
+        "It causes addiction",
+        "It is difficult to use",
+        "It is not popular"
+      ],
+      "answer": 1
+    },
+    {
+      "type": "multiple",
+      "question": "What has been affected by excessive social media use?",
+      "options": [
+        "Food habits",
+        "Productivity",
+        "Weather conditions",
+        "Transportation"
+      ],
+      "answer": 1
+    },
+    {
+      "type": "multiple",
+      "question": "Why are young people more affected by social media?",
+      "options": [
+        "They use less technology",
+        "They compare themselves with others",
+        "They do not like social media",
+        "They study more"
+      ],
+      "answer": 1
+    },
+    {
+      "type": "multiple",
+      "question": "How has communication changed according to the text?",
+      "options": [
+        "It has become slower",
+        "It is only face-to-face",
+        "It is more frequent but less personal",
+        "It has stopped completely"
+      ],
+      "answer": 2
+    },
+    {
+      "type": "truefalse",
+      "question": "Social media has no effect on mental health.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 1
+    },
+    {
+      "type": "truefalse",
+      "question": "Emma found it easy to reduce her social media use at first.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 1
+    },
+    {
+      "type": "multiple",
+      "question": "What does “excessive” most nearly mean in the text?",
+      "options": [
+        "Very little",
+        "Too much",
+        "Normal",
+        "Slow"
+      ],
+      "answer": 1
+    }
+  ]
+}

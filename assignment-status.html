@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Assignment Status | myReading Online</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="header.css">
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f6efe4;
+  color: #374151;
+}
+
+.container {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 30px 36px;
+}
+
+.content-wrap {
+  width: 100%;
+  max-width: 1450px;
+  margin: 0 auto;
+}
+
+.page-header,
+.status-card,
+.summary-card {
+  background: #fffaf1;
+  border: 1px solid #efe2cf;
+  border-radius: 22px;
+  padding: 22px;
+  box-shadow: 0 8px 22px rgba(92, 74, 52, 0.06);
+}
+
+.page-header {
+  margin-bottom: 22px;
+}
+
+.page-header h1 {
+  margin: 0 0 8px;
+  font-size: 28px;
+}
+
+.page-header p {
+  margin: 0;
+  color: #7a6f63;
+}
+
+.back-link {
+  display: inline-block;
+  margin-top: 14px;
+  color: #5266c7;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-bottom: 22px;
+}
+
+.summary-card h3 {
+  margin: 0 0 8px;
+  font-size: 16px;
+  color: #7a6f63;
+}
+
+.summary-card strong {
+  font-size: 28px;
+  color: #374151;
+}
+
+.status-list {
+  display: grid;
+  gap: 18px;
+}
+
+.status-card h2 {
+  margin: 0 0 8px;
+  font-size: 22px;
+}
+
+.status-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 8px;
+}
+
+.status-card-header h2 {
+  margin: 0;
+}
+
+.delete-assignment-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  padding: 8px 13px;
+  border-radius: 999px;
+  background: #f3c7c7;
+  color: #7a1f1f;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.delete-assignment-btn:hover {
+  background: #efb1b1;
+}
+
+.status-meta {
+  color: #7a6f63;
+  font-size: 14px;
+  margin-bottom: 14px;
+}
+
+.student-table {
+  width: 100%;
+  border-collapse: collapse;
+  overflow: hidden;
+  border-radius: 14px;
+}
+
+.student-table th,
+.student-table td {
+  padding: 11px 12px;
+  text-align: left;
+  border-bottom: 1px solid #e5d7c4;
+  font-size: 14px;
+}
+
+.student-table th {
+  background: #eadfce;
+  color: #374151;
+}
+
+.student-table tr:last-child td {
+  border-bottom: none;
+}
+
+.badge {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.badge.done {
+  background: #d6eadf;
+  color: #2f6650;
+}
+
+.badge.notdone {
+  background: #f3c7c7;
+  color: #7a1f1f;
+}
+
+.message {
+  background: #fffaf1;
+  border: 1px solid #efe2cf;
+  border-radius: 18px;
+  padding: 20px;
+  color: #7a6f63;
+}
+
+footer {
+  text-align: center;
+  padding: 25px;
+  font-size: 13px;
+  color: #9a8f84;
+}
+
+@media (max-width: 850px) {
+  .container { padding: 24px 18px; }
+  .summary-grid { grid-template-columns: 1fr; }
+  .student-table { display: block; overflow-x: auto; }
+
+  .status-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div id="site-header"></div>
+
+<section class="hero">
+  <video autoplay muted loop playsinline>
+    <source src="assets/video/sky.mp4" type="video/mp4">
+  </video>
+</section>
+
+<main class="container">
+  <div class="content-wrap">
+    <section class="page-header">
+      <h1>Assignment Status</h1>
+      <p id="classInfo">Loading class...</p>
+      <a class="back-link" href="teacher.html">← Back to Teacher Panel</a>
+    </section>
+
+    <section class="summary-grid" id="summaryGrid" style="display:none;">
+      <div class="summary-card">
+        <h3>Assigned Activities</h3>
+        <strong id="assignedCount">0</strong>
+      </div>
+      <div class="summary-card">
+        <h3>Students</h3>
+        <strong id="studentCount">0</strong>
+      </div>
+      <div class="summary-card">
+        <h3>Total Completions</h3>
+        <strong id="completionCount">0</strong>
+      </div>
+    </section>
+
+    <div class="message" id="messageArea">Loading assignment status...</div>
+    <section class="status-list" id="statusList"></section>
+  </div>
+</main>
+
+<footer>© 2026 myReading Online</footer>
+
+<script>
+function loadSiteHeader() {
+  fetch("header.html")
+    .then(res => res.text())
+    .then(data => {
+      document.getElementById("site-header").innerHTML = data;
+
+      let logoClickCount = 0;
+      let logoClickTimer = null;
+      const logoLink = document.getElementById("logoHomeLink");
+
+      if (logoLink) {
+        logoLink.addEventListener("click", function(e) {
+          e.preventDefault();
+          logoClickCount++;
+          clearTimeout(logoClickTimer);
+
+          if (logoClickCount >= 5) {
+            window.location.href = "admin.html";
+            return;
+          }
+
+          logoClickTimer = setTimeout(() => {
+            logoClickCount = 0;
+            window.location.href = "index.html";
+          }, 700);
+        });
+      }
+    })
+    .catch(err => console.error("Header could not be loaded:", err));
+}
+
+loadSiteHeader();
+</script>
+
+<script type="module">
+import { auth, db } from "./firebase-config.js";
+import {
+  collection,
+  getDocs,
+  query,
+  where,
+  doc,
+  deleteDoc
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const params = new URLSearchParams(window.location.search);
+const classId = params.get("classId");
+const className = params.get("className") || "Selected Class";
+
+const classInfo = document.getElementById("classInfo");
+const messageArea = document.getElementById("messageArea");
+const statusList = document.getElementById("statusList");
+const summaryGrid = document.getElementById("summaryGrid");
+const assignedCountEl = document.getElementById("assignedCount");
+const studentCountEl = document.getElementById("studentCount");
+const completionCountEl = document.getElementById("completionCount");
+
+function escapeHtml(value) {
+  return String(value || "")
+    .replaceAll("&", "&amp;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;");
+}
+
+function escapeJs(value) {
+  return String(value || "")
+    .replaceAll("\\", "\\\\")
+    .replaceAll("'", "\\'")
+    .replaceAll('"', '\\"')
+    .replaceAll("\n", "\\n")
+    .replaceAll("\r", "\\r");
+}
+
+function waitForUser() {
+  return new Promise((resolve) => {
+    if (auth.currentUser) return resolve(auth.currentUser);
+
+    const unsub = auth.onAuthStateChanged((user) => {
+      unsub();
+      resolve(user);
+    });
+  });
+}
+
+async function loadAssignedActivities() {
+  const snapshot = await getDocs(
+    collection(db, "classes", classId, "assignedActivities")
+  );
+
+  return snapshot.docs.map(docSnap => ({
+    docId: docSnap.id,
+    ...docSnap.data()
+  }));
+}
+
+async function loadStudents() {
+  const q = query(
+    collection(db, "users"),
+    where("classId", "==", classId)
+  );
+
+  const snapshot = await getDocs(q);
+
+  return snapshot.docs.map(docSnap => ({
+    uid: docSnap.id,
+    ...docSnap.data()
+  }));
+}
+
+async function loadCompletedMap(students) {
+  const map = {};
+
+  for (const student of students) {
+    const completedSnapshot = await getDocs(
+      collection(db, "users", student.uid, "completedActivities")
+    );
+
+    map[student.uid] = {};
+
+    completedSnapshot.forEach(docSnap => {
+      const item = docSnap.data();
+      const activityId = item.id || docSnap.id;
+      map[student.uid][activityId] = item;
+    });
+  }
+
+  return map;
+}
+
+async function deleteSingleAssignment(activityId, assignmentDocId) {
+  const confirmDelete = confirm(
+    "Delete this assignment? It will be removed from the assignment list."
+  );
+
+  if (!confirmDelete) return;
+
+  try {
+    await deleteDoc(
+      doc(db, "classes", classId, "assignedActivities", assignmentDocId)
+    );
+
+    try {
+      const students = await loadStudents();
+
+      for (const student of students) {
+        const studentAssignmentsSnapshot = await getDocs(
+          collection(db, "users", student.uid, "assignedActivities")
+        );
+
+        for (const studentAssignmentDoc of studentAssignmentsSnapshot.docs) {
+          const item = studentAssignmentDoc.data();
+
+          if (
+            item.id === activityId ||
+            item.activityId === activityId ||
+            studentAssignmentDoc.id === assignmentDocId ||
+            studentAssignmentDoc.id === activityId
+          ) {
+            await deleteDoc(
+              doc(db, "users", student.uid, "assignedActivities", studentAssignmentDoc.id)
+            );
+          }
+        }
+      }
+    } catch (studentDeleteErr) {
+      console.warn("Student assignment cleanup skipped:", studentDeleteErr);
+    }
+
+    alert("Assignment deleted successfully.");
+    await init();
+
+  } catch (err) {
+    console.error("Delete single assignment error:", err);
+    alert("Assignment could not be deleted. Please check Firebase permissions.");
+  }
+}
+
+window.deleteSingleAssignment = deleteSingleAssignment;
+
+function renderStatus(assignedActivities, students, completedMap) {
+  let totalCompletions = 0;
+
+  if (assignedActivities.length === 0) {
+    messageArea.style.display = "block";
+    messageArea.innerText = "No assigned activities for this class yet.";
+    statusList.innerHTML = "";
+    summaryGrid.style.display = "none";
+    return;
+  }
+
+  if (students.length === 0) {
+    messageArea.style.display = "block";
+    messageArea.innerText = "No students in this class yet.";
+    statusList.innerHTML = "";
+    summaryGrid.style.display = "none";
+    return;
+  }
+
+  const cardsHtml = assignedActivities.map(activity => {
+    let completedForThisActivity = 0;
+
+    const rowsHtml = students.map(student => {
+      const completed = completedMap[student.uid]?.[activity.id];
+
+      if (completed) completedForThisActivity++;
+
+      return `
+        <tr>
+          <td>${escapeHtml(student.email || "Student")}</td>
+          <td>
+            <span class="badge ${completed ? "done" : "notdone"}">
+              ${completed ? "Completed" : "Not completed"}
+            </span>
+          </td>
+          <td>${completed ? escapeHtml(completed.score) + "/" + escapeHtml(completed.total) : "-"}</td>
+          <td>${completed ? escapeHtml(completed.date || "") : "-"}</td>
+        </tr>
+      `;
+    }).join("");
+
+    totalCompletions += completedForThisActivity;
+
+    return `
+      <article class="status-card">
+        <div class="status-card-header">
+          <h2>${escapeHtml(activity.title || "Untitled Activity")}</h2>
+          <button
+            type="button"
+            class="delete-assignment-btn"
+            onclick="deleteSingleAssignment('${escapeJs(activity.id || "")}', '${escapeJs(activity.docId || "")}')"
+          >
+            Delete Assignment
+          </button>
+        </div>
+
+        <div class="status-meta">
+          ${escapeHtml(activity.level || "")} Level • ${escapeHtml(activity.words || 0)} words<br>
+          Due: ${activity.dueDate ? escapeHtml(activity.dueDate) : "No deadline"}<br>
+          Completed: <strong>${completedForThisActivity}/${students.length}</strong>
+        </div>
+
+        <table class="student-table">
+          <thead>
+            <tr>
+              <th>Student</th>
+              <th>Status</th>
+              <th>Score</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${rowsHtml}
+          </tbody>
+        </table>
+      </article>
+    `;
+  }).join("");
+
+  assignedCountEl.innerText = assignedActivities.length;
+  studentCountEl.innerText = students.length;
+  completionCountEl.innerText = totalCompletions;
+
+  summaryGrid.style.display = "grid";
+  messageArea.style.display = "none";
+  statusList.innerHTML = cardsHtml;
+}
+
+async function init() {
+  if (!classId) {
+    classInfo.innerText = "No class selected.";
+    messageArea.style.color = "#9b2c2c";
+    messageArea.innerText = "Please go back to Teacher Panel and select a class.";
+    return;
+  }
+
+  const user = await waitForUser();
+
+  if (!user) {
+    classInfo.innerText = "Please login first.";
+    messageArea.style.color = "#9b2c2c";
+    messageArea.innerText = "Please login first.";
+    return;
+  }
+
+  classInfo.innerText = "Class: " + className;
+
+  try {
+    const assignedActivities = await loadAssignedActivities();
+    const students = await loadStudents();
+    const completedMap = await loadCompletedMap(students);
+
+    renderStatus(assignedActivities, students, completedMap);
+
+  } catch (err) {
+    console.error("Assignment status load error:", err);
+    messageArea.style.color = "#9b2c2c";
+    messageArea.innerText = "Assignment status could not be loaded. Please check Firebase permissions.";
+  }
+}
+
+init();
+</script>
+
+<script type="module" src="./auth-state.js"></script>
+<script type="module" src="./teacher-auth.js"></script>
+</body>
+</html>

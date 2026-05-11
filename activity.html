@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Reading Activity</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="header.css">
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f6efe4;
+  color: #374151;
+}
+
+.admin-nav-link {
+  background: #fff0bd !important;
+  color: #816200 !important;
+  border: 1px solid rgba(129, 98, 0, 0.25) !important;
+}
+
+.admin-nav-link:hover {
+  background: #ffe28a !important;
+  color: #6b4e00 !important;
+}
+
+
+
+.container {
+  max-width: 1250px;
+  margin: auto;
+  padding: 35px 20px;
+}
+
+.activity-header {
+  background: #fffaf1;
+  padding: 26px;
+  border-radius: 22px;
+  border: 1px solid #efe2cf;
+  margin-bottom: 25px;
+}
+
+.badge {
+  display: inline-block;
+  background: #fff0bd;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+
+.activity-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.left-panel,
+.right-panel {
+  background: #fffaf1;
+  padding: 28px;
+  border-radius: 22px;
+  border: 1px solid #efe2cf;
+}
+
+.reading-text {
+  line-height: 1.75;
+  font-size: 17px;
+}
+
+.question-card {
+  background: #f1eadf;
+  padding: 20px;
+  border-radius: 16px;
+}
+
+.question-type-label {
+  display: inline-block;
+  background: #fff0bd;
+  color: #816200;
+  padding: 5px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+
+.option {
+  display: block;
+  margin: 10px 0;
+  padding: 12px;
+  background: #fffaf1;
+  border-radius: 12px;
+  border: 1px solid #e5d7c4;
+  cursor: pointer;
+}
+
+.option:hover {
+  background: #fff3d8;
+}
+
+.option.selected {
+  border-color: #6b7fd7;
+  background: #eef1ff;
+}
+
+.short-answer-input {
+  width: 100%;
+  padding: 13px 14px;
+  border-radius: 14px;
+  border: 1px solid #ddceb8;
+  background: #fff;
+  font-size: 15px;
+  color: #374151;
+}
+
+
+.matching-area {
+  display: grid;
+  gap: 14px;
+  margin-top: 10px;
+}
+
+.matching-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  align-items: center;
+}
+
+.matching-left {
+  background: #fffaf1;
+  border: 1px solid #e5d7c4;
+  border-radius: 12px;
+  padding: 14px;
+  font-weight: bold;
+}
+
+.matching-select {
+  width: 100%;
+  padding: 13px 14px;
+  border-radius: 12px;
+  border: 1px solid #ddceb8;
+  background: white;
+  color: #374151;
+  font-size: 15px;
+}
+
+@media (max-width: 850px) {
+  .matching-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+.ordering-area {
+  display: grid;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.ordering-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #fffaf1;
+  border: 1px solid #e5d7c4;
+  border-radius: 12px;
+  padding: 13px 14px;
+  cursor: grab;
+  user-select: none;
+}
+
+.ordering-item:active {
+  cursor: grabbing;
+}
+
+.ordering-item.dragging {
+  opacity: 0.45;
+  border-color: #6b7fd7;
+  background: #eef1ff;
+}
+
+.ordering-handle {
+  color: #7a6f63;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 1;
+}
+
+.ordering-item-text {
+  flex: 1;
+}
+
+.ordering-note {
+  color: #7a6f63;
+  font-size: 13px;
+  margin-top: 10px;
+}
+
+
+.fillblank-sentence {
+  background: #fffaf1;
+  border: 1px solid #e5d7c4;
+  border-radius: 14px;
+  padding: 16px;
+  line-height: 1.7;
+  margin-bottom: 14px;
+  font-size: 16px;
+}
+
+.fillblank-gap {
+  display: inline-block;
+  min-width: 90px;
+  border-bottom: 2px solid #6b7fd7;
+  margin: 0 4px;
+}
+
+.fillblank-input {
+  width: 100%;
+  padding: 13px 14px;
+  border-radius: 14px;
+  border: 1px solid #ddceb8;
+  background: #fff;
+  font-size: 15px;
+  color: #374151;
+}
+
+.next-btn {
+  width: 100%;
+  margin-top: 18px;
+  padding: 14px;
+  border: none;
+  border-radius: 14px;
+  font-size: 16px;
+  background: #c7cbe8;
+  color: white;
+  cursor: not-allowed;
+}
+
+.next-btn.active {
+  background: #6b7fd7;
+  cursor: pointer;
+}
+
+.next-btn.active:hover {
+  background: #5266c7;
+}
+
+.progress-text {
+  font-size: 14px;
+  color: #7a6f63;
+  margin-bottom: 12px;
+}
+
+.score-box {
+  text-align: center;
+  background: #fffaf1;
+  padding: 36px;
+  border-radius: 22px;
+  border: 1px solid #efe2cf;
+}
+
+.score-box h2 {
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+.score-box p {
+  font-size: 18px;
+}
+
+.score-detail {
+  margin-top: 18px;
+  background: #f1eadf;
+  padding: 18px;
+  border-radius: 16px;
+  text-align: left;
+}
+
+.score-detail-item {
+  padding: 10px 0;
+  border-bottom: 1px solid #e5d7c4;
+}
+
+.score-detail-item:last-child {
+  border-bottom: none;
+}
+
+.correct-text {
+  color: #2f6650;
+  font-weight: bold;
+}
+
+.wrong-text {
+  color: #9b2c2c;
+  font-weight: bold;
+}
+
+.home-link {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 12px 18px;
+  background: #6b7fd7;
+  color: white;
+  text-decoration: none;
+  border-radius: 999px;
+  font-weight: bold;
+}
+
+.home-link:hover {
+  background: #5266c7;
+}
+
+.load-error {
+  background: #fff0bd;
+  border: 1px solid #e5c96b;
+  padding: 16px;
+  border-radius: 14px;
+  color: #6b4e00;
+}
+
+footer {
+  text-align: center;
+  padding: 25px;
+  font-size: 13px;
+  color: #9a8f84;
+}
+
+@media (max-width: 850px) {
+  .activity-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* === CLICKABLE VOCABULARY === */
+
+.vocab-word {
+  color: #5266c7;
+  font-weight: bold;
+  border-bottom: 2px dotted #6b7fd7;
+  cursor: pointer;
+}
+
+.vocab-word:hover {
+  background: #eef1ff;
+  border-radius: 4px;
+}
+
+.vocab-popup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(55, 65, 81, 0.28);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+  padding: 20px;
+}
+
+.vocab-popup {
+  width: min(430px, 100%);
+  background: #fffaf1;
+  border: 1px solid #efe2cf;
+  border-radius: 24px;
+  padding: 24px;
+  box-shadow: 0 18px 42px rgba(92, 74, 52, 0.22);
+}
+
+.vocab-popup h2 {
+  margin: 0 0 8px;
+  color: #374151;
+}
+
+.vocab-popup p {
+  color: #7a6f63;
+  line-height: 1.5;
+}
+
+.vocab-popup-example {
+  background: #f1eadf;
+  border: 1px solid #e5d7c4;
+  border-radius: 16px;
+  padding: 14px;
+  margin-top: 14px;
+  color: #374151;
+}
+
+.vocab-popup-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 18px;
+}
+
+.vocab-popup-actions button {
+  border: none;
+  border-radius: 999px;
+  padding: 10px 14px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.vocab-listen-btn,
+.vocab-save-btn {
+  background: #6b7fd7;
+  color: white;
+}
+
+.vocab-close-btn {
+  background: #d6eadf;
+  color: #2f6650;
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="site-header"></div>
+
+<section class="hero">
+  <video autoplay muted loop playsinline>
+    <source src="assets/video/sky.mp4" type="video/mp4">
+  </video>
+</section>
+
+<main class="container">
+
+<section class="activity-header">
+  <span class="badge" id="activityBadge">A2 Level • 350 words</span>
+  <h1 id="activityTitle">A Weekend in a Small Town</h1>
+</section>
+
+<section class="activity-layout" id="activityArea">
+
+  <div class="left-panel">
+    <h2>Reading Text</h2>
+    <div class="reading-text" id="readingText">
+      <p>Loading reading text...</p>
+    </div>
+  </div>
+
+  <div class="right-panel">
+    <div class="question-card">
+      <div class="progress-text" id="progressText"></div>
+      <div class="question-type-label" id="questionTypeLabel">Question</div>
+      <h3 id="questionText">Loading question...</h3>
+      <div id="optionsArea"></div>
+      <button class="next-btn" id="nextBtn" disabled>Next</button>
+    </div>
+  </div>
+
+</section>
+
+<section id="scoreArea" style="display:none;"></section>
+
+</main>
+
+<footer>© 2026 myReading Online</footer>
+
+<script>
+function loadSiteHeader() {
+  fetch("header.html")
+    .then(res => res.text())
+    .then(data => {
+      document.getElementById("site-header").innerHTML = data;
+
+      let logoClickCount = 0;
+      let logoClickTimer = null;
+      const logoLink = document.getElementById("logoHomeLink");
+
+      if (logoLink) {
+        logoLink.addEventListener("click", function(e) {
+          e.preventDefault();
+          logoClickCount++;
+
+          clearTimeout(logoClickTimer);
+
+          if (logoClickCount >= 5) {
+            window.location.href = "admin.html";
+            return;
+          }
+
+          logoClickTimer = setTimeout(() => {
+            logoClickCount = 0;
+            window.location.href = "index.html";
+          }, 700);
+        });
+      }
+    })
+    .catch(err => {
+      console.error("Header could not be loaded:", err);
+    });
+}
+
+loadSiteHeader();
+
+const params = new URLSearchParams(window.location.search);
+
+let activityId = params.get("id") || "sample-activity";
+let activityTitle = params.get("title") || "A Weekend in a Small Town";
+let activityLevel = params.get("level") || "A2";
+let activityWords = params.get("words") || "350";
+
+let questions = [];
+let vocabularyItems = [];
+let currentQuestion = 0;
+let score = 0;
+let selectedAnswer = null;
+let userAnswers = [];
+
+const questionText = document.getElementById("questionText");
+const optionsArea = document.getElementById("optionsArea");
+const nextBtn = document.getElementById("nextBtn");
+const progressText = document.getElementById("progressText");
+const questionTypeLabel = document.getElementById("questionTypeLabel");
+
+const fallbackQuestions = [
+  {
+    type: "multiple",
+    question: "Where does Emma usually live?",
+    options: ["In a small town", "In a big city", "In a village"],
+    answer: 1
+  },
+  {
+    type: "truefalse",
+    question: "Emma visits her grandparents.",
+    options: ["True", "False"],
+    answer: 0
+  },
+  {
+    type: "short",
+    question: "Who does Emma visit?",
+    answerText: "her grandparents"
+  }
+];
+
+document.getElementById("activityTitle").innerText = activityTitle;
+document.getElementById("activityBadge").innerText = activityLevel + " Level • " + activityWords + " words";
+
+async function loadActivity() {
+  const id = params.get("id");
+
+  if (!id || id === "sample-activity") {
+    document.getElementById("readingText").innerHTML = `
+      <p>Emma lives in a big city, but she often visits her grandparents in a small town. The town is quiet and friendly. There are no tall buildings, and people usually know each other.</p>
+      <p>On Saturday morning, Emma walks to the small market with her grandmother. They buy fresh bread, fruit, and cheese. Emma likes the market because people smile and talk to each other.</p>
+      <p>In the afternoon, Emma helps her grandfather in the garden. She waters the flowers and picks some tomatoes. In the city, she does not have a garden, so this feels special for her.</p>
+      <p>On Sunday evening, Emma returns home. She is happy to see her city again, but she also misses the quiet streets of the small town.</p>
+    `;
+
+    questions = fallbackQuestions;
+    loadQuestion();
+    return;
+  }
+
+  try {
+    const manifestRes = await fetch("data/manifest.json");
+
+    if (!manifestRes.ok) {
+      throw new Error("manifest.json not found");
+    }
+
+    const manifest = await manifestRes.json();
+
+    let matchedData = null;
+
+    for (const fileName of manifest) {
+      try {
+        const res = await fetch("data/" + fileName);
+
+        if (!res.ok) {
+          console.warn("Reading file not found:", fileName);
+          continue;
+        }
+
+        const data = await res.json();
+
+        if (data.id === id) {
+          matchedData = data;
+          break;
+        }
+      } catch (fileErr) {
+        console.warn("Could not load reading file:", fileName, fileErr);
+      }
+    }
+
+    if (!matchedData) {
+      throw new Error("No matching JSON found for id: " + id);
+    }
+
+    activityId = matchedData.id || id;
+    activityTitle = matchedData.title || activityTitle;
+    activityLevel = matchedData.level || activityLevel;
+    activityWords = matchedData.words || activityWords;
+
+    document.getElementById("activityTitle").innerText = activityTitle;
+    document.getElementById("activityBadge").innerText =
+      activityLevel + " Level • " + activityWords + " words";
+
+    vocabularyItems = Array.isArray(matchedData.vocabulary) ? matchedData.vocabulary : [];
+
+    renderReadingTextWithVocabulary(matchedData.text || "");
+
+    questions = normalizeQuestions(matchedData.questions || fallbackQuestions);
+
+  } catch (err) {
+    console.error("Activity load error:", err);
+
+    document.getElementById("readingText").innerHTML = `
+      <div class="load-error">
+        <p><strong>Reading file could not be loaded.</strong></p>
+        <p>Please check <strong>data/manifest.json</strong> and the reading ID.</p>
+        <p>Error: ${escapeHtml(err.message)}</p>
+      </div>
+    `;
+
+    questions = fallbackQuestions;
+  }
+
+  loadQuestion();
+}
+
+function escapeRegExp(value) {
+  return String(value).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function renderReadingTextWithVocabulary(text) {
+  const readingBox = document.getElementById("readingText");
+
+  if (!vocabularyItems || vocabularyItems.length === 0) {
+    readingBox.innerHTML = String(text || "")
+      .split("\n")
+      .filter(p => p.trim() !== "")
+      .map(p => `<p>${escapeHtml(p)}</p>`)
+      .join("");
+    return;
+  }
+
+  const vocabMap = {};
+  const words = vocabularyItems
+    .filter(item => item.word && item.meaning)
+    .sort((a, b) => b.word.length - a.word.length);
+
+  let html = escapeHtml(String(text || ""));
+
+  words.forEach((item, index) => {
+    const safeWord = escapeRegExp(escapeHtml(item.word));
+    const regex = new RegExp(`\\b(${safeWord})\\b`, "gi");
+    const key = "vocab-" + index;
+
+    vocabMap[key] = item;
+
+    html = html.replace(regex, `<span class="vocab-word" data-vocab-key="${key}">$1</span>`);
+  });
+
+  readingBox.innerHTML = html
+    .split("\n")
+    .filter(p => p.trim() !== "")
+    .map(p => `<p>${p}</p>`)
+    .join("");
+
+  readingBox.querySelectorAll(".vocab-word").forEach(el => {
+    el.addEventListener("click", () => {
+      const item = vocabMap[el.dataset.vocabKey];
+      if (item) showVocabularyPopup(item);
+    });
+  });
+}
+
+function showVocabularyPopup(item) {
+  const oldPopup = document.getElementById("vocabPopupOverlay");
+  if (oldPopup) oldPopup.remove();
+
+  const overlay = document.createElement("div");
+  overlay.id = "vocabPopupOverlay";
+  overlay.className = "vocab-popup-overlay";
+
+  overlay.innerHTML = `
+    <div class="vocab-popup">
+      <h2>${escapeHtml(item.word || "")}</h2>
+      <p>${escapeHtml(item.meaning || "")}</p>
+
+      ${item.example ? `
+        <div class="vocab-popup-example">
+          <strong>Example:</strong><br>
+          ${escapeHtml(item.example)}
+        </div>
+      ` : ""}
+
+      <div class="vocab-popup-actions">
+        <button type="button" class="vocab-listen-btn" id="vocabListenBtn">🔊 Listen</button>
+        <button type="button" class="vocab-save-btn" id="vocabSaveBtn">⭐ Save Word</button>
+        <button type="button" class="vocab-close-btn" id="vocabCloseBtn">Close</button>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(overlay);
+
+  document.getElementById("vocabCloseBtn").addEventListener("click", () => {
+    overlay.remove();
+  });
+
+  document.getElementById("vocabListenBtn").addEventListener("click", () => {
+    speakVocabularyWord(item.word || "");
+  });
+
+  document.getElementById("vocabSaveBtn").addEventListener("click", () => {
+    saveVocabularyWord(item);
+  });
+
+  overlay.addEventListener("click", event => {
+    if (event.target === overlay) overlay.remove();
+  });
+}
+
+function speakVocabularyWord(word) {
+  if (!word || !window.speechSynthesis) return;
+
+  const utterance = new SpeechSynthesisUtterance(word);
+  utterance.lang = "en-US";
+  window.speechSynthesis.cancel();
+  window.speechSynthesis.speak(utterance);
+}
+
+function saveVocabularyWord(item) {
+  const saved = JSON.parse(localStorage.getItem("myReadingVocabulary")) || [];
+  const filtered = saved.filter(word => normalizeText(word.word) !== normalizeText(item.word));
+
+  filtered.unshift({
+    word: item.word || "",
+    meaning: item.meaning || "",
+    example: item.example || "",
+    activityId,
+    activityTitle,
+    date: new Date().toLocaleDateString()
+  });
+
+  localStorage.setItem("myReadingVocabulary", JSON.stringify(filtered));
+
+  const saveBtn = document.getElementById("vocabSaveBtn");
+  if (saveBtn) {
+    saveBtn.innerText = "Saved ✓";
+  }
+}
+
+
+function normalizeQuestions(rawQuestions) {
+  return rawQuestions.map(q => {
+    if (!q.type) {
+      return {
+        type: "multiple",
+        question: q.question,
+        options: q.options || [],
+        answer: q.answer
+      };
+    }
+
+    if (q.type === "multiple") {
+      return {
+        type: "multiple",
+        question: q.question,
+        options: q.options || [],
+        answer: q.answer
+      };
+    }
+
+    if (q.type === "truefalse") {
+      return {
+        type: "truefalse",
+        question: q.question,
+        options: ["True", "False"],
+        answer: q.answer
+      };
+    }
+
+    if (q.type === "short") {
+      return {
+        type: "short",
+        question: q.question,
+        answerText: q.answerText || ""
+      };
+    }
+
+    if (q.type === "fillblank") {
+      return {
+        type: "fillblank",
+        question: q.question,
+        sentence: q.sentence || "",
+        answer: q.answer || ""
+      };
+    }
+
+    if (q.type === "matching") {
+      return {
+        type: "matching",
+        question: q.question,
+        pairs: Array.isArray(q.pairs) ? q.pairs : []
+      };
+    }
+
+    if (q.type === "ordering") {
+      return {
+        type: "ordering",
+        question: q.question,
+        items: Array.isArray(q.items) ? q.items : []
+      };
+    }
+
+    return {
+      type: "multiple",
+      question: q.question,
+      options: q.options || [],
+      answer: q.answer
+    };
+  });
+}
+
+function getQuestionTypeLabel(type) {
+  if (type === "multiple") return "Multiple Choice";
+  if (type === "truefalse") return "True / False";
+  if (type === "short") return "Short Answer";
+  if (type === "fillblank") return "Fill in the Blank";
+  if (type === "matching") return "Matching";
+  if (type === "ordering") return "Sentence Ordering";
+  return "Question";
+}
+
+function normalizeText(value) {
+  return String(value)
+    .toLowerCase()
+    .trim()
+    .replace(/[.,!?;:]/g, "")
+    .replace(/\s+/g, " ");
+}
+
+function escapeHtml(value) {
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;");
+}
+
+function saveProgress() {
+  const inProgress = JSON.parse(localStorage.getItem("readingLabInProgress")) || [];
+
+  const activityData = {
+    id: activityId,
+    title: activityTitle,
+    level: activityLevel,
+    words: activityWords,
+    date: new Date().toLocaleDateString()
+  };
+
+  const filtered = inProgress.filter(item => item.id !== activityId);
+  filtered.unshift(activityData);
+
+  localStorage.setItem("readingLabInProgress", JSON.stringify(filtered));
+
+  if (window.saveProgressToFirebase) {
+    window.saveProgressToFirebase(activityData);
+  }
+}
+
+function removeProgress() {
+  const inProgress = JSON.parse(localStorage.getItem("readingLabInProgress")) || [];
+  const filtered = inProgress.filter(item => item.id !== activityId);
+
+  localStorage.setItem("readingLabInProgress", JSON.stringify(filtered));
+
+  if (window.removeProgressFromFirebase) {
+    window.removeProgressFromFirebase(activityId);
+  }
+}
+
+function saveCompletedActivity() {
+  const completed = JSON.parse(localStorage.getItem("readingLabCompleted")) || [];
+
+  const filtered = completed.filter(item => item.id !== activityId);
+
+  const activityData = {
+    id: activityId,
+    title: activityTitle,
+    level: activityLevel,
+    words: activityWords,
+    score: score,
+    total: questions.length,
+    date: new Date().toLocaleDateString()
+  };
+
+  filtered.unshift(activityData);
+
+  localStorage.setItem("readingLabCompleted", JSON.stringify(filtered));
+
+  if (window.saveCompletedToFirebase) {
+    window.saveCompletedToFirebase(activityData);
+  }
+}
+
+function shuffleArray(items) {
+  const copy = [...items];
+
+  for (let i = copy.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copy[i], copy[j]] = [copy[j], copy[i]];
+  }
+
+  return copy;
+}
+
+function updateOrderingSelection() {
+  const currentItems = Array.from(document.querySelectorAll(".ordering-item"))
+    .map(item => item.dataset.value || "");
+
+  selectedAnswer = currentItems;
+
+  if (currentItems.length > 0) {
+    nextBtn.disabled = false;
+    nextBtn.classList.add("active");
+  } else {
+    selectedAnswer = null;
+    nextBtn.disabled = true;
+    nextBtn.classList.remove("active");
+  }
+}
+
+function getDragAfterElement(container, y) {
+  const draggableElements = [...container.querySelectorAll(".ordering-item:not(.dragging)")];
+
+  return draggableElements.reduce((closest, child) => {
+    const box = child.getBoundingClientRect();
+    const offset = y - box.top - box.height / 2;
+
+    if (offset < 0 && offset > closest.offset) {
+      return {
+        offset,
+        element: child
+      };
+    }
+
+    return closest;
+  }, { offset: Number.NEGATIVE_INFINITY }).element;
+}
+
+function enableOrderingDragAndDrop() {
+  const container = document.getElementById("orderingArea");
+  if (!container) return;
+
+  container.querySelectorAll(".ordering-item").forEach(item => {
+    item.addEventListener("dragstart", () => {
+      item.classList.add("dragging");
+    });
+
+    item.addEventListener("dragend", () => {
+      item.classList.remove("dragging");
+      updateOrderingSelection();
+    });
+  });
+
+  container.addEventListener("dragover", event => {
+    event.preventDefault();
+
+    const afterElement = getDragAfterElement(container, event.clientY);
+    const dragging = document.querySelector(".ordering-item.dragging");
+
+    if (!dragging) return;
+
+    if (afterElement == null) {
+      container.appendChild(dragging);
+    } else {
+      container.insertBefore(dragging, afterElement);
+    }
+  });
+
+  updateOrderingSelection();
+}
+
+function loadQuestion() {
+  selectedAnswer = null;
+  nextBtn.disabled = true;
+  nextBtn.classList.remove("active");
+
+  const q = questions[currentQuestion];
+
+  if (!q) {
+    showScore();
+    return;
+  }
+
+  progressText.innerText = "Question " + (currentQuestion + 1) + " of " + questions.length;
+  questionTypeLabel.innerText = getQuestionTypeLabel(q.type);
+  questionText.innerText = q.question;
+
+  if (q.type === "ordering") {
+    const items = q.items || [];
+
+    if (!items.length) {
+      optionsArea.innerHTML = `
+        <div class="load-error">
+          This ordering question has no items.
+        </div>
+      `;
+      return;
+    }
+
+    const shuffledItems = shuffleArray(items);
+
+    optionsArea.innerHTML = `
+      <div id="orderingArea" class="ordering-area">
+        ${shuffledItems.map(item => `
+          <div class="ordering-item" draggable="true" data-value="${escapeHtml(item)}">
+            <span class="ordering-handle">☰</span>
+            <span class="ordering-item-text">${escapeHtml(item)}</span>
+          </div>
+        `).join("")}
+      </div>
+
+      <div class="ordering-note">
+        Drag and drop the sentences into the correct order.
+      </div>
+    `;
+
+    enableOrderingDragAndDrop();
+    saveProgress();
+    return;
+  }
+
+  if (q.type === "matching") {
+    const pairs = q.pairs || [];
+
+    if (!pairs.length) {
+      optionsArea.innerHTML = `
+        <div class="load-error">
+          This matching question has no pairs.
+        </div>
+      `;
+      return;
+    }
+
+    const shuffledRights = [...pairs]
+      .map(pair => pair.right)
+      .filter(value => value)
+      .sort(() => Math.random() - 0.5);
+
+    optionsArea.innerHTML = `
+      <div class="matching-area">
+        ${pairs.map((pair, index) => `
+          <div class="matching-row">
+            <div class="matching-left">
+              ${escapeHtml(pair.left)}
+            </div>
+
+            <select class="matching-select" data-index="${index}">
+              <option value="">Choose...</option>
+              ${shuffledRights.map(right => `
+                <option value="${escapeHtml(right)}">
+                  ${escapeHtml(right)}
+                </option>
+              `).join("")}
+            </select>
+          </div>
+        `).join("")}
+      </div>
+    `;
+
+    document.querySelectorAll(".matching-select").forEach(select => {
+      select.addEventListener("change", () => {
+        const values = Array.from(document.querySelectorAll(".matching-select"))
+          .map(el => el.value.trim());
+
+        const allAnswered = values.every(v => v !== "");
+
+        if (allAnswered) {
+          selectedAnswer = values;
+          nextBtn.disabled = false;
+          nextBtn.classList.add("active");
+        } else {
+          selectedAnswer = null;
+          nextBtn.disabled = true;
+          nextBtn.classList.remove("active");
+        }
+      });
+    });
+
+    saveProgress();
+    return;
+  }
+
+  if (q.type === "fillblank") {
+    const sentenceHtml = escapeHtml(q.sentence || "")
+      .replace("____", `<span class="fillblank-gap"></span>`);
+
+    optionsArea.innerHTML = `
+      <div class="fillblank-sentence">
+        ${sentenceHtml}
+      </div>
+
+      <input
+        id="fillBlankInput"
+        class="fillblank-input"
+        placeholder="Type the missing word or phrase..."
+        autocomplete="off"
+      >
+    `;
+
+    const input = document.getElementById("fillBlankInput");
+
+    input.addEventListener("input", () => {
+      selectedAnswer = input.value.trim();
+
+      if (selectedAnswer !== "") {
+        nextBtn.disabled = false;
+        nextBtn.classList.add("active");
+      } else {
+        nextBtn.disabled = true;
+        nextBtn.classList.remove("active");
+      }
+    });
+
+    input.focus();
+    saveProgress();
+    return;
+  }
+
+  if (q.type === "short") {
+    optionsArea.innerHTML = `
+      <input
+        id="shortAnswerInput"
+        class="short-answer-input"
+        placeholder="Type your answer..."
+        autocomplete="off"
+      >
+    `;
+
+    const input = document.getElementById("shortAnswerInput");
+
+    input.addEventListener("input", () => {
+      selectedAnswer = input.value.trim();
+
+      if (selectedAnswer !== "") {
+        nextBtn.disabled = false;
+        nextBtn.classList.add("active");
+      } else {
+        nextBtn.disabled = true;
+        nextBtn.classList.remove("active");
+      }
+    });
+
+    input.focus();
+
+  } else {
+    const opts = q.options || [];
+
+    optionsArea.innerHTML = opts.map((option, index) => `
+      <label class="option" data-index="${index}">
+        <input type="radio" name="answer" value="${index}">
+        ${escapeHtml(option)}
+      </label>
+    `).join("");
+
+    document.querySelectorAll(".option").forEach(optionLabel => {
+      optionLabel.addEventListener("click", function() {
+        document.querySelectorAll(".option").forEach(opt => opt.classList.remove("selected"));
+
+        this.classList.add("selected");
+        this.querySelector("input").checked = true;
+
+        selectedAnswer = Number(this.dataset.index);
+
+        nextBtn.disabled = false;
+        nextBtn.classList.add("active");
+      });
+    });
+  }
+
+  saveProgress();
+}
+
+function isAnswerCorrect(q, selectedAnswer) {
+  if (q.type === "fillblank") {
+    return normalizeText(selectedAnswer) === normalizeText(q.answer);
+  }
+
+  if (q.type === "ordering") {
+    if (!Array.isArray(selectedAnswer)) return false;
+
+    const items = q.items || [];
+
+    return items.every((item, index) => {
+      return normalizeText(selectedAnswer[index]) === normalizeText(item);
+    });
+  }
+
+  if (q.type === "matching") {
+    if (!Array.isArray(selectedAnswer)) return false;
+
+    const pairs = q.pairs || [];
+
+    return pairs.every((pair, index) => {
+      return normalizeText(selectedAnswer[index]) === normalizeText(pair.right);
+    });
+  }
+
+  if (q.type === "short") {
+    return normalizeText(selectedAnswer) === normalizeText(q.answerText);
+  }
+
+  return selectedAnswer === q.answer;
+}
+
+function getCorrectAnswerText(q) {
+  if (q.type === "fillblank") {
+    return q.answer;
+  }
+
+  if (q.type === "short") {
+    return q.answerText;
+  }
+
+  if (q.type === "matching") {
+    return (q.pairs || [])
+      .map(pair => `${pair.left} → ${pair.right}`)
+      .join(" | ");
+  }
+
+  if (q.type === "ordering") {
+    return (q.items || []).join(" → ");
+  }
+
+  return q.options && q.options[q.answer] ? q.options[q.answer] : "";
+}
+
+function getUserAnswerText(q, selectedAnswer) {
+  if (q.type === "fillblank") {
+    return selectedAnswer;
+  }
+
+  if (q.type === "short") {
+    return selectedAnswer;
+  }
+
+  if (q.type === "matching") {
+    return Array.isArray(selectedAnswer)
+      ? selectedAnswer.join(" | ")
+      : "";
+  }
+
+  if (q.type === "ordering") {
+    return Array.isArray(selectedAnswer)
+      ? selectedAnswer.join(" → ")
+      : "";
+  }
+
+  return q.options && q.options[selectedAnswer] ? q.options[selectedAnswer] : "";
+}
+
+nextBtn.addEventListener("click", function() {
+  if (selectedAnswer === null || selectedAnswer === "") return;
+
+  const q = questions[currentQuestion];
+  const correct = isAnswerCorrect(q, selectedAnswer);
+
+  if (correct) {
+    score++;
+  }
+
+  userAnswers.push({
+    question: q.question,
+    type: q.type,
+    userAnswer: getUserAnswerText(q, selectedAnswer),
+    correctAnswer: getCorrectAnswerText(q),
+    correct
+  });
+
+  currentQuestion++;
+
+  if (currentQuestion < questions.length) {
+    loadQuestion();
+  } else {
+    showScore();
+  }
+});
+
+function showScore() {
+  removeProgress();
+  saveCompletedActivity();
+
+  document.getElementById("activityArea").style.display = "none";
+  document.querySelector(".activity-header").style.display = "none";
+
+  const scoreArea = document.getElementById("scoreArea");
+  scoreArea.style.display = "block";
+
+  const detailHtml = userAnswers.map((item, index) => `
+    <div class="score-detail-item">
+      <strong>${index + 1}. ${escapeHtml(item.question)}</strong><br>
+      Your answer: ${escapeHtml(item.userAnswer || "-")}<br>
+      Correct answer: ${escapeHtml(item.correctAnswer || "-")}<br>
+      <span class="${item.correct ? "correct-text" : "wrong-text"}">
+        ${item.correct ? "Correct" : "Wrong"}
+      </span>
+    </div>
+  `).join("");
+
+  scoreArea.innerHTML = `
+    <div class="score-box">
+      <h2>Activity Completed!</h2>
+      <p>Your score is <strong>${score}/${questions.length}</strong>.</p>
+
+      <div class="score-detail">
+        ${detailHtml}
+      </div>
+
+      <a class="home-link" href="index.html">Back to Home</a>
+    </div>
+  `;
+}
+
+async function startActivitySafely() {
+  try {
+    await import("./firebase-progress.js?v=" + Date.now());
+    console.log("firebase-progress.js loaded");
+  } catch (err) {
+    console.error("firebase-progress.js could not be loaded:", err);
+  }
+
+  loadActivity();
+}
+
+startActivitySafely();
+</script>
+<script type="module" src="./auth-state.js"></script>
+<script type="module" src="./protect-page.js"></script>
+</body>
+</html>

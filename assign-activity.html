@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Assign Activity | myReading Online</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="header.css">
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f6efe4;
+  color: #374151;
+}
+
+.container {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 30px 36px;
+}
+
+.content-wrap {
+  width: 100%;
+  max-width: 1450px;
+  margin: 0 auto;
+}
+
+.page-header {
+  background: #fffaf1;
+  border: 1px solid #efe2cf;
+  border-radius: 22px;
+  padding: 24px;
+  margin-bottom: 22px;
+  box-shadow: 0 8px 22px rgba(92, 74, 52, 0.06);
+}
+
+.page-header h1 {
+  margin: 0 0 8px;
+  font-size: 28px;
+}
+
+.page-header p {
+  margin: 0;
+  color: #7a6f63;
+}
+
+.toolbar {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+  background: #eadfce;
+  border: 1px solid #ddceb8;
+  border-radius: 20px;
+  padding: 16px;
+  margin-bottom: 22px;
+}
+
+.toolbar input,
+.toolbar select {
+  padding: 12px 14px;
+  border: 1px solid #ddceb8;
+  border-radius: 14px;
+  background: #fffaf1;
+  color: #374151;
+  font-size: 15px;
+}
+
+.toolbar input[type="text"] {
+  flex: 1;
+  min-width: 260px;
+}
+
+.activities-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.activity-card {
+  background: #fffaf1;
+  border: 1px solid #efe2cf;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 8px 22px rgba(92, 74, 52, 0.08);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+}
+
+.activity-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 30px rgba(92, 74, 52, 0.16);
+  border-color: rgba(107, 127, 215, 0.35);
+}
+
+.activity-card img {
+  width: 100%;
+  height: 135px;
+  object-fit: cover;
+  background: #eadfce;
+}
+
+.activity-card-content {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.level {
+  display: inline-block;
+  align-self: flex-start;
+  background: #fff0bd;
+  padding: 5px 11px;
+  border-radius: 999px;
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+
+.activity-card h3 {
+  margin: 0 0 8px;
+  line-height: 1.2;
+  min-height: 48px;
+}
+
+.meta {
+  font-size: 13px;
+  color: #7a6f63;
+  margin-bottom: 14px;
+}
+
+.assign-btn {
+  margin-top: auto;
+  border: none;
+  padding: 11px 14px;
+  border-radius: 999px;
+  background: #6b7fd7;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.assign-btn.assigned,
+.assign-btn:disabled {
+  background: #d8d1c6;
+  color: #7a6f63;
+  cursor: not-allowed;
+}
+
+.back-link {
+  display: inline-block;
+  margin-top: 18px;
+  color: #5266c7;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.message {
+  margin-bottom: 16px;
+  color: #7a6f63;
+}
+
+@media (max-width: 1100px) {
+  .activities-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 760px) {
+  .container { padding: 24px 18px; }
+  .activities-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 480px) {
+  .activities-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+
+<body>
+
+<div id="site-header"></div>
+
+<section class="hero">
+  <video autoplay muted loop playsinline>
+    <source src="assets/video/sky.mp4" type="video/mp4">
+  </video>
+</section>
+
+<main class="container">
+  <div class="content-wrap">
+    <section class="page-header">
+      <h1>Assign Activity</h1>
+      <p id="classInfo">Loading class...</p>
+      <a class="back-link" href="teacher.html">← Back to Teacher Panel</a>
+    </section>
+
+    <section class="toolbar">
+      <input type="text" id="searchInput" placeholder="Search activities by title..." autocomplete="off" value="">
+
+      <select id="levelFilter" autocomplete="off">
+        <option value="ALL">All levels</option>
+        <option value="A1">A1</option>
+        <option value="A2">A2</option>
+        <option value="B1">B1</option>
+        <option value="B2">B2</option>
+      </select>
+
+      <input type="date" id="dueDateInput">
+    </section>
+
+    <div class="message" id="messageArea">Loading activities...</div>
+    <section class="activities-grid" id="activitiesGrid"></section>
+  </div>
+</main>
+
+<footer style="text-align:center; padding:25px; font-size:13px; color:#9a8f84;">© 2026 myReading Online</footer>
+
+<script>
+function loadSiteHeader() {
+  fetch("header.html")
+    .then(res => res.text())
+    .then(data => {
+      document.getElementById("site-header").innerHTML = data;
+
+      let logoClickCount = 0;
+      let logoClickTimer = null;
+      const logoLink = document.getElementById("logoHomeLink");
+
+      if (logoLink) {
+        logoLink.addEventListener("click", function(e) {
+          e.preventDefault();
+          logoClickCount++;
+
+          clearTimeout(logoClickTimer);
+
+          if (logoClickCount >= 5) {
+            window.location.href = "admin.html";
+            return;
+          }
+
+          logoClickTimer = setTimeout(() => {
+            logoClickCount = 0;
+            window.location.href = "index.html";
+          }, 700);
+        });
+      }
+    })
+    .catch(err => {
+      console.error("Header could not be loaded:", err);
+    });
+}
+
+loadSiteHeader();
+</script>
+
+<script type="module">
+import { auth, db } from "./firebase-config.js";
+import {
+  collection,
+  getDocs,
+  doc,
+  setDoc,
+  serverTimestamp
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const params = new URLSearchParams(window.location.search);
+const classId = params.get("classId");
+const className = params.get("className") || "Selected Class";
+
+const classInfo = document.getElementById("classInfo");
+const messageArea = document.getElementById("messageArea");
+const activitiesGrid = document.getElementById("activitiesGrid");
+const searchInput = document.getElementById("searchInput");
+const levelFilter = document.getElementById("levelFilter");
+const dueDateInput = document.getElementById("dueDateInput");
+
+let readings = [];
+let assignedIds = [];
+
+function escapeHtml(value) {
+  return String(value || "")
+    .replaceAll("&", "&amp;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;");
+}
+
+function waitForUser() {
+  return new Promise((resolve) => {
+    if (auth.currentUser) return resolve(auth.currentUser);
+
+    const unsub = auth.onAuthStateChanged((user) => {
+      unsub();
+      resolve(user);
+    });
+  });
+}
+
+async function loadAssignedIds() {
+  const snapshot = await getDocs(
+    collection(db, "classes", classId, "assignedActivities")
+  );
+
+  assignedIds = snapshot.docs.map(docSnap => docSnap.id);
+}
+
+async function loadReadings() {
+  try {
+    const manifestRes = await fetch("data/manifest.json?v=" + Date.now());
+
+    if (!manifestRes.ok) {
+      throw new Error("manifest.json not found");
+    }
+
+    const manifest = await manifestRes.json();
+    const loaded = [];
+
+    for (const fileName of manifest) {
+      try {
+        const res = await fetch("data/" + fileName + "?v=" + Date.now());
+
+        if (!res.ok) {
+          console.warn("Reading file not found:", fileName);
+          continue;
+        }
+
+        const data = await res.json();
+
+        loaded.push({
+          id: data.id || fileName.replace(".json", ""),
+          title: data.title || "Untitled Reading",
+          level: data.level || "A2",
+          words: data.words || 0,
+          image: data.image || "https://picsum.photos/600/400?random=reading"
+        });
+      } catch (fileErr) {
+        console.warn("Could not load reading file:", fileName, fileErr);
+      }
+    }
+
+    readings = loaded;
+  } catch (err) {
+    console.error("Load readings error:", err);
+    readings = [];
+    messageArea.style.color = "#9b2c2c";
+    messageArea.innerText = "Activities could not be loaded. Please check data/manifest.json.";
+  }
+}
+
+function renderActivities() {
+  const searchValue = searchInput.value.trim().toLowerCase();
+  const selectedLevel = levelFilter.value;
+
+  const filtered = readings.filter(item => {
+    const matchesSearch = item.title.toLowerCase().includes(searchValue);
+    const matchesLevel = selectedLevel === "ALL" || item.level === selectedLevel;
+    return matchesSearch && matchesLevel;
+  });
+
+  if (filtered.length === 0) {
+    activitiesGrid.innerHTML = "";
+    messageArea.innerText = "No activities found.";
+    return;
+  }
+
+  messageArea.style.color = "#7a6f63";
+  messageArea.innerText = filtered.length + " activities found.";
+
+  activitiesGrid.innerHTML = filtered.map(item => {
+    const alreadyAssigned = assignedIds.includes(item.id);
+
+    return `
+      <article class="activity-card">
+        <img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.title)}">
+        <div class="activity-card-content">
+          <span class="level">${escapeHtml(item.level)}</span>
+          <h3>${escapeHtml(item.title)}</h3>
+          <div class="meta">${escapeHtml(item.words)} words</div>
+          <button
+            type="button"
+            class="assign-btn ${alreadyAssigned ? "assigned" : ""}"
+            ${alreadyAssigned ? "disabled" : ""}
+            data-id="${escapeHtml(item.id)}"
+          >
+            ${alreadyAssigned ? "Assigned" : "Assign to Class"}
+          </button>
+        </div>
+      </article>
+    `;
+  }).join("");
+
+  document.querySelectorAll(".assign-btn:not(.assigned)").forEach(button => {
+    button.addEventListener("click", async () => {
+      const activityId = button.dataset.id;
+      const activity = readings.find(item => item.id === activityId);
+
+      if (!activity) return;
+
+      button.disabled = true;
+      button.innerText = "Assigning...";
+
+      try {
+        await setDoc(
+          doc(db, "classes", classId, "assignedActivities", activity.id),
+          {
+            id: activity.id,
+            title: activity.title,
+            level: activity.level,
+            words: activity.words,
+            image: activity.image || "",
+            dueDate: dueDateInput.value || null,
+            assignedAt: serverTimestamp()
+          },
+          { merge: true }
+        );
+
+        assignedIds.push(activity.id);
+        renderActivities();
+      } catch (err) {
+        console.error("Assign activity error:", err);
+        button.disabled = false;
+        button.innerText = "Assign to Class";
+        alert("Activity could not be assigned.");
+      }
+    });
+  });
+}
+
+async function init() {
+  if (!classId) {
+    classInfo.innerText = "No class selected.";
+    messageArea.style.color = "#9b2c2c";
+    messageArea.innerText = "Please go back to Teacher Panel and select a class.";
+    return;
+  }
+
+  const user = await waitForUser();
+
+  if (!user) {
+    messageArea.style.color = "#9b2c2c";
+    messageArea.innerText = "Please login first.";
+    return;
+  }
+
+  classInfo.innerText = "Class: " + className;
+
+  searchInput.value = "";
+  levelFilter.value = "ALL";
+
+  await loadAssignedIds();
+  await loadReadings();
+  renderActivities();
+}
+
+searchInput.addEventListener("input", renderActivities);
+levelFilter.addEventListener("change", renderActivities);
+
+init();
+</script>
+
+<script type="module" src="./auth-state.js"></script>
+<script type="module" src="./teacher-auth.js"></script>
+</body>
+</html>

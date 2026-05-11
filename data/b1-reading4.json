@@ -1,0 +1,115 @@
+{
+  "id": "b1-reading4",
+  "title": "A Busy Day at a Small Coffee Shop",
+  "level": "B1",
+  "date": "2026-05-08",
+  "genre": "Daily Routines",
+  "words": 244,
+  "image": "https://seodesignchicago.com/wp-content/uploads/2025/05/busy-morning-in-cafe.jpg",
+  "text": "Emma has worked at a small coffee shop in her neighborhood for two years. The shop is popular because fresh coffee and homemade desserts are served every day. Many customers visit the café before work, and some students spend hours there studying or chatting with friends.\n\nLast Saturday was especially busy. Emma arrived at the coffee shop early in the morning because a local music event was taking place nearby. While she was preparing coffee, more and more customers were entering the shop. Some people were ordering breakfast, while others were waiting in line for drinks.\n\nAt around 10:00 a.m., the café became extremely crowded. Emma was carrying drinks to a table when someone suddenly dropped a cup near the counter. Coffee spilled onto the floor, and another worker quickly cleaned the area. While the employees were trying to manage the situation, new customers were continuing to arrive.\n\nLater in the afternoon, a musician from the local event came into the café and ordered tea and cake. Several customers recognized him and asked for photos. Emma felt surprised because she had never seen a famous person in the shop before.\n\nAlthough the day was stressful, Emma enjoyed the experience. She has learned how to work quickly under pressure and communicate politely with customers. Since she started working there, she has become more confident and responsible. At the end of the day, the workers cleaned the café together and finally relaxed after many busy hours.",
+  "vocabulary": [
+    {
+      "word": "neighbourhood",
+      "meaning": "a district or an area of a town; the people who live there",
+      "example": "We grew up in the same neighbourhood."
+    },
+    {
+      "word": "dessert",
+      "meaning": "sweet food eaten at the end of a meal",
+      "example": "Baklava is my favorite dessert after meals."
+    },
+    {
+      "word": "crowded",
+      "meaning": "full of people",
+      "example": "The buses are very crowded in the mornings"
+    }
+  ],
+  "questions": [
+    {
+      "type": "multiple",
+      "question": "Why was the coffee shop especially busy last Saturday?",
+      "options": [
+        "A sports competition was happening nearby",
+        "A local music event was taking place",
+        "Free coffee was being served",
+        "The café opened for the first time"
+      ],
+      "answer": 1
+    },
+    {
+      "type": "multiple",
+      "question": "What was Emma doing when the cup fell?",
+      "options": [
+        "Cleaning the floor",
+        "Taking photos",
+        "Carrying drinks to a table",
+        "Talking to customers"
+      ],
+      "answer": 2
+    },
+    {
+      "type": "multiple",
+      "question": "Why were customers interested in the musician?",
+      "options": [
+        "He worked at the café",
+        "He was a famous person",
+        "He dropped a cup",
+        "He bought coffee for everyone"
+      ],
+      "answer": 1
+    },
+    {
+      "type": "truefalse",
+      "question": "Emma has worked at the coffee shop for less than one year.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 1
+    },
+    {
+      "type": "short",
+      "question": "What happened near the counter?",
+      "answerText": "Someone dropped a cup and coffee spilled onto the floor."
+    },
+    {
+      "type": "short",
+      "question": "What has Emma learned since she started working at the café?",
+      "answerText": "She has learned how to work quickly under pressure and communicate politely with customers."
+    },
+    {
+      "type": "fillblank",
+      "question": "Fill in the blank in a suitable form.",
+      "sentence": "Fresh coffee and homemade desserts ____ every day.",
+      "answer": "are served"
+    },
+    {
+      "type": "ordering",
+      "question": "Put the events in the correct order.",
+      "items": [
+        "A customer dropped a cup.",
+        "Emma arrived at the café early.",
+        "The musician visited the café.",
+        "The workers cleaned the café."
+      ]
+    },
+    {
+      "type": "matching",
+      "question": "Match the words with their meanings.",
+      "pairs": [
+        {
+          "left": "Crowded",
+          "right": "Full of many people"
+        },
+        {
+          "left": "Responsible",
+          "right": "Able to be trusted"
+        },
+        {
+          "left": "Relaxed",
+          "right": "Feeling calm after stress"
+        }
+      ]
+    }
+  ]
+}

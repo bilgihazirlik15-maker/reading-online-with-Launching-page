@@ -1,0 +1,62 @@
+{
+  "id": "a1-reading1",
+  "title": "Emma's Day",
+  "level": "A1",
+  "date": "2026-05-08",
+  "genre": "Daily Routines",
+  "words": 130,
+  "image": "https://images.openai.com/static-rsc-4/YZq5e3L1o5QN8ikBKV92IbchB--rGceAf4Mik0GzTUJhPl7cFAldhs_hwIG8B2kIz-ILYoK9SaQbju4diVBtVNxAnJqvs9cWS8Qrdj10QGIbFJiMbZRMLveEoo6WCHdR6wtRj2T17kQxcxnNKvpzNf46yKmrcQqWFphqMPAiLTelxWUMtvgA4QTZ2C4424du?purpose=fullsize",
+  "text": "Emma is a teacher. She lives in a small house near her school. She wakes up at 7:00 every morning. She drinks coffee and eats bread and cheese for breakfast. Then she walks to school.\n\nShe starts work at 8:30. She teaches English to young students. She likes her job because she loves children. She finishes work at 3:00 in the afternoon. After school, she goes home and rests for one hour.\n\nIn the evening, she cooks dinner. She usually eats vegetables and rice. After dinner, she watches TV or reads a book. She sometimes calls her friends.\n\nEmma goes to bed at 10:30. She sleeps early because she wakes up early every day. On weekends, she visits her family or goes to the park. She likes her simple life.",
+  "vocabulary": [],
+  "questions": [
+    {
+      "type": "multiple",
+      "question": "What time does Emma wake up?",
+      "options": [
+        "6:00",
+        "7:00",
+        "8:00"
+      ],
+      "answer": 1
+    },
+    {
+      "type": "multiple",
+      "question": "How does Emma go to school?",
+      "options": [
+        "By car",
+        "By bus",
+        "On foot"
+      ],
+      "answer": 2
+    },
+    {
+      "type": "multiple",
+      "question": "What does Emma do after school?",
+      "options": [
+        "She goes shopping",
+        "She goes home and rests",
+        "She plays sports"
+      ],
+      "answer": 1
+    },
+    {
+      "type": "multiple",
+      "question": "What does Emma do in the evening?",
+      "options": [
+        "She works",
+        "She studies",
+        "She cooks dinner"
+      ],
+      "answer": 2
+    },
+    {
+      "type": "truefalse",
+      "question": "Emma goes to bed late every night.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 1
+    }
+  ]
+}

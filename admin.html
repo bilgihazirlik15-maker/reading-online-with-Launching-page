@@ -1,0 +1,2132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Reading Admin Panel</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="header.css">
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  visibility: hidden;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f6efe4;
+  color: #374151;
+}
+
+.admin-nav-link {
+  background: #fff0bd !important;
+  color: #816200 !important;
+  border: 1px solid rgba(129, 98, 0, 0.25) !important;
+}
+
+.admin-nav-link:hover {
+  background: #ffe28a !important;
+  color: #6b4e00 !important;
+}
+
+.hero {
+  position: relative;
+  height: 120px;
+  overflow: hidden;
+}
+
+.hero video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 108px;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.75);
+}
+
+.container {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 30px 36px;
+}
+
+.admin-title {
+  width: 100%;
+  max-width: 1450px;
+  margin-left: auto;
+  margin-right: auto;
+  background: #fffaf1;
+  padding: 28px;
+  border-radius: 24px;
+  border: 1px solid #efe2cf;
+  margin-bottom: 25px;
+  box-shadow: 0 8px 22px rgba(92, 74, 52, 0.07);
+}
+
+.admin-title h1 {
+  margin: 0 0 8px;
+  font-size: 34px;
+}
+
+.admin-title p {
+  margin: 0;
+  color: #7a6f63;
+}
+
+.admin-grid {
+  width: 100%;
+  max-width: 1450px;
+  margin-left: auto;
+  margin-right: auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.18fr) minmax(420px, 0.82fr);
+  gap: 24px;
+  align-items: start;
+}
+
+.panel {
+  background: #fffaf1;
+  padding: 26px;
+  border-radius: 24px;
+  border: 1px solid #efe2cf;
+  box-shadow: 0 8px 22px rgba(92, 74, 52, 0.07);
+}
+
+.panel h2 {
+  margin-top: 0;
+}
+
+.form-group {
+  margin-bottom: 18px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 7px;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 13px 14px;
+  border-radius: 14px;
+  border: 1px solid #ddceb8;
+  background: #fff;
+  font-size: 15px;
+  color: #374151;
+}
+
+textarea {
+  min-height: 180px;
+  resize: vertical;
+  line-height: 1.6;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.question-card {
+  background: #f1eadf;
+  padding: 18px;
+  border-radius: 18px;
+  margin-bottom: 18px;
+  border: 1px solid #e5d7c4;
+}
+
+.question-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.question-top h3 {
+  margin: 0;
+}
+
+.remove-btn {
+  border: none;
+  background: #f3b5b5;
+  color: #7a2020;
+  padding: 8px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.remove-btn:hover {
+  background: #ef9999;
+}
+
+.option-grid {
+  display: grid;
+  gap: 10px;
+}
+
+.correct-area {
+  margin-top: 14px;
+}
+
+.truefalse-note,
+.short-answer-note {
+  background: #fffaf1;
+  border: 1px solid #e5d7c4;
+  padding: 12px;
+  border-radius: 14px;
+  font-size: 14px;
+  color: #7a6f63;
+  margin-bottom: 14px;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: nowrap;
+  margin-top: 22px;
+  justify-content: center;
+  align-items: center;
+}
+
+.actions button {
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: 210px;
+  padding: 12px 12px;
+  font-size: 14px;
+  white-space: nowrap;
+  text-align: center;
+}
+
+button {
+  border: none;
+  padding: 14px 18px;
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.primary-btn {
+  background: #6b7fd7;
+  color: white;
+}
+
+.primary-btn:hover {
+  background: #5266c7;
+}
+
+.secondary-btn {
+  background: #d6eadf;
+  color: #2f6650;
+}
+
+.secondary-btn:hover {
+  background: #bfe0d1;
+}
+
+.warning-btn {
+  background: #fff0bd;
+  color: #816200;
+}
+
+.warning-btn:hover {
+  background: #ffe28a;
+}
+
+.preview-box {
+  background: #f1eadf;
+  padding: 18px;
+  border-radius: 18px;
+  border: 1px solid #e5d7c4;
+  max-height: 650px;
+  overflow: auto;
+}
+
+.preview-box pre {
+  white-space: pre-wrap;
+  word-break: break-word;
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.small-note {
+  font-size: 13px;
+  color: #7a6f63;
+  margin-top: 6px;
+}
+
+.type-badge {
+  display: inline-block;
+  background: #fff0bd;
+  color: #816200;
+  padding: 5px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  margin-left: 8px;
+}
+
+
+/* === STUDENT BATCH UPLOAD FINAL === */
+.student-upload-section {
+  margin-top: 24px;
+}
+
+.student-upload-card {
+  background: #fffaf1;
+  border: 1px solid #efe2cf;
+  border-radius: 24px;
+  padding: 26px;
+  box-shadow: 0 8px 22px rgba(92, 74, 52, 0.07);
+}
+
+.student-upload-card h2 {
+  margin-top: 0;
+}
+
+.student-upload-card p {
+  color: #7a6f63;
+  line-height: 1.5;
+}
+
+.student-upload-actions-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 18px;
+}
+
+.student-upload-actions {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: nowrap;
+}
+
+.student-upload-actions button,
+.student-upload-actions label,
+.student-file-label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  min-width: 150px;
+  padding: 0 12px;
+  margin: 0;
+  border: none;
+  border-radius: 999px;
+  background: #6b7fd7;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  box-sizing: border-box;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.student-upload-actions button:hover,
+.student-upload-actions label:hover,
+.student-file-label:hover {
+  background: #5266c7;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(82, 102, 199, 0.18);
+}
+
+.student-upload-actions button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.student-class-select-area {
+  max-width: 520px;
+  margin: 18px auto 0;
+  text-align: left;
+}
+
+.student-class-select-area label {
+  display: block;
+  font-weight: bold;
+  color: #374151;
+  margin-bottom: 7px;
+}
+
+.student-class-select-area select {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid #ddceb8;
+  background: #fffaf1;
+  color: #374151;
+  font-size: 14px;
+}
+
+.student-upload-message {
+  font-size: 14px;
+  margin-top: 14px;
+}
+
+.csv-format-box {
+  background: #f1eadf;
+  border: 1px solid #e5d7c4;
+  border-radius: 18px;
+  padding: 16px;
+  margin-top: 18px;
+  color: #7a6f63;
+}
+
+.csv-format-box code {
+  display: block;
+  background: #fffaf1;
+  border: 1px solid #efe2cf;
+  border-radius: 12px;
+  padding: 12px;
+  margin-top: 10px;
+  color: #374151;
+  overflow-x: auto;
+  white-space: pre;
+}
+
+.student-upload-empty {
+  background: #f6efe4;
+  border: 1px dashed #ddceb8;
+  border-radius: 16px;
+  padding: 18px;
+  color: #7a6f63;
+  margin-top: 16px;
+}
+
+.student-upload-count {
+  color: #7a6f63;
+  margin: 16px 0 10px;
+  font-size: 14px;
+}
+
+.student-upload-table-wrap {
+  overflow-x: auto;
+  margin-top: 10px;
+}
+
+.student-upload-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 760px;
+  background: #fffaf1;
+}
+
+.student-upload-table th {
+  text-align: left;
+  padding: 12px;
+  background: #f1eadf;
+  color: #374151;
+  font-size: 14px;
+}
+
+.student-upload-table td {
+  padding: 12px;
+  border-bottom: 1px solid #efe2cf;
+  font-size: 14px;
+}
+
+@media (max-width: 900px) {
+  .student-upload-actions {
+    flex-wrap: wrap;
+  }
+}
+
+
+/* === SCHOOL MANAGEMENT === */
+.school-management-section {
+  margin-top: 24px;
+}
+
+.school-management-card {
+  background: #fffaf1;
+  border: 1px solid #efe2cf;
+  border-radius: 24px;
+  padding: 26px;
+  box-shadow: 0 8px 22px rgba(92, 74, 52, 0.07);
+}
+
+.school-management-card h2 {
+  margin-top: 0;
+}
+
+.school-management-card p {
+  color: #7a6f63;
+  line-height: 1.5;
+}
+
+.school-input-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+  align-items: end;
+  margin-top: 14px;
+}
+
+.school-input-row .form-group {
+  margin-bottom: 0;
+}
+
+.school-list {
+  margin-top: 16px;
+  display: grid;
+  gap: 10px;
+}
+
+.school-row {
+  background: #f1eadf;
+  border: 1px solid #e5d7c4;
+  border-radius: 16px;
+  padding: 13px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.school-row strong {
+  color: #374151;
+}
+
+.school-delete-btn {
+  background: #f3b5b5;
+  color: #7a2020;
+  padding: 9px 12px;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.school-delete-btn:hover {
+  background: #ef9999;
+}
+
+.school-classes {
+  margin-top: 10px;
+  display: grid;
+  gap: 8px;
+}
+
+.school-class-row {
+  background: #fffaf1;
+  border: 1px solid #e5d7c4;
+  border-radius: 14px;
+  padding: 10px 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+}
+
+.school-class-row span {
+  color: #374151;
+}
+
+.class-delete-btn {
+  background: #f3b5b5;
+  color: #7a2020;
+  padding: 7px 10px;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.class-delete-btn:hover {
+  background: #ef9999;
+}
+
+.school-message {
+  margin-top: 12px;
+  font-size: 14px;
+}
+
+@media (max-width: 900px) {
+  .school-input-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+footer {
+  text-align: center;
+  padding: 25px;
+  font-size: 13px;
+  color: #9a8f84;
+}
+
+@media (max-width: 900px) {
+  .admin-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .container {
+    padding: 24px 18px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .actions {
+    flex-wrap: wrap;
+  }
+
+  .actions button {
+    max-width: none;
+    flex: 1 1 180px;
+  }
+}
+
+.matching-pairs {
+  display: grid;
+  gap: 12px;
+}
+
+.matching-pair-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 10px;
+  align-items: end;
+  background: #fffaf1;
+  border: 1px solid #e5d7c4;
+  border-radius: 14px;
+  padding: 12px;
+}
+
+.matching-pair-row .form-group {
+  margin-bottom: 0;
+}
+
+.add-pair-btn {
+  margin-top: 12px;
+  background: #d6eadf;
+  color: #2f6650;
+  padding: 10px 14px;
+  font-size: 13px;
+}
+
+.add-pair-btn:hover {
+  background: #bfe0d1;
+}
+
+.remove-pair-btn {
+  background: #f3b5b5;
+  color: #7a2020;
+  padding: 10px 12px;
+  font-size: 13px;
+  min-width: 42px;
+}
+
+.remove-pair-btn:hover {
+  background: #ef9999;
+}
+
+@media (max-width: 900px) {
+  .matching-pair-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+.ordering-items {
+  display: grid;
+  gap: 12px;
+}
+
+.ordering-item-row {
+  display: grid;
+  grid-template-columns: 34px 1fr auto;
+  gap: 10px;
+  align-items: center;
+  background: #fffaf1;
+  border: 1px solid #e5d7c4;
+  border-radius: 14px;
+  padding: 12px;
+}
+
+.ordering-number {
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  background: #fff0bd;
+  color: #816200;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 13px;
+}
+
+.ordering-item-row .form-group {
+  margin-bottom: 0;
+}
+
+.add-ordering-item-btn {
+  margin-top: 12px;
+  background: #d6eadf;
+  color: #2f6650;
+  padding: 10px 14px;
+  font-size: 13px;
+}
+
+.add-ordering-item-btn:hover {
+  background: #bfe0d1;
+}
+
+.remove-ordering-item-btn {
+  background: #f3b5b5;
+  color: #7a2020;
+  padding: 10px 12px;
+  font-size: 13px;
+  min-width: 42px;
+}
+
+.remove-ordering-item-btn:hover {
+  background: #ef9999;
+}
+
+@media (max-width: 900px) {
+  .ordering-item-row {
+    grid-template-columns: 1fr;
+  }
+
+  .ordering-number {
+    width: auto;
+  }
+}
+
+
+.fillblank-sentence-preview {
+  background: #fffaf1;
+  border: 1px solid #e5d7c4;
+  padding: 12px;
+  border-radius: 14px;
+  color: #7a6f63;
+  font-size: 14px;
+  margin-top: 8px;
+}
+
+
+/* === CLICKABLE VOCABULARY ADMIN === */
+
+.vocabulary-admin-box {
+  background: #f1eadf;
+  border: 1px solid #e5d7c4;
+  border-radius: 18px;
+  padding: 18px;
+  margin-bottom: 18px;
+}
+
+.vocabulary-admin-box h2 {
+  margin-top: 0;
+}
+
+.vocab-items {
+  display: grid;
+  gap: 12px;
+}
+
+.vocab-item-row {
+  display: grid;
+  grid-template-columns: 0.7fr 1fr 1fr auto;
+  gap: 10px;
+  align-items: end;
+  background: #fffaf1;
+  border: 1px solid #e5d7c4;
+  border-radius: 14px;
+  padding: 12px;
+}
+
+.vocab-item-row .form-group {
+  margin-bottom: 0;
+}
+
+.add-vocab-btn {
+  margin-top: 12px;
+  background: #d6eadf;
+  color: #2f6650;
+  padding: 10px 14px;
+  font-size: 13px;
+}
+
+.add-vocab-btn:hover {
+  background: #bfe0d1;
+}
+
+.remove-vocab-btn {
+  background: #f3b5b5;
+  color: #7a2020;
+  padding: 10px 12px;
+  font-size: 13px;
+  min-width: 42px;
+}
+
+.remove-vocab-btn:hover {
+  background: #ef9999;
+}
+
+@media (max-width: 900px) {
+  .vocab-item-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* === EDIT EXISTING READING === */
+
+.edit-existing-box {
+  background: #f1eadf;
+  border: 1px solid #e5d7c4;
+  border-radius: 18px;
+  padding: 18px;
+  margin-bottom: 22px;
+}
+
+.edit-existing-box h2 {
+  margin-top: 0;
+}
+
+.edit-existing-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  align-items: end;
+}
+
+.edit-existing-row .form-group {
+  margin-bottom: 0;
+}
+
+.load-reading-btn {
+  background: #6b7fd7;
+  color: white;
+  height: 46px;
+  padding: 0 18px;
+  white-space: nowrap;
+}
+
+.load-reading-btn:hover {
+  background: #5266c7;
+}
+
+.edit-message {
+  font-size: 14px;
+  margin-top: 12px;
+  color: #7a6f63;
+}
+
+@media (max-width: 900px) {
+  .edit-existing-row {
+    grid-template-columns: 1fr;
+  }
+
+  .load-reading-btn {
+    width: 100%;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="site-header"></div>
+
+<section class="hero">
+  <video autoplay muted loop playsinline>
+    <source src="assets/video/sky.mp4" type="video/mp4">
+  </video>
+</section>
+
+<main class="container">
+
+<section class="admin-title">
+  <h1>Reading Content Admin</h1>
+  <p>Create reading texts, choose question types, add answers, and export the activity as JSON.</p>
+</section>
+
+<section class="admin-grid">
+
+  <div class="panel">
+    <h2>Activity Details</h2>
+
+    <div class="edit-existing-box">
+      <h2>Edit Existing Reading</h2>
+      <div class="small-note">Select a JSON file from data/manifest.json, load it into this form, edit it, then download the updated JSON.</div>
+
+      <div class="edit-existing-row">
+        <div class="form-group">
+          <label for="existingReadingSelect">Existing Reading</label>
+          <select id="existingReadingSelect">
+            <option value="">Loading readings...</option>
+          </select>
+        </div>
+
+        <button type="button" class="load-reading-btn" onclick="loadSelectedReading()">
+          Load Reading
+        </button>
+      </div>
+
+      <div id="editReadingMessage" class="edit-message"></div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="readingId">Activity ID</label>
+        <input id="readingId" placeholder="b2-reading-1">
+        <div class="small-note">Use lowercase letters, numbers, and hyphens.</div>
+      </div>
+
+      <div class="form-group">
+        <label for="level">Level</label>
+        <select id="level">
+          <option value="A1">A1</option>
+          <option value="A2" selected>A2</option>
+          <option value="B1">B1</option>
+          <option value="B2">B2</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="title">Reading Title</label>
+      <input id="title" placeholder="A Strange Story on the Mountains">
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="date">Added Date</label>
+        <input id="date" type="date">
+        <div class="small-note">This date will appear on the reading cards.</div>
+      </div>
+
+      <div class="form-group">
+        <label for="genre">Genre / Type</label>
+        <input id="genre" placeholder="Technology, Story, Science, Culture...">
+        <div class="small-note">This type will appear on the reading cards.</div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="words">Word Count</label>
+        <input id="words" type="number" placeholder="450">
+      </div>
+
+      <div class="form-group">
+        <label for="image">Image URL / Path</label>
+        <input id="image" placeholder="assets/images/mountains.jpg">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="readingText">Reading Text</label>
+      <textarea id="readingText" placeholder="Paste or write the reading text here..."></textarea>
+    </div>
+
+    <div class="vocabulary-admin-box">
+      <h2>Clickable Vocabulary</h2>
+      <div class="small-note">Add important words from the reading text. These words will become clickable in the activity page.</div>
+
+      <div id="vocabItems" class="vocab-items"></div>
+
+      <button type="button" class="add-vocab-btn" onclick="addVocabularyItem()">
+        + Add Vocabulary Item
+      </button>
+    </div>
+
+    <h2>Questions</h2>
+    <div id="questionsContainer"></div>
+
+    <div class="actions">
+      <button class="secondary-btn" onclick="addQuestion()">+ Add Question</button>
+      <button class="warning-btn" onclick="updatePreview()">Preview JSON</button>
+      <button class="primary-btn" onclick="downloadJSON()">Download JSON</button>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>JSON Preview</h2>
+    <div class="preview-box">
+      <pre id="jsonPreview">Your JSON will appear here.</pre>
+    </div>
+
+
+    <section class="school-management-section">
+      <div class="school-management-card">
+        <h2>School Management</h2>
+        <p>Add schools here. Teachers will choose one of these schools before creating a class.</p>
+
+        <div class="school-input-row">
+          <div class="form-group">
+            <label for="schoolNameInput">School Name</label>
+            <input id="schoolNameInput" placeholder="Example: Istanbul Bilgi University">
+          </div>
+
+          <button type="button" class="primary-btn" onclick="addSchool()">
+            Add School
+          </button>
+        </div>
+
+        <p id="schoolMessage" class="school-message"></p>
+
+        <div id="schoolList" class="school-list">
+          <div class="student-upload-empty">Loading schools...</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="student-upload-section">
+      <div class="student-upload-card">
+        <h2>Student Batch Upload</h2>
+        <p>Upload students with a CSV file. The system will create Firebase Auth accounts and student profiles, then add each student to the selected class.</p>
+
+        <div class="student-upload-actions-wrapper">
+          <div class="student-upload-actions">
+            <button type="button" id="studentTemplateButton">Download CSV Template</button>
+
+            <label class="student-file-label" for="studentCSVInput">
+              Choose CSV File
+            </label>
+
+            <input
+              type="file"
+              id="studentCSVInput"
+              accept=".csv"
+              style="display:none;"
+            >
+
+            <button type="button" id="studentUploadButton">Upload Students</button>
+          </div>
+        </div>
+
+        <div class="student-class-select-area">
+          <label for="studentUploadClassSelect">Choose Class for Uploaded Students</label>
+          <select id="studentUploadClassSelect">
+            <option value="">Loading classes...</option>
+          </select>
+          <div class="small-note">Students in the CSV will be added to this selected class. The classCode column in the CSV can be left blank.</div>
+        </div>
+
+        <p id="studentUploadMessage" class="student-upload-message"></p>
+
+        <div class="csv-format-box">
+          <strong>CSV Format</strong>
+          <code>email,password,name,classCode,level
+ayse.student@example.com,Temp1234,Ayse Yilmaz,,A2
+mehmet.student@example.com,Temp1234,Mehmet Demir,,A2</code>
+        </div>
+
+        <div id="studentUploadPreview"></div>
+      </div>
+    </section>
+  </div>
+
+</section>
+
+</main>
+
+<footer>© 2026 myReading Online</footer>
+
+<script>
+function loadSiteHeader() {
+  fetch("header.html")
+    .then(res => res.text())
+    .then(data => {
+      document.getElementById("site-header").innerHTML = data;
+
+      document.querySelectorAll("#site-header a").forEach(link => {
+        const text = link.textContent.trim().toLowerCase();
+        const href = link.getAttribute("href") || "";
+
+        if (text.includes("admin") || href.includes("admin.html")) {
+          link.classList.add("admin-nav-link");
+        }
+      });
+
+      let logoClickCount = 0;
+      let logoClickTimer = null;
+      const logoLink = document.getElementById("logoHomeLink");
+
+      if (logoLink) {
+        logoLink.addEventListener("click", function(e) {
+          e.preventDefault();
+          logoClickCount++;
+
+          clearTimeout(logoClickTimer);
+
+          if (logoClickCount >= 5) {
+            window.location.href = "admin.html";
+            return;
+          }
+
+          logoClickTimer = setTimeout(() => {
+            logoClickCount = 0;
+            window.location.href = "index.html";
+          }, 700);
+        });
+      }
+    })
+    .catch(err => {
+      console.error("Header could not be loaded:", err);
+    });
+}
+
+loadSiteHeader();
+
+
+
+async function loadExistingReadingList() {
+  const select = document.getElementById("existingReadingSelect");
+  const message = document.getElementById("editReadingMessage");
+
+  if (!select) return;
+
+  try {
+    select.innerHTML = `<option value="">Loading readings...</option>`;
+
+    const manifestRes = await fetch("data/manifest.json?v=" + Date.now());
+
+    if (!manifestRes.ok) {
+      throw new Error("data/manifest.json could not be loaded.");
+    }
+
+    const manifest = await manifestRes.json();
+
+    if (!Array.isArray(manifest) || manifest.length === 0) {
+      select.innerHTML = `<option value="">No readings found</option>`;
+      if (message) message.innerText = "No JSON files are listed in manifest.json.";
+      return;
+    }
+
+    const options = await Promise.all(
+      manifest.map(async fileName => {
+        try {
+          const res = await fetch("data/" + fileName + "?v=" + Date.now());
+
+          if (!res.ok) {
+            return {
+              fileName,
+              label: fileName + " (could not read)"
+            };
+          }
+
+          const data = await res.json();
+
+          return {
+            fileName,
+            label: (data.title || fileName) + " — " + (data.level || "") + " (" + fileName + ")"
+          };
+
+        } catch (err) {
+          return {
+            fileName,
+            label: fileName + " (invalid JSON)"
+          };
+        }
+      })
+    );
+
+    select.innerHTML = `
+      <option value="">Select a reading</option>
+      ${options.map(item => `
+        <option value="${escapeHtml(item.fileName)}">${escapeHtml(item.label)}</option>
+      `).join("")}
+    `;
+
+    if (message) message.innerText = "Existing readings loaded.";
+
+  } catch (err) {
+    console.error("Load existing reading list error:", err);
+    select.innerHTML = `<option value="">Could not load readings</option>`;
+    if (message) {
+      message.style.color = "#9b2c2c";
+      message.innerText = err.message;
+    }
+  }
+}
+
+async function loadSelectedReading() {
+  const select = document.getElementById("existingReadingSelect");
+  const message = document.getElementById("editReadingMessage");
+
+  if (!select || !select.value) {
+    if (message) {
+      message.style.color = "#9b2c2c";
+      message.innerText = "Please select a reading first.";
+    }
+    return;
+  }
+
+  try {
+    const fileName = select.value;
+    const res = await fetch("data/" + fileName + "?v=" + Date.now());
+
+    if (!res.ok) {
+      throw new Error("Selected JSON file could not be loaded.");
+    }
+
+    const data = await res.json();
+
+    populateAdminForm(data);
+
+    if (message) {
+      message.style.color = "#2f6650";
+      message.innerText = "Reading loaded. You can edit it now.";
+    }
+
+  } catch (err) {
+    console.error("Load selected reading error:", err);
+
+    if (message) {
+      message.style.color = "#9b2c2c";
+      message.innerText = err.message;
+    }
+  }
+}
+
+function clearQuestions() {
+  const container = document.getElementById("questionsContainer");
+  if (container) container.innerHTML = "";
+  questionCount = 0;
+}
+
+function clearVocabularyItems() {
+  const container = document.getElementById("vocabItems");
+  if (container) container.innerHTML = "";
+  vocabCount = 0;
+}
+
+function populateAdminForm(data) {
+  document.getElementById("readingId").value = data.id || "";
+  document.getElementById("level").value = data.level || "A2";
+  document.getElementById("title").value = data.title || "";
+  document.getElementById("date").value = data.date || "";
+  document.getElementById("genre").value = data.genre || data.type || "";
+  document.getElementById("words").value = data.words || "";
+  document.getElementById("image").value = data.image || "";
+  document.getElementById("readingText").value = data.text || "";
+
+  clearVocabularyItems();
+
+  if (Array.isArray(data.vocabulary)) {
+    data.vocabulary.forEach(item => addVocabularyItem(item));
+  }
+
+  clearQuestions();
+
+  if (Array.isArray(data.questions)) {
+    data.questions.forEach(question => addQuestion(question));
+  }
+
+  updatePreview();
+}
+
+
+let vocabCount = 0;
+
+function addVocabularyItem(data = null) {
+  vocabCount++;
+
+  const container = document.getElementById("vocabItems");
+  if (!container) return;
+
+  const row = document.createElement("div");
+  row.className = "vocab-item-row";
+
+  row.innerHTML = `
+    <div class="form-group">
+      <label>Word</label>
+      <input class="vocab-word-input" placeholder="crowded" value="${data ? escapeHtml(data.word || "") : ""}">
+    </div>
+
+    <div class="form-group">
+      <label>Meaning</label>
+      <input class="vocab-meaning-input" placeholder="full of people" value="${data ? escapeHtml(data.meaning || "") : ""}">
+    </div>
+
+    <div class="form-group">
+      <label>Example Sentence</label>
+      <input class="vocab-example-input" placeholder="The bus was crowded." value="${data ? escapeHtml(data.example || "") : ""}">
+    </div>
+
+    <button type="button" class="remove-vocab-btn" onclick="removeVocabularyItem(this)">×</button>
+  `;
+
+  container.appendChild(row);
+  updatePreview();
+}
+
+function removeVocabularyItem(button) {
+  button.closest(".vocab-item-row").remove();
+  updatePreview();
+}
+
+function collectVocabularyItems() {
+  const rows = document.querySelectorAll(".vocab-item-row");
+
+  return Array.from(rows).map(row => {
+    const word = row.querySelector(".vocab-word-input").value.trim();
+    const meaning = row.querySelector(".vocab-meaning-input").value.trim();
+    const example = row.querySelector(".vocab-example-input").value.trim();
+
+    return {
+      word,
+      meaning,
+      example
+    };
+  }).filter(item => item.word && item.meaning);
+}
+
+
+let questionCount = 0;
+
+function addQuestion(data = null) {
+  questionCount++;
+
+  const container = document.getElementById("questionsContainer");
+
+  const type = data && data.type ? data.type : "multiple";
+
+  const card = document.createElement("div");
+  card.className = "question-card";
+  card.dataset.questionId = questionCount;
+
+  card.innerHTML = `
+    <div class="question-top">
+      <h3>Question ${questionCount}<span class="type-badge">Multiple Choice</span></h3>
+      <button class="remove-btn" onclick="removeQuestion(this)">Remove</button>
+    </div>
+
+    <div class="form-group">
+      <label>Question Type</label>
+      <select class="type-select" onchange="handleTypeChange(this)">
+        <option value="multiple" ${type === "multiple" ? "selected" : ""}>Multiple Choice</option>
+        <option value="truefalse" ${type === "truefalse" ? "selected" : ""}>True / False</option>
+        <option value="short" ${type === "short" ? "selected" : ""}>Short Answer</option>
+        <option value="fillblank" ${type === "fillblank" ? "selected" : ""}>Fill in the Blank</option>
+        <option value="ordering" ${type === "ordering" ? "selected" : ""}>Sentence Ordering</option>
+        <option value="matching" ${type === "matching" ? "selected" : ""}>Matching</option>
+       <select>
+    </div>
+
+    <div class="form-group">
+      <label>Question Text</label>
+      <input class="question-input" placeholder="Write the question here..." value="${data ? escapeHtml(data.question || "") : ""}">
+    </div>
+
+    <div class="dynamic-question-area"></div>
+  `;
+
+  container.appendChild(card);
+
+  renderQuestionFields(card, data);
+  updateQuestionTypeBadge(card);
+  updatePreview();
+}
+
+function renderQuestionFields(card, data = null) {
+  const type = card.querySelector(".type-select").value;
+  const area = card.querySelector(".dynamic-question-area");
+
+  if (type === "multiple") {
+    const options = data && data.options ? data.options : ["", "", "", ""];
+    const answer = data && typeof data.answer === "number" ? data.answer : 0;
+
+    area.innerHTML = `
+      <div class="option-grid">
+        <div class="form-group">
+          <label>Option A</label>
+          <input class="option-input" placeholder="Option A" value="${escapeHtml(options[0] || "")}">
+        </div>
+
+        <div class="form-group">
+          <label>Option B</label>
+          <input class="option-input" placeholder="Option B" value="${escapeHtml(options[1] || "")}">
+        </div>
+
+        <div class="form-group">
+          <label>Option C</label>
+          <input class="option-input" placeholder="Option C" value="${escapeHtml(options[2] || "")}">
+        </div>
+
+        <div class="form-group">
+          <label>Option D</label>
+          <input class="option-input" placeholder="Option D optional" value="${escapeHtml(options[3] || "")}">
+        </div>
+      </div>
+
+      <div class="correct-area">
+        <label>Correct Answer</label>
+        <select class="correct-select">
+          <option value="0" ${answer === 0 ? "selected" : ""}>A</option>
+          <option value="1" ${answer === 1 ? "selected" : ""}>B</option>
+          <option value="2" ${answer === 2 ? "selected" : ""}>C</option>
+          <option value="3" ${answer === 3 ? "selected" : ""}>D</option>
+        </select>
+      </div>
+    `;
+  }
+
+  if (type === "truefalse") {
+    const answer = data && typeof data.answer === "number" ? data.answer : 0;
+
+    area.innerHTML = `
+      <div class="truefalse-note">
+        This question will automatically use two options: <strong>True</strong> and <strong>False</strong>.
+      </div>
+
+      <div class="correct-area">
+        <label>Correct Answer</label>
+        <select class="correct-select">
+          <option value="0" ${answer === 0 ? "selected" : ""}>True</option>
+          <option value="1" ${answer === 1 ? "selected" : ""}>False</option>
+        </select>
+      </div>
+    `;
+  }
+
+  if (type === "short") {
+    const answerText = data && data.answerText ? data.answerText : "";
+
+    area.innerHTML = `
+      <div class="short-answer-note">
+        Students will type a short answer. The system will compare it with the accepted answer below.
+      </div>
+
+      <div class="form-group">
+        <label>Accepted Answer</label>
+        <input class="answer-text-input" placeholder="Example: a cave" value="${escapeHtml(answerText)}">
+        <div class="small-note">Use one clear answer for now. Later we can add alternative accepted answers.</div>
+      </div>
+    `;
+  }
+
+  if (type === "fillblank") {
+    const sentence = data && data.sentence ? data.sentence : "";
+    const answer = data && data.answer ? data.answer : "";
+
+    area.innerHTML = `
+      <div class="truefalse-note">
+        Write a sentence with one blank. Use <strong>____</strong> for the blank.
+      </div>
+
+      <div class="form-group">
+        <label>Sentence with Blank</label>
+        <input class="fillblank-sentence-input" placeholder="Example: Emma ____ to school every day." value="${escapeHtml(sentence)}">
+        <div class="fillblank-sentence-preview">
+          Example format: <strong>Emma ____ to school every day.</strong>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Correct Answer</label>
+        <input class="fillblank-answer-input" placeholder="Example: walks" value="${escapeHtml(answer)}">
+      </div>
+    `;
+  }
+
+  if (type === "matching") {
+    const pairs = data && Array.isArray(data.pairs) && data.pairs.length
+      ? data.pairs
+      : [
+          { left: "", right: "" },
+          { left: "", right: "" },
+          { left: "", right: "" }
+        ];
+
+    area.innerHTML = `
+      <div class="truefalse-note">
+        Students will match each item on the left with the correct item on the right.
+      </div>
+
+      <div class="matching-pairs">
+        ${pairs.map(pair => `
+          <div class="matching-pair-row">
+            <div class="form-group">
+              <label>Left Item</label>
+              <input class="matching-left-input" placeholder="Example: journey" value="${escapeHtml(pair.left || "")}">
+            </div>
+
+            <div class="form-group">
+              <label>Right Match</label>
+              <input class="matching-right-input" placeholder="Example: a trip from one place to another" value="${escapeHtml(pair.right || "")}">
+            </div>
+
+            <button type="button" class="remove-pair-btn" onclick="removeMatchingPair(this)">×</button>
+          </div>
+        `).join("")}
+      </div>
+
+      <button type="button" class="add-pair-btn" onclick="addMatchingPair(this)">
+        + Add Pair
+      </button>
+
+      <div class="small-note">Add at least two complete pairs.</div>
+    `;
+  }
+
+  if (type === "ordering") {
+    const items = data && Array.isArray(data.items) && data.items.length
+      ? data.items
+      : ["", "", ""];
+
+    area.innerHTML = `
+      <div class="truefalse-note">
+        Write the sentences or events in the correct order. Students will drag and drop them into order.
+      </div>
+
+      <div class="ordering-items">
+        ${items.map((item, index) => `
+          <div class="ordering-item-row">
+            <span class="ordering-number">${index + 1}</span>
+
+            <div class="form-group">
+              <label>Sentence / Event</label>
+              <input class="ordering-item-input" placeholder="Example: Emma woke up early." value="${escapeHtml(item || "")}">
+            </div>
+
+            <button type="button" class="remove-ordering-item-btn" onclick="removeOrderingItem(this)">×</button>
+          </div>
+        `).join("")}
+      </div>
+
+      <button type="button" class="add-ordering-item-btn" onclick="addOrderingItem(this)">
+        + Add Sentence
+      </button>
+
+      <div class="small-note">Add at least two items. The order shown here is the correct answer order.</div>
+    `;
+  }
+
+  updatePreview();
+}
+
+function addMatchingPair(button) {
+  const area = button.closest(".dynamic-question-area");
+  const pairsContainer = area.querySelector(".matching-pairs");
+
+  const row = document.createElement("div");
+  row.className = "matching-pair-row";
+
+  row.innerHTML = `
+    <div class="form-group">
+      <label>Left Item</label>
+      <input class="matching-left-input" placeholder="Example: journey">
+    </div>
+
+    <div class="form-group">
+      <label>Right Match</label>
+      <input class="matching-right-input" placeholder="Example: a trip from one place to another">
+    </div>
+
+    <button type="button" class="remove-pair-btn" onclick="removeMatchingPair(this)">×</button>
+  `;
+
+  pairsContainer.appendChild(row);
+  updatePreview();
+}
+
+function removeMatchingPair(button) {
+  const row = button.closest(".matching-pair-row");
+  const area = button.closest(".dynamic-question-area");
+  const rows = area.querySelectorAll(".matching-pair-row");
+
+  if (rows.length <= 2) {
+    alert("A matching question needs at least two pairs.");
+    return;
+  }
+
+  row.remove();
+  updatePreview();
+}
+
+function addOrderingItem(button) {
+  const area = button.closest(".dynamic-question-area");
+  const itemsContainer = area.querySelector(".ordering-items");
+
+  const row = document.createElement("div");
+  row.className = "ordering-item-row";
+
+  row.innerHTML = `
+    <span class="ordering-number"></span>
+
+    <div class="form-group">
+      <label>Sentence / Event</label>
+      <input class="ordering-item-input" placeholder="Example: Emma woke up early.">
+    </div>
+
+    <button type="button" class="remove-ordering-item-btn" onclick="removeOrderingItem(this)">×</button>
+  `;
+
+  itemsContainer.appendChild(row);
+  renumberOrderingItems(itemsContainer);
+  updatePreview();
+}
+
+function removeOrderingItem(button) {
+  const row = button.closest(".ordering-item-row");
+  const area = button.closest(".dynamic-question-area");
+  const rows = area.querySelectorAll(".ordering-item-row");
+
+  if (rows.length <= 2) {
+    alert("An ordering question needs at least two items.");
+    return;
+  }
+
+  row.remove();
+  renumberOrderingItems(area.querySelector(".ordering-items"));
+  updatePreview();
+}
+
+function renumberOrderingItems(container) {
+  container.querySelectorAll(".ordering-item-row").forEach((row, index) => {
+    const number = row.querySelector(".ordering-number");
+    if (number) number.innerText = index + 1;
+  });
+}
+
+function handleTypeChange(select) {
+  const card = select.closest(".question-card");
+  renderQuestionFields(card);
+  updateQuestionTypeBadge(card);
+  updatePreview();
+}
+
+function updateQuestionTypeBadge(card) {
+  const type = card.querySelector(".type-select").value;
+  const badge = card.querySelector(".type-badge");
+
+  if (type === "multiple") badge.innerText = "Multiple Choice";
+  if (type === "truefalse") badge.innerText = "True / False";
+  if (type === "short") badge.innerText = "Short Answer";
+  if (type === "fillblank") badge.innerText = "Fill in the Blank";
+  if (type === "matching") badge.innerText = "Matching";
+  if (type === "ordering") badge.innerText = "Sentence Ordering";
+}
+
+function removeQuestion(button) {
+  button.closest(".question-card").remove();
+  renumberQuestions();
+  updatePreview();
+}
+
+function renumberQuestions() {
+  document.querySelectorAll(".question-card").forEach((card, index) => {
+    const type = card.querySelector(".type-select").value;
+    let label = "Multiple Choice";
+
+    if (type === "truefalse") label = "True / False";
+    if (type === "short") label = "Short Answer";
+    if (type === "fillblank") label = "Fill in the Blank";
+    if (type === "matching") label = "Matching";
+    if (type === "ordering") label = "Sentence Ordering";
+
+    card.querySelector("h3").innerHTML =
+      "Question " + (index + 1) + `<span class="type-badge">${label}</span>`;
+  });
+}
+
+function slugify(text) {
+  return text
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+function collectData() {
+  const title = document.getElementById("title").value.trim();
+  const manualId = document.getElementById("readingId").value.trim();
+
+  const questions = [];
+
+  document.querySelectorAll(".question-card").forEach(card => {
+    const type = card.querySelector(".type-select").value;
+    const question = card.querySelector(".question-input").value.trim();
+
+    if (!question) return;
+
+    if (type === "multiple") {
+      const options = Array.from(card.querySelectorAll(".option-input"))
+        .map(input => input.value.trim())
+        .filter(option => option !== "");
+
+      const answer = Number(card.querySelector(".correct-select").value);
+
+      if (options.length >= 2) {
+        questions.push({
+          type: "multiple",
+          question,
+          options,
+          answer
+        });
+      }
+    }
+
+    if (type === "truefalse") {
+      const answer = Number(card.querySelector(".correct-select").value);
+
+      questions.push({
+        type: "truefalse",
+        question,
+        options: ["True", "False"],
+        answer
+      });
+    }
+
+    if (type === "short") {
+      const answerText = card.querySelector(".answer-text-input").value.trim();
+
+      if (answerText) {
+        questions.push({
+          type: "short",
+          question,
+          answerText
+        });
+      }
+    }
+
+    if (type === "fillblank") {
+      const sentenceInput = card.querySelector(".fillblank-sentence-input");
+      const answerInput = card.querySelector(".fillblank-answer-input");
+
+      const sentence = sentenceInput ? sentenceInput.value.trim() : "";
+      const answer = answerInput ? answerInput.value.trim() : "";
+
+      if (sentence && answer && sentence.includes("____")) {
+        questions.push({
+          type: "fillblank",
+          question,
+          sentence,
+          answer
+        });
+      }
+    }
+
+    if (type === "matching") {
+      const leftInputs = Array.from(card.querySelectorAll(".matching-left-input"));
+      const rightInputs = Array.from(card.querySelectorAll(".matching-right-input"));
+
+      const pairs = leftInputs.map((leftInput, index) => ({
+        left: leftInput.value.trim(),
+        right: rightInputs[index] ? rightInputs[index].value.trim() : ""
+      })).filter(pair => pair.left && pair.right);
+
+      if (pairs.length >= 2) {
+        questions.push({
+          type: "matching",
+          question,
+          pairs
+        });
+      }
+    }
+
+    if (type === "ordering") {
+      const items = Array.from(card.querySelectorAll(".ordering-item-input"))
+        .map(input => input.value.trim())
+        .filter(item => item !== "");
+
+      if (items.length >= 2) {
+        questions.push({
+          type: "ordering",
+          question,
+          items
+        });
+      }
+    }
+  });
+
+  return {
+    id: manualId || slugify(title) || "new-reading-activity",
+    title: title || "Untitled Reading",
+    level: document.getElementById("level").value,
+    date: document.getElementById("date").value || "",
+    genre: document.getElementById("genre").value.trim() || "General",
+    words: Number(document.getElementById("words").value) || 0,
+    image: document.getElementById("image").value.trim(),
+    text: document.getElementById("readingText").value.trim(),
+    vocabulary: collectVocabularyItems(),
+    questions
+  };
+}
+
+function updatePreview() {
+  const data = collectData();
+  document.getElementById("jsonPreview").innerText = JSON.stringify(data, null, 2);
+}
+
+function downloadJSON() {
+  const data = collectData();
+
+  if (!data.title || data.title === "Untitled Reading") {
+    alert("Please enter a reading title.");
+    return;
+  }
+
+  if (!data.text) {
+    alert("Please enter the reading text.");
+    return;
+  }
+
+  if (data.questions.length === 0) {
+    alert("Please add at least one valid question.");
+    return;
+  }
+
+  const invalidMultiple = data.questions.find(q =>
+    q.type === "multiple" &&
+    (q.answer < 0 || q.answer >= q.options.length)
+  );
+
+  if (invalidMultiple) {
+    alert("One multiple-choice question has a correct answer outside the filled options. Please check it.");
+    return;
+  }
+
+  const json = JSON.stringify(data, null, 2);
+  const blob = new Blob([json], { type: "application/json" });
+
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = data.id + ".json";
+  a.click();
+
+  URL.revokeObjectURL(a.href);
+}
+
+function escapeHtml(value) {
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;");
+}
+
+document.addEventListener("input", updatePreview);
+document.addEventListener("change", updatePreview);
+
+document.getElementById("title").addEventListener("input", function() {
+  const idInput = document.getElementById("readingId");
+  if (!idInput.value.trim()) {
+    idInput.value = slugify(this.value);
+  }
+});
+
+const dateInput = document.getElementById("date");
+if (dateInput && !dateInput.value) {
+  dateInput.value = new Date().toISOString().slice(0, 10);
+}
+
+loadExistingReadingList();
+updatePreview();
+</script>
+
+
+<script type="module">
+import { db } from "./firebase-config.js";
+
+import {
+  collection,
+  addDoc,
+  getDocs,
+  deleteDoc,
+  doc,
+  updateDoc,
+  deleteField,
+  serverTimestamp
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+function escapeSchoolHtml(value) {
+  return String(value || "")
+    .replaceAll("&", "&amp;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;");
+}
+
+async function getClassesForAdmin() {
+  const snapshot = await getDocs(collection(db, "classes"));
+
+  return snapshot.docs.map(docSnap => {
+    const data = docSnap.data();
+
+    return {
+      id: docSnap.id,
+      className: data.className || data.name || "Untitled Class",
+      classCode: data.classCode || data.code || docSnap.id,
+      schoolId: data.schoolId || "",
+      schoolName: data.schoolName || data.school || "",
+      raw: data
+    };
+  });
+}
+
+window.loadSchoolsForAdmin = async function () {
+  const list = document.getElementById("schoolList");
+  const message = document.getElementById("schoolMessage");
+
+  if (!list) return;
+
+  list.innerHTML = `<div class="student-upload-empty">Loading schools...</div>`;
+
+  try {
+    const schoolSnapshot = await getDocs(collection(db, "schools"));
+    const allClasses = await getClassesForAdmin();
+
+    if (schoolSnapshot.empty) {
+      list.innerHTML = `<div class="student-upload-empty">No schools added yet.</div>`;
+      return;
+    }
+
+    const schools = schoolSnapshot.docs
+      .map(docSnap => ({
+        id: docSnap.id,
+        ...docSnap.data()
+      }))
+      .sort((a, b) =>
+        String(a.schoolName || a.name || "").localeCompare(String(b.schoolName || b.name || ""))
+      );
+
+    list.innerHTML = schools.map(school => {
+      const schoolName = school.schoolName || school.name || "Untitled School";
+
+      const schoolClasses = allClasses.filter(cls =>
+        String(cls.schoolId || "") === String(school.id)
+      );
+
+      return `
+        <div class="school-row" style="display:block;">
+          <div style="
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            gap:12px;
+          ">
+            <strong>${escapeSchoolHtml(schoolName)}</strong>
+
+            <button
+              type="button"
+              class="school-delete-btn"
+              onclick="deleteSchool('${school.id}')"
+            >
+              Delete School
+            </button>
+          </div>
+
+          <div class="school-classes">
+            ${
+              schoolClasses.length === 0
+                ? `<div class="student-upload-empty" style="margin-top:8px;">No classes under this school.</div>`
+                : schoolClasses.map(cls => `
+                    <div class="school-class-row">
+                      <span>
+                        <b>${escapeSchoolHtml(cls.className)}</b>
+                        (${escapeSchoolHtml(cls.classCode)})
+                      </span>
+
+                      <button
+                        type="button"
+                        class="class-delete-btn"
+                        onclick="deleteClassFromAdmin('${cls.id}', '${escapeSchoolHtml(cls.className)}')"
+                      >
+                        Delete Class
+                      </button>
+                    </div>
+                  `).join("")
+            }
+          </div>
+        </div>
+      `;
+    }).join("");
+
+    if (message && !message.innerText) {
+      message.style.color = "#7a6f63";
+      message.innerText = `${schools.length} school(s) loaded.`;
+    }
+
+  } catch (err) {
+    console.error("Load schools/classes error:", err);
+
+    list.innerHTML = `<div class="student-upload-empty">Schools and classes could not be loaded.</div>`;
+
+    if (message) {
+      message.style.color = "#9b2c2c";
+      message.innerText = "Schools and classes could not be loaded.";
+    }
+  }
+};
+
+window.addSchool = async function () {
+  const input = document.getElementById("schoolNameInput");
+  const message = document.getElementById("schoolMessage");
+
+  if (!input || !message) return;
+
+  const schoolName = input.value.trim();
+
+  message.innerText = "";
+  message.style.color = "#9b2c2c";
+
+  if (!schoolName) {
+    message.innerText = "Please enter a school name.";
+    return;
+  }
+
+  try {
+    await addDoc(collection(db, "schools"), {
+      schoolName,
+      name: schoolName,
+      createdAt: serverTimestamp()
+    });
+
+    input.value = "";
+    message.style.color = "#2f6650";
+    message.innerText = "School added successfully.";
+
+    await window.loadSchoolsForAdmin();
+
+  } catch (err) {
+    console.error("Add school error:", err);
+    message.innerText = "School could not be added.";
+  }
+};
+
+window.deleteSchool = async function (schoolId) {
+  const confirmDelete = confirm(
+    "Delete this school? Classes under this school will NOT be deleted automatically. Delete classes one by one first if needed."
+  );
+
+  if (!confirmDelete) return;
+
+  const message = document.getElementById("schoolMessage");
+
+  try {
+    await deleteDoc(doc(db, "schools", schoolId));
+
+    if (message) {
+      message.style.color = "#2f6650";
+      message.innerText = "School deleted successfully.";
+    }
+
+    await window.loadSchoolsForAdmin();
+
+  } catch (err) {
+    console.error("Delete school error:", err);
+
+    if (message) {
+      message.style.color = "#9b2c2c";
+      message.innerText = "School could not be deleted.";
+    }
+  }
+};
+
+async function deleteAssignedActivitiesOfClass(classId) {
+  const assignedSnapshot = await getDocs(
+    collection(db, "classes", classId, "assignedActivities")
+  );
+
+  const deletePromises = assignedSnapshot.docs.map(docSnap =>
+    deleteDoc(doc(db, "classes", classId, "assignedActivities", docSnap.id))
+  );
+
+  await Promise.all(deletePromises);
+}
+
+async function removeClassFromStudents(classId) {
+  const usersSnapshot = await getDocs(collection(db, "users"));
+
+  const updatePromises = usersSnapshot.docs.map(async userDoc => {
+    const data = userDoc.data();
+
+    const updates = {};
+
+    if (String(data.classId || "") === String(classId)) {
+      updates.classId = deleteField();
+      updates.classCode = deleteField();
+      updates.className = deleteField();
+      updates.schoolId = deleteField();
+      updates.schoolName = deleteField();
+    }
+
+    if (Array.isArray(data.joinedClasses)) {
+      const filteredClasses = data.joinedClasses.filter(item =>
+        String(item.classId || "") !== String(classId)
+      );
+
+      if (filteredClasses.length !== data.joinedClasses.length) {
+        updates.joinedClasses = filteredClasses;
+      }
+    }
+
+    if (Object.keys(updates).length > 0) {
+      await updateDoc(doc(db, "users", userDoc.id), updates);
+    }
+  });
+
+  await Promise.all(updatePromises);
+}
+
+window.deleteClassFromAdmin = async function (classId, className) {
+  const confirmDelete = confirm(
+    `Delete class "${className}"?\n\nThis will also delete assigned activities for this class and remove this class from student profiles.`
+  );
+
+  if (!confirmDelete) return;
+
+  const message = document.getElementById("schoolMessage");
+
+  try {
+    if (message) {
+      message.style.color = "#7a6f63";
+      message.innerText = "Deleting class...";
+    }
+
+    await deleteAssignedActivitiesOfClass(classId);
+    await removeClassFromStudents(classId);
+    await deleteDoc(doc(db, "classes", classId));
+
+    if (message) {
+      message.style.color = "#2f6650";
+      message.innerText = "Class deleted successfully.";
+    }
+
+    await window.loadSchoolsForAdmin();
+
+  } catch (err) {
+    console.error("Delete class error:", err);
+
+    if (message) {
+      message.style.color = "#9b2c2c";
+      message.innerText = "Class could not be deleted.";
+    }
+  }
+};
+
+window.loadSchoolsForAdmin();
+</script>
+
+<script type="module" src="./auth-state.js"></script>
+<script type="module" src="./protect-page.js"></script>
+<script type="module" src="./admin-student-upload-v5.js?v=5"></script>
+</body>
+</html>

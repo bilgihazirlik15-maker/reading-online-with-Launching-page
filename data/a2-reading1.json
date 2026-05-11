@@ -1,0 +1,57 @@
+{
+  "id": "a2-reading1",
+  "title": "High-Speed Trains in China",
+  "level": "A2",
+  "date": "2026-05-08",
+  "genre": "Technology",
+  "words": 172,
+  "image": "https://rail.knorr-bremse.com/media/1000-vehicle-types/1100-high-speed-trains/highspeed_16x9_1920w.jpg",
+  "text": "China has one of the fastest train systems in the world. Many people use high-speed trains to travel between cities. These trains are very popular because they are fast, clean, and comfortable.\n\nHigh-speed trains in China usually travel at about 300 kilometers per hour. They connect big cities like Beijing and Shanghai. People often choose trains because they are easier than flying. At the station, passengers buy tickets, show their ID, and wait for the train. The trains arrive on time, and the journey is smooth.\n\nLast weekend, Ming traveled from Beijing to Shanghai by high-speed train. He arrived at the station early and bought his ticket. The train left on time, and Ming found his seat easily. During the trip, he watched videos, listened to music, and looked outside the window. He saw mountains, rivers, and small towns.\n\nMing felt relaxed because the train was quiet and comfortable. The trip took about five hours, and he arrived safely. He enjoyed the journey and said he wants to travel by train again.",
+  "vocabulary": [],
+  "questions": [
+    {
+      "type": "multiple",
+      "question": "Why are high-speed trains popular in China?",
+      "options": [
+        "They are slow",
+        "They are expensive",
+        "They are fast and comfortable"
+      ],
+      "answer": 2
+    },
+    {
+      "type": "multiple",
+      "question": "What did Ming do during the trip?",
+      "options": [
+        "He slept all the time",
+        "He worked",
+        "He watched videos and listened to music"
+      ],
+      "answer": 2
+    },
+    {
+      "type": "multiple",
+      "question": "How long did Ming’s trip take?",
+      "options": [
+        "Two hours",
+        "Five hours",
+        "Eight hours"
+      ],
+      "answer": 1
+    },
+    {
+      "type": "truefalse",
+      "question": "Ming traveled by plane last weekend.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 1
+    },
+    {
+      "type": "short",
+      "question": "What did Ming see outside the window during the trip?",
+      "answerText": "mountains, rivers, and small towns"
+    }
+  ]
+}

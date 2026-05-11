@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Class Progress | myReading Online</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="header.css">
+
+<style>
+* { box-sizing: border-box; }
+
+.site-logo,
+.logo,
+.header-logo,
+#siteLogo,
+#logoHomeLink img {
+  transform: translateX(-18px) scale(1.2);
+  transform-origin: left center;
+}
+
+#logoHomeLink { margin-right: 0 !important; }
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f6efe4;
+  color: #374151;
+}
+
+.hero {
+  position: relative;
+  height: 120px;
+  overflow: hidden;
+}
+
+.hero video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 108px;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.75);
+}
+
+.container {
+  width: 100%;
+  max-width: 1450px;
+  margin: 0 auto;
+  padding: 30px 36px;
+}
+
+.panel-header {
+  background: #fffaf1;
+  border: 1px solid #efe2cf;
+  border-radius: 24px;
+  padding: 28px;
+  margin-bottom: 24px;
+  box-shadow: 0 8px 22px rgba(92, 74, 52, 0.06);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 18px;
+  align-items: center;
+}
+
+.panel-header h1 {
+  margin: 0 0 8px;
+}
+
+.panel-header p {
+  margin: 0;
+  color: #7a6f63;
+}
+
+.summary-strip {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.summary-pill {
+  background: #f1eadf;
+  border: 1px solid #e4d8c7;
+  border-radius: 999px;
+  padding: 10px 15px;
+  color: #7a6f63;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.summary-pill strong {
+  color: #5266c7;
+}
+
+.toolbar {
+  background: #eadfce;
+  border: 1px solid #ddceb8;
+  border-radius: 22px;
+  padding: 18px;
+  margin-bottom: 22px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 16px;
+  align-items: center;
+}
+
+.search-box {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #fffaf1;
+  border: 1px solid #efe2cf;
+  border-radius: 999px;
+  padding: 8px 14px;
+}
+
+.search-box input {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 15px;
+  color: #374151;
+  padding: 7px 0;
+}
+
+.status-filters {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.status-filters button {
+  border: none;
+  background: #d8dcf8;
+  color: #5266c7;
+  border-radius: 999px;
+  padding: 10px 14px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.status-filters button.active,
+.status-filters button:hover {
+  background: #aebcf5;
+  color: white;
+}
+
+.table-card {
+  background: #fffaf1;
+  border: 1px solid #efe2cf;
+  border-radius: 24px;
+  padding: 22px;
+  box-shadow: 0 8px 22px rgba(92, 74, 52, 0.06);
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 760px;
+}
+
+th {
+  text-align: left;
+  padding: 13px;
+  background: #f1eadf;
+  color: #374151;
+  font-size: 14px;
+}
+
+td {
+  padding: 13px;
+  border-bottom: 1px solid #efe2cf;
+  color: #374151;
+  font-size: 14px;
+}
+
+.status-badge {
+  display: inline-block;
+  border-radius: 999px;
+  padding: 7px 11px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.completed {
+  background: #d6eadf;
+  color: #2f6650;
+}
+
+.in-progress {
+  background: #fff0bd;
+  color: #816200;
+}
+
+.not-started {
+  background: #f2d1cf;
+  color: #7a1f1b;
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 18px;
+  color: #5266c7;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.empty-message {
+  background: #fffaf1;
+  border: 1px solid #efe2cf;
+  border-radius: 22px;
+  padding: 28px;
+  text-align: center;
+  color: #7a6f63;
+}
+
+footer {
+  text-align: center;
+  padding: 25px;
+  font-size: 13px;
+  color: #9a8f84;
+}
+
+@media (max-width: 850px) {
+  .panel-header,
+  .toolbar {
+    grid-template-columns: 1fr;
+  }
+
+  .summary-strip {
+    justify-content: flex-start;
+  }
+
+  .container {
+    padding: 24px 18px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div id="site-header"></div>
+
+<section class="hero">
+  <video autoplay muted loop playsinline>
+    <source src="assets/video/sky.mp4" type="video/mp4">
+  </video>
+</section>
+
+<main class="container">
+
+<a class="back-link" href="teacher.html">← Back to Teacher Panel</a>
+
+<section class="panel-header">
+  <div>
+    <h1>Class Progress</h1>
+    <p id="classInfo">Loading class progress...</p>
+  </div>
+
+  <div class="summary-strip">
+    <div class="summary-pill"><strong id="studentCount">0</strong> students</div>
+    <div class="summary-pill"><strong id="completedCount">0</strong> completed</div>
+    <div class="summary-pill"><strong id="progressCount">0</strong> in progress</div>
+    <div class="summary-pill"><strong id="averageScore">0%</strong> avg. score</div>
+  </div>
+</section>
+
+<section class="toolbar">
+  <label class="search-box" for="studentSearchInput">
+    <span>⌕</span>
+    <input
+      id="studentSearchInput"
+      type="search"
+      name="student_progress_search_not_email"
+      placeholder="Search student or activity..."
+      autocomplete="new-password"
+      autocorrect="off"
+      autocapitalize="off"
+      spellcheck="false"
+      readonly
+      value=""
+      onfocus="this.removeAttribute('readonly'); this.value='';"
+    >
+  </label>
+
+  <div class="status-filters">
+    <button type="button" class="active" data-status="ALL">All</button>
+    <button type="button" data-status="COMPLETED">Completed</button>
+    <button type="button" data-status="IN_PROGRESS">In Progress</button>
+    <button type="button" data-status="NOT_STARTED">Not Started</button>
+  </div>
+</section>
+
+<section class="table-card">
+  <table>
+    <thead>
+      <tr>
+        <th>Student</th>
+        <th>Activity</th>
+        <th>Level</th>
+        <th>Status</th>
+        <th>Score</th>
+      </tr>
+    </thead>
+    <tbody id="progressTableBody">
+      <tr>
+        <td colspan="5">Loading...</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+</main>
+
+<footer>© 2026 myReading Online</footer>
+
+<script>
+function loadSiteHeader() {
+  fetch("header.html")
+    .then(res => res.text())
+    .then(data => {
+      document.getElementById("site-header").innerHTML = data;
+    })
+    .catch(err => console.error("Header could not be loaded:", err));
+}
+
+loadSiteHeader();
+
+const progressState = {
+  classId: "",
+  classData: null,
+  students: [],
+  assignments: [],
+  rows: [],
+  status: "ALL",
+  search: ""
+};
+
+function escapeHtml(value) {
+  return String(value || "")
+    .replace(/&/g, "&amp;")
+    .replace(/"/g, "&quot;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
+function getParam(name) {
+  const params = new URLSearchParams(window.location.search);
+  return params.get(name) || "";
+}
+
+function normalize(value) {
+  return String(value || "").trim().toUpperCase().replace(/\s+/g, "_").replace(/-/g, "_");
+}
+
+function safeArray(value) {
+  if (Array.isArray(value)) return value;
+  if (value && typeof value === "object") return Object.values(value);
+  return [];
+}
+
+function getRecordByActivityId(records, activityId) {
+  return safeArray(records).find(item => {
+    if (!item || typeof item !== "object") return false;
+    return String(item.id || item.activityId || item.readingId || "") === String(activityId);
+  });
+}
+
+async function getCurrentUserSafe() {
+  try {
+    const { auth } = await import("./firebase-config.js");
+
+    return new Promise(resolve => {
+      if (auth.currentUser) {
+        resolve(auth.currentUser);
+        return;
+      }
+
+      const timeout = setTimeout(() => resolve(null), 4000);
+
+      const unsubscribe = auth.onAuthStateChanged(user => {
+        clearTimeout(timeout);
+        unsubscribe();
+        resolve(user);
+      });
+    });
+  } catch (err) {
+    console.error("Auth error:", err);
+    return null;
+  }
+}
+
+async function loadClassData() {
+  const { db } = await import("./firebase-config.js");
+  const { doc, getDoc } =
+    await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js");
+
+  const classSnap = await getDoc(doc(db, "classes", progressState.classId));
+
+  if (classSnap.exists()) {
+    progressState.classData = classSnap.data();
+  }
+}
+
+async function loadAssignedActivities() {
+  const { db } = await import("./firebase-config.js");
+  const { collection, getDocs } =
+    await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js");
+
+  const snapshot = await getDocs(
+    collection(db, "classes", progressState.classId, "assignedActivities")
+  );
+
+  progressState.assignments = snapshot.docs.map(docSnap => {
+    const data = docSnap.data();
+    return {
+      id: data.id || data.activityId || "",
+      title: data.title || "Untitled Activity",
+      level: data.level || "",
+      words: data.words || 0
+    };
+  });
+}
+
+async function loadClassStudents() {
+  const { db } = await import("./firebase-config.js");
+  const { collection, getDocs } =
+    await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js");
+
+  const usersSnapshot = await getDocs(collection(db, "users"));
+
+  progressState.students = usersSnapshot.docs
+    .map(docSnap => {
+      const data = docSnap.data();
+
+      return {
+        uid: docSnap.id,
+        email: data.email || data.userEmail || "",
+        name: data.name || data.displayName || data.email || data.userEmail || "Student",
+        classId: data.classId || ""
+      };
+    })
+    .filter(student => String(student.classId) === String(progressState.classId));
+}
+
+async function loadStudentRecords(studentUid) {
+  const { db } = await import("./firebase-config.js");
+  const { collection, getDocs } =
+    await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js");
+
+  const completedSnapshot = await getDocs(collection(db, "users", studentUid, "completedActivities"));
+  const progressSnapshot = await getDocs(collection(db, "users", studentUid, "activitiesInProgress"));
+
+  const completed = completedSnapshot.docs.map(docSnap => docSnap.data());
+  const inProgress = progressSnapshot.docs.map(docSnap => docSnap.data());
+
+  return { completed, inProgress };
+}
+
+async function buildProgressRows() {
+  const rows = [];
+
+  for (const student of progressState.students) {
+    const records = await loadStudentRecords(student.uid);
+
+    for (const assignment of progressState.assignments) {
+      const completed = getRecordByActivityId(records.completed, assignment.id);
+      const inProgress = getRecordByActivityId(records.inProgress, assignment.id);
+
+      let status = "NOT_STARTED";
+      let statusLabel = "Not Started";
+      let scoreText = "-";
+      let scoreNumber = null;
+      let totalNumber = null;
+
+      if (completed) {
+        status = "COMPLETED";
+        statusLabel = "Completed";
+        scoreNumber = Number(completed.score || 0);
+        totalNumber = Number(completed.total || completed.totalQuestions || 0);
+        scoreText = scoreNumber + "/" + totalNumber;
+      } else if (inProgress) {
+        status = "IN_PROGRESS";
+        statusLabel = "In Progress";
+      }
+
+      rows.push({
+        studentName: student.name,
+        studentEmail: student.email,
+        activityTitle: assignment.title,
+        activityLevel: assignment.level,
+        activityId: assignment.id,
+        status,
+        statusLabel,
+        scoreText,
+        scoreNumber,
+        totalNumber
+      });
+    }
+  }
+
+  progressState.rows = rows;
+}
+
+function updateSummary() {
+  const students = progressState.students.length;
+  const completedRows = progressState.rows.filter(row => row.status === "COMPLETED");
+  const progressRows = progressState.rows.filter(row => row.status === "IN_PROGRESS");
+
+  let scoreSum = 0;
+  let totalSum = 0;
+
+  completedRows.forEach(row => {
+    scoreSum += Number(row.scoreNumber || 0);
+    totalSum += Number(row.totalNumber || 0);
+  });
+
+  const average = totalSum > 0 ? Math.round((scoreSum / totalSum) * 100) : 0;
+
+  document.getElementById("studentCount").innerText = students;
+  document.getElementById("completedCount").innerText = completedRows.length;
+  document.getElementById("progressCount").innerText = progressRows.length;
+  document.getElementById("averageScore").innerText = average + "%";
+
+  const className =
+    progressState.classData?.name ||
+    progressState.classData?.className ||
+    "Selected Class";
+
+  document.getElementById("classInfo").innerText =
+    `${className} • ${progressState.assignments.length} assigned activities`;
+}
+
+function renderRows() {
+  const tbody = document.getElementById("progressTableBody");
+  let rows = [...progressState.rows];
+
+  const search = String(progressState.search || "").trim().toLowerCase();
+  const status = normalize(progressState.status || "ALL");
+
+  if (status !== "ALL") {
+    rows = rows.filter(row => normalize(row.status) === status);
+  }
+
+  if (search) {
+    rows = rows.filter(row =>
+      String(row.studentName || "").toLowerCase().includes(search) ||
+      String(row.studentEmail || "").toLowerCase().includes(search) ||
+      String(row.activityTitle || "").toLowerCase().includes(search) ||
+      String(row.activityLevel || "").toLowerCase().includes(search)
+    );
+  }
+
+  if (rows.length === 0) {
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="5">No progress records found.</td>
+      </tr>
+    `;
+    return;
+  }
+
+  tbody.innerHTML = rows.map(row => {
+    const badgeClass =
+      row.status === "COMPLETED" ? "completed" :
+      row.status === "IN_PROGRESS" ? "in-progress" :
+      "not-started";
+
+    return `
+      <tr>
+        <td>
+          <strong>${escapeHtml(row.studentName)}</strong><br>
+          <span style="color:#7a6f63; font-size:12px;">${escapeHtml(row.studentEmail)}</span>
+        </td>
+        <td>${escapeHtml(row.activityTitle)}</td>
+        <td>${escapeHtml(row.activityLevel)}</td>
+        <td><span class="status-badge ${badgeClass}">${escapeHtml(row.statusLabel)}</span></td>
+        <td>${escapeHtml(row.scoreText)}</td>
+      </tr>
+    `;
+  }).join("");
+}
+
+function clearStudentSearchBox() {
+  const searchInput = document.getElementById("studentSearchInput");
+
+  if (!searchInput) return;
+
+  searchInput.value = "";
+  progressState.search = "";
+
+  setTimeout(() => {
+    searchInput.value = "";
+    progressState.search = "";
+    renderRows();
+  }, 250);
+
+  setTimeout(() => {
+    searchInput.value = "";
+    progressState.search = "";
+    renderRows();
+  }, 900);
+}
+
+function bindControls() {
+  const searchInput = document.getElementById("studentSearchInput");
+
+  if (searchInput) {
+    searchInput.value = "";
+    searchInput.addEventListener("input", () => {
+      progressState.search = searchInput.value || "";
+      renderRows();
+    });
+
+    searchInput.addEventListener("focus", () => {
+      searchInput.value = "";
+      progressState.search = "";
+      renderRows();
+    });
+  }
+
+  document.querySelectorAll(".status-filters button").forEach(button => {
+    button.addEventListener("click", () => {
+      document.querySelectorAll(".status-filters button").forEach(btn => btn.classList.remove("active"));
+      button.classList.add("active");
+      progressState.status = button.getAttribute("data-status") || "ALL";
+      renderRows();
+    });
+  });
+}
+
+async function initializeClassProgress() {
+  progressState.classId = getParam("classId");
+
+  if (!progressState.classId) {
+    document.getElementById("progressTableBody").innerHTML = `
+      <tr><td colspan="5">No class selected.</td></tr>
+    `;
+    return;
+  }
+
+  bindControls();
+
+  const user = await getCurrentUserSafe();
+
+  if (!user) {
+    document.getElementById("progressTableBody").innerHTML = `
+      <tr><td colspan="5">Please log in as a teacher.</td></tr>
+    `;
+    return;
+  }
+
+  try {
+    await loadClassData();
+    await loadAssignedActivities();
+    await loadClassStudents();
+    await buildProgressRows();
+
+    updateSummary();
+    clearStudentSearchBox();
+    clearStudentSearchBox();
+    renderRows();
+
+  } catch (err) {
+    console.error("Class progress load error:", err);
+    document.getElementById("progressTableBody").innerHTML = `
+      <tr><td colspan="5">Class progress could not be loaded.</td></tr>
+    `;
+  }
+}
+
+window.addEventListener("pageshow", function() {
+  clearStudentSearchBox();
+});
+
+initializeClassProgress();
+</script>
+
+<script type="module" src="./auth-state.js"></script>
+</body>
+</html>

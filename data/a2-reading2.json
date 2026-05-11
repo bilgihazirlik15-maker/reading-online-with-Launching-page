@@ -1,0 +1,57 @@
+{
+  "id": "a2-reading2",
+  "title": "Nordic Lights",
+  "level": "A2",
+  "date": "2026-05-08",
+  "genre": "Nature",
+  "words": 216,
+  "image": "https://dcstyleisreal.com/wp-content/uploads/2014/02/northern-lights-nordic-phillips-after-five-dc.jpg",
+  "text": "The northern lights are beautiful natural lights in the night sky. People can see them in cold countries like Norway, Sweden, Finland, and Iceland. Many tourists travel to these places every year to watch this amazing show. The lights are usually green, but sometimes they are pink, purple, or blue.\n\nThe northern lights appear in winter when the nights are long and dark. People often go to quiet places far from cities because city lights make it difficult to see the sky clearly. They wear warm clothes and wait for hours. Sometimes the lights move slowly, and sometimes they change shape quickly. This makes the experience very exciting and special for visitors.\n\nLast winter, Anna traveled to Norway with her family. She wanted to see the northern lights for the first time. One night, they went outside and stood in the snow. At first, the sky was dark and quiet, and Anna felt a little cold and tired. After some time, green lights appeared and started to move.\n\nAnna felt very excited and happy. The lights looked like they were dancing in the sky. She took many photos and shared them with her friends online. It was an unforgettable experience. Now, Anna wants to visit another country and see the northern lights again in the future.",
+  "vocabulary": [],
+  "questions": [
+    {
+      "type": "multiple",
+      "question": "Where can people see the northern lights?",
+      "options": [
+        "In hot countries",
+        "In cold countries",
+        "In cities only"
+      ],
+      "answer": 1
+    },
+    {
+      "type": "multiple",
+      "question": "Why do people go far from cities?",
+      "options": [
+        "To find food",
+        "To sleep",
+        "To see the sky clearly"
+      ],
+      "answer": 2
+    },
+    {
+      "type": "multiple",
+      "question": "How did Anna feel when she saw the lights?",
+      "options": [
+        "Bored",
+        "Angry",
+        "Excited"
+      ],
+      "answer": 2
+    },
+    {
+      "type": "truefalse",
+      "question": "Anna saw the northern lights in Finland.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": 1
+    },
+    {
+      "type": "short",
+      "question": "What did Anna do when she saw the northern lights?",
+      "answerText": "She took many photos"
+    }
+  ]
+}

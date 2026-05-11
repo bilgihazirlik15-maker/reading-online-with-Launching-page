@@ -1,0 +1,147 @@
+header {
+  position: absolute;
+  top: 60px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: calc(100% - 72px);
+  max-width: 1450px;
+  padding: 4px 28px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 10;
+
+  background: rgba(255, 250, 241, 0.58);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: 28px;
+  box-shadow: 0 12px 30px rgba(92, 74, 52, 0.16);
+}
+.logo {
+  padding-left: 24px;
+}
+/* 🔥 LOGO + SLOGAN TAM YAPIŞIK */
+.logo-slogan-area {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+/* 🔥 GİZLİ BOŞLUĞU TEMİZLE */
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo a {
+  display: flex;
+  align-items: center;
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 0;
+}
+
+.logo img {
+  height: 50px;
+  width: auto;
+  display: block;
+  margin: 0;
+  padding: 0;
+  transition: transform 0.25s ease, opacity 0.25s ease, filter 0.25s ease;
+  cursor: pointer;
+}
+
+.logo img:hover {
+  transform: scale(1.07);
+  opacity: 0.95;
+  filter: drop-shadow(0 0 8px rgba(255, 200, 100, 0.55));
+}
+
+/* 🔥 SLOGANI YAPIŞTIR */
+.header-slogan {
+  margin-left: -4px; /* kritik ayar */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.header-slogan h1 {
+  margin: 0 0 2px 0;
+  font-size: 20px;
+  line-height: 1.05;
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  color: #374151;
+}
+
+.header-slogan p {
+  margin: 0;
+  font-size: 11px;
+  line-height: 1.15;
+  color: #4b5563;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+nav a {
+  text-decoration: none;
+  color: #374151;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 10px 14px;
+  border-radius: 999px;
+  transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease;
+}
+
+nav a:hover {
+  background: rgba(107, 127, 215, 0.16);
+  color: #5266c7;
+  transform: translateY(-1px);
+}
+
+.admin-nav-link {
+  background: #fff0bd !important;
+  color: #816200 !important;
+  padding: 10px 14px !important;
+  border-radius: 999px !important;
+  border: 1px solid rgba(129, 98, 0, 0.25) !important;
+}
+
+.admin-nav-link:hover {
+  background: #ffe28a !important;
+  color: #6b4e00 !important;
+}
+
+#authArea {
+  display: flex;
+  align-items: center;
+}
+
+/* === GLOBAL HERO FIX - ALL PAGES === */
+
+.hero {
+  position: relative;
+  height: 120px;
+  overflow: hidden;
+}
+
+.hero video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.75);
+}
